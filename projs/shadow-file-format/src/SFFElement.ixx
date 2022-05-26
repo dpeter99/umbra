@@ -6,9 +6,9 @@ import <string>;
 import <map>;
 import <list>;
 
- namespace Shadow::SFF {
+export namespace Shadow::SFF {
 
-    export class SFFElement
+	class SFFElement
 	{
 	public:
 		SFFElement* parent;
@@ -25,29 +25,12 @@ import <list>;
 
 		std::string GetStringProperty(std::string name);
 
-        SFFElement* GetFirstChild()
-        {
-            return children.size() > 0 ? children.begin()->second : nullptr;
-        }
 
-        SFFElement* GetChildByIndex(int index)
-        {
-            ChildrenMap::iterator it = children.begin();
-            for (size_t i = 0; i < index; i++)
-            {
-                it++;
-            }
-            return it->second;
-        }
+        SFFElement* GetFirstChild();
 
-        SFFElement* GetChildByName(std::string name)
-        {
-            ChildrenMap::iterator it = children.find(name);
-            if (it != children.end()) {
-                return it->second;
-            }
-            return nullptr;
-        }
+		SFFElement* GetChildByIndex(int index);
+
+		SFFElement* GetChildByName(std::string name);
 
 		~SFFElement();
 
