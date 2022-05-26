@@ -1,11 +1,10 @@
 ﻿module;
 
+module Shadow.FileFormat:SFFElement;
+
 import <string>;
 
 import shadow_utils;
-
-module Shadow.FileFormat:SFFElement;
-
 
 namespace Shadow::SFF {
 

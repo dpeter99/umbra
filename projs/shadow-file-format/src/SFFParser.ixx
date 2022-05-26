@@ -1,9 +1,9 @@
 module;
 
+export module Shadow.FileFormat:SFFParser;
+
 import <string>;
 import <iostream>;
-
-export module Shadow.FileFormat:SFFParser;
 
 import :SFFElement;
 import :SFFVersion;

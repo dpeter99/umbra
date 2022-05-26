@@ -1,11 +1,10 @@
 module;
 
+export module Shadow.FileFormat:SFFElement;
+
 import <string>;
 import <map>;
 import <list>;
-
-export module Shadow.FileFormat:SFFElement;
-
 
 export namespace Shadow::SFF {
 

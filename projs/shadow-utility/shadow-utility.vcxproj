@@ -33,7 +33,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shadow-utils.ixx" />
-    <ClCompile Include="string-helpers.cpp" />
+    <ClCompile Include="string-helpers.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCpp</CompileAs>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

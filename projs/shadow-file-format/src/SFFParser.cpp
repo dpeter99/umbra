@@ -1,15 +1,17 @@
 module;
-import <string>;
-import <iostream>;
-import <string>;
 
-import shadow_utils;
+#include <fstream>
 
 module Shadow.FileFormat:SFFParser;
 
 import :SFFElement;
 import :SFFVersion;
 
+import <string>;
+import <iostream>;
+import <string>;
+
+import shadow_utils;
 
 namespace Shadow::SFF {
 
