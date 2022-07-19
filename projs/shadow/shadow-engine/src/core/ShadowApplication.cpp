@@ -70,8 +70,14 @@ namespace ShadowEngine {
 
 	void ShadowApplication::Start()
 	{
+        SDL_Event event;
 		while (running)
 		{
+            while (SDL_PollEvent(&event)) {  // poll until all events are handled!
+                if (event.type == SDL_QUIT)
+                    running = false;
+            }
+
 			Time::UpdateTime();
 		}
 	}

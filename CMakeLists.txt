@@ -5,8 +5,7 @@ Include(FetchContent)
 # Fetch SDL for the runtime
 FetchContent_Declare(
         SDL2
-        URL     https://www.libsdl.org/release/SDL2-devel-2.0.14-VC.zip
-        URL_MD5 2b521c5ec247955dc342235d06ebd874
+        URL     https://www.libsdl.org/release/SDL2-devel-2.0.22-VC.zip
 )
 FetchContent_MakeAvailable(SDL2)
 set(SDL2_PATH ${sdl2_SOURCE_DIR})
@@ -24,6 +23,9 @@ FetchContent_MakeAvailable(Catch2)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 project(umbra)
+
+# Common utilities
+add_subdirectory(projs/shadow/shadow-utility)
 
 # Asset management
 add_subdirectory(projs/shadow/shadow-file-format)
