@@ -2,8 +2,6 @@
 
 #include "Time.h"
 
-
-
 namespace ShadowEngine {
 
 	ShadowApplication* ShadowApplication::instance = nullptr;

@@ -1,12 +1,10 @@
-#include "main.h"
+#include "../../shadow-engine/src/core/ShadowApplication.h"
 
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
 
-#include "core/ShadowApplication.h"
-
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,8 +13,7 @@ int main(int argc, char *argv[])
     for(int ndx{}; ndx != argc; ++ndx) {
         std::cout << "argv[" << ndx << "] == " << std::quoted(argv[ndx]) << '\n';
     }
-    std::cout << "argv[" << argc << "] == "
-              << static_cast<void*>(argv[argc]) << '\n';
+    std::cout << "argv[" << argc << "] == " << static_cast<void*>(argv[argc]) << '\n';
     /*...*/
 
     ShadowEngine::ShadowApplication app(argc, argv);

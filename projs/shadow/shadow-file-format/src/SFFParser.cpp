@@ -1,8 +1,7 @@
 #include "SFFParser.h"
+#include "../../shadow-utility/src/string-helpers.h"
 
 #include <fstream>
-
-#include "string-helpers.h"
 
 namespace Shadow::SFF {
 

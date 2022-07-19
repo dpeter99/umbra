@@ -1,7 +1,7 @@
 #ifndef UMBRA_MODULE_H
 #define UMBRA_MODULE_H
 
-#include "SHObject.h"
+#include "../../../shadow-reflection/src/SHObject.h"
 
 namespace ShadowEngine {
 
