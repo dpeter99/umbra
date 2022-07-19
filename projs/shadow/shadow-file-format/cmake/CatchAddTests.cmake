@@ -99,9 +99,9 @@ foreach(line ${output})
     set(../test ${line})
     # Escape characters in test case names that would be parsed by Catch2
     set(test_name ${test})
-    foreach(char , [ ])
-        string(REPLACE ${char} "\\${char}" test_name ${test_name})
-    endforeach(char)
+    #foreach(char , [ ])
+        #string(REPLACE ${char} "\\${char}" test_name ${test_name})
+    #endforeach(char)
     # ...add output dir
     if(output_dir)
         string(REGEX REPLACE "[^A-Za-z0-9_]" "_" test_name_clean ${test_name})
