@@ -1,16 +1,30 @@
-import * as Arch from "file://C:/Users/dpete/Documents/programing/_Projects/archivist/archivist/src/index.ts";
+import * as Arch from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
+import {root} from "./template/root.tsx";
+import {ArticleHelper} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
+import {Nav} from "./template/parts/Nav.tsx";
+import {TSXHelper} from "./template/TSXHelper.ts";
+
 
 class ExperimentalTSXTemplater extends Arch.SimpleModule {
-    
+
+    async processDoc(doc: Arch.Content): Promise<any> {
+        await super.processDoc(doc);
+        let helper = new TSXHelper(doc.path,this);
+
+        let page_root = root(doc, helper);
+
+        doc.content = await page_root.toString();
+    }
 }
 
 export let config: Arch.Config = {
-    env:"production",
+    env:"development",
     detailedOutput: false,
     template: "./template",
     outputPath: "./out",
     preProcessors: [
         Arch.Pipeline.fromModules({name:"build_template"},
+            new Arch.WebpackModule("./template"),
             new Arch.StaticTemplateFilesModule(),
         )
     ],
@@ -23,7 +37,8 @@ export let config: Arch.Config = {
             new Arch.WebUrlOutputResolver(),
             new Arch.UnifiedRenderer(),
 
-            new Arch.TemplateModule({templatePath:"./template"}),
+            //new Arch.TemplateModule({templatePath:"./template"}),
+            new ExperimentalTSXTemplater(),
             new Arch.OutputModule("./out/")
         )
     ]

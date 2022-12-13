@@ -1,0 +1,56 @@
+//
+// Copyright 2021 Google LLC
+// SPDX-License-Identifier: Apache-2.0
+//
+
+
+@use 'sass:map';
+@use 'sass:meta';
+
+@import "material/elevation";
+
+$_key-opacity: 0.3;
+$_ambient-opacity: 0.15;
+$_shadow-map: (
+  0: (
+          key: '0px 0px 0px 0px',
+          ambient: '0px 0px 0px 0px',
+  ),
+  1: (
+          key: '0px 1px 2px 0px',
+          ambient: '0px 1px 3px 1px',
+  ),
+  2: (
+          key: '0px 1px 2px 0px',
+          ambient: '0px 2px 6px 2px',
+  ),
+  3: (
+          key: '0px 1px 3px 0px',
+          ambient: '0px 4px 8px 3px',
+  ),
+  4: (
+          key: '0px 2px 3px 0px',
+          ambient: '0px 6px 10px 4px',
+  ),
+  5: (
+          key: '0px 4px 4px 0px',
+          ambient: '0px 8px 12px 6px',
+  ),
+);
+
+@mixin md-elevation($level){
+  @if $level == null {
+    @error '$elevation is required when $shadow-color is provided';
+  }
+
+  $elevation-level: map-get($_shadow-map, $level);
+  $key-spread: map-get($elevation-level, "key");
+  $ambient-spread: map-get($elevation-level, ambient);
+
+  $key-color: rgba(#{var(--md-sys-elevation-surface-tint-color)}, $_key-opacity);
+  //$key-color: color.color-var-hex-to-rgba($key-color, $_key-opacity);
+
+  $ambient-color: rgba(var(--md-sys-elevation-surface-tint-color), $_ambient-opacity);
+
+  box-shadow: #{$key-spread} #{$key-color};//, #{$ambient-spread} #{$ambient-color};
+}

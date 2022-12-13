@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "name": "my-webpack-project",
+  "scripts": {
+    "build": "deno run -A --unstable archivist.config.ts",
+    "watch": "nodemon -w ./ -i \"template/dist/**/*\" -i \"out/**/*\" -e js,ts,tsx,jsx,scss,css -x \"npm run build\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "copyfiles": "^2.4.1",
+    "css-loader": "^6.7.2",
+    "nodemon": "^2.0.20",
+    "postcss": "^8.4.20",
+    "postcss-loader": "^7.0.2",
+    "prettier": "^2.8.1",
+    "sass": "^1.56.2",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@material/web": "0.1.0-alpha.0"
+  }
+}

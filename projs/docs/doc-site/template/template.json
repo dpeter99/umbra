@@ -1,10 +1,12 @@
 {
-  "$schema": "../../../src/template.schema.json",
-  "compiledPath": "",
+  "$schema": "https://github.com/dpeter99/archivist/raw/doxygen-support/src/template.schema.json",
+  "compiledPath": "./dist",
   "ignore": [
     "*.ejs",
     "template.json",
-    "node_modules/**/*"
+    "node_modules/**/*",
+    "package.json",
+    "package-lock.json"
   ],
   "matchers": [
     "basic.html.ejs"

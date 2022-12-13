@@ -1,0 +1,27 @@
+@function toRGB($c){
+  @return (red($c), green($c), blue($c));
+}
+
+
+
+
+$primary-color: #039be5;
+$primary-color-rgb: toRGB($primary-color);
+$on-primary-color: #ffffff;
+
+$surface: #ffffff;
+$on-surface: #000000;
+
+$site-background: #e8eaed;
+
+:root{
+  --surface-color: #{$surface};
+  --on-surface-color: #202124;
+
+  --site-primary-color: #039be5;
+  --site-primary-color-rgb: #{$primary-color-rgb};
+  --site-on-primary-color: #{$on-primary-color};
+
+  //--md-sys-color-primary: var(--site-primary-color);
+  //--md-sys-color-primary-rgb: var(--site-primary-color-rgb);
+}
