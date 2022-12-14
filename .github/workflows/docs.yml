@@ -37,9 +37,9 @@ jobs:
                 cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
           - name: Install doxygen
             run: sudo apt-get install -y doxygen
-          #- name: Setup Pages
-          #  id: pages
-          #  uses: actions/configure-pages@v2
+          - name: Setup Pages
+            id: pages
+            uses: actions/configure-pages@v2
           - name: Run Doxygen
             run: doxygen ./Doxyfile
             working-directory: ${{ env.BUILD_PATH }}
@@ -49,6 +49,8 @@ jobs:
           - name: Build Docs
             run: npm run build
             working-directory: ${{ env.BUILD_PATH }}
+            env:
+              ARCHIVIST_URL: ${{ steps.pages.outputs.origin }}
 
           - name: Upload artifact
             uses: actions/upload-pages-artifact@v1

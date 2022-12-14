@@ -20,6 +20,7 @@ export let config: Arch.Config = {
     detailedOutput: false,
     template: "./template",
     outputPath: "./out",
+    outputURL: Deno.env.get("ARCHIVIST_URL")?? "",
     preProcessors: [
         Arch.Pipeline.fromModules({name:"build_template"},
             new Arch.WebpackModule("./template"),

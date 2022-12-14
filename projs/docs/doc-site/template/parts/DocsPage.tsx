@@ -17,12 +17,11 @@ export class DocsPage extends Component{
         let a: string = (await this.helper.md(text));
         if(typeof a == "string")
             a = a.replaceAll(/<[\\\/]?p>/gm, "");
-        //console.log(a);
+
         return a;
     }
 
     async generateMember(member: Member){
-        console.log(member);
         return(
             <div class="member">
                 <div class="member-header">
