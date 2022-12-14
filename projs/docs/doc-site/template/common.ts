@@ -1,6 +1,8 @@
 export {
     ArticleHelper,
     Content
-} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
+} from "dpeter99/archivist/src/index.ts";
 
 export { React, Component } from "./libs/static-tsx/React.ts";
+
+export { window } from "./libs/deno-tsx/dom.ts";

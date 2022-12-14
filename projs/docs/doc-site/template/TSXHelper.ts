@@ -1,6 +1,5 @@
-import * as Arch from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
-import * as path from "https://deno.land/std@0.167.0/path/mod.ts";
-import {Content} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
+import * as Arch from "dpeter99/archivist/src/index.ts";
+import {Content} from "dpeter99/archivist/src/index.ts";
 
 export class TSXHelper extends Arch.ArticleHelper{
     public getPipeline(){ return this["module"].pipeline; }
@@ -10,12 +9,11 @@ export class TSXHelper extends Arch.ArticleHelper{
      * @param f
      */
     public static subArticle(p:string, f:Content): boolean{
-        let common = path.common([p,path.dirname(f.path)])
-        common = common.replace(/[\/\\]$/, "")
+        const fPath = f.meta.url.replaceAll("\\", "/");
 
-        //console.log(`${this.subArticle.name}: p: "${p}" \t f:"${f.path}" \t common: "${common}" res: ${common == p}`);
+        if(p.includes("EntitySystem") && f.path.includes("EntitySystem")) debugger;
 
-        return common == p; // && f.path != this.file;
+        return fPath.startsWith(p);
     }
 
 }

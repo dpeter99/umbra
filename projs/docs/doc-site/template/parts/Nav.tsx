@@ -1,4 +1,4 @@
-import {ArticleHelper, Content, React, Component} from "../common.ts";
+import {ArticleHelper, Content, React, Component, window} from "../common.ts";
 import {TSXHelper} from "../TSXHelper.ts";
 
 
@@ -48,10 +48,10 @@ function tocSort(ascending:boolean) {
 
         // nulls sort after anything else
         if (a.content == undefined) {
-            return 1;
+            return ascending ? 1 : -1;
         }
         if (b.content == undefined) {
-            return -1;
+            return ascending ? -1 : 1;
         }
 
         // otherwise, if we're ascending, lowest sorts first
@@ -67,10 +67,12 @@ function tocSort(ascending:boolean) {
 export class Nav extends Component {
 
     helper: TSXHelper;
+    private doc: Content;
 
-    constructor(props: { helper:TSXHelper }) {
+    constructor(props: { doc:Content, helper:TSXHelper }) {
         super(props);
         this.helper = props.helper;
+        this.doc = props.doc;
     }
 
     generateToc(){
@@ -80,20 +82,27 @@ export class Nav extends Component {
 
         return(
             <ul class="top-level">
-                {toc.children.map(c=>this.recurseToc(c))}
+                {toc.children.map(c=>this.recurseToc(c,`/${c.name}/`))}
             </ul>
         )
     }
 
-    recurseToc(tocItem: TocItem){
+    recurseToc(tocItem: TocItem, path:string = ""){
         if(tocItem.content){
-            return <li><a href={tocItem.content.meta.url}>{tocItem.content.name}</a></li>
+            return (
+                <li >
+                    <a href={tocItem.content.meta.url} active={this.doc === tocItem.content}>
+                        {tocItem.content.name}
+                    </a>
+                </li>)
         }
+        //if(this.doc.path.includes("ShadowEngine"))
+        //debugger;
         return (
-            <li class="nav-group">
+            <li class="nav-group" open={TSXHelper.subArticle(path, this.doc)}>
                 <div class="nav-group-header"> <span>{tocItem.name}</span> </div>
                 <ul>
-                    {tocItem.children.sort(tocSort(false)).map(a=>this.recurseToc(a))}
+                    {tocItem.children.sort(tocSort(false)).map(a=>this.recurseToc(a, path+a.name+(a.content ? "" : "/")))}
                 </ul>
             </li>
         );
@@ -110,7 +119,7 @@ export class Nav extends Component {
             <aside id="drawer" class="drawer-holder">
                 <div class="drawer">
                     <button id="nav-level-button" onclick={
-                    ()=>window.document.getElementById('nav-holder').toggleAttribute('top-level')
+                    ()=>window.document.getElementById('nav-holder')?.toggleAttribute('top-level')
                     }> "back" </button>
 
                     <div id={"nav-holder"} class="nav-holder">

@@ -1,26 +1,95 @@
-import {Content} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/Content.ts";
-import {React} from "https://deno.land/x/tsx_static@v1.0.0/mod.ts";
-import {retry} from "https://deno.land/std@0.167.0/async/retry.ts";
-import {
-    ArticleHelper
-} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/utils/ArticleHelper.ts";
+import {React,Content,Component} from "../common.ts";
+import {TSXHelper} from "../TSXHelper.ts";
+import {Member} from "dpeter99/archivist/src/Modules/Input/doxygen/DoxygenReader.ts";
 
+export class DocsPage extends Component{
 
+    doc: Content;
+    helper: TSXHelper;
 
-export const DocsPage = async ({doc,helper}: { doc: Content, helper:ArticleHelper }) => {
-    return(
-        <main>
-            <article>
-                <h1 id="{{id}}" data-uid="{{uid}}" class="text-break">
-                    {doc.meta.name}
-                </h1>
-                <div class="markdown level0 summary">
-                    {await helper.md(doc.meta["code:data"].brief)}
+    constructor(props: { doc: Content, helper:TSXHelper }) {
+        super(props);
+        this.doc = props.doc;
+        this.helper = props.helper;
+    }
+
+    async inlineMD(text :string){
+        let a: string = (await this.helper.md(text));
+        if(typeof a == "string")
+            a = a.replaceAll(/<[\\\/]?p>/gm, "");
+        //console.log(a);
+        return a;
+    }
+
+    async generateMember(member: Member){
+        console.log(member);
+        return(
+            <div class="member">
+                <div class="member-header">
+                    <div class="member__name">
+                        {member.$kind === "other" ?
+                            (<span class="member__type">{member.kind}</span>) : ""
+                        }
+                        <h4>
+                            {member.name}
+                        </h4>
+                    </div>
                 </div>
-                <div class="markdown level0 summary">
-                    {await helper.md(doc.meta["code:data"].detail)}
+                <div class="code-holder">
+                    <code>
+                        <span class="vis">
+                            {await this.inlineMD(member.visibility)}
+                        </span>
+                        <span class="type">
+                            {await this.inlineMD(member.type)}
+                        </span>
+                        <span class="name">
+                            {member.name}
+                        </span>
+                        {member.$kind === "function" ?
+                            (<spam>
+                                {member.argsstring}
+                            </spam>) : ""
+                        }
+                    </code>
                 </div>
-            </article>
-        </main>
-    );
+                <div class="member-description">
+                    {await this.helper.md(member.brief)}
+                </div>
+            </div>
+        )
+
+    }
+
+    async generateMembers(){
+        let members: Member[] = this.doc.meta["code:data"].members;
+        let members_array = this.helper.groupByInObjects(members, m=>m.$kind);
+
+        return await Promise.all(members_array.map(async ({key, values})=> (
+            <>
+                <h3>{this.helper.toFirstUpper(key)}</h3>
+                {(await Promise.all(values.map(m=>this.generateMember(m))))}
+            </>
+        )))
+
+    }
+
+    async render(): Promise<Component> {
+        return(
+            <main>
+                <article>
+                    <h1 id="{{id}}" data-uid="{{uid}}" class="text-break">
+                        {this.doc.meta.name}
+                    </h1>
+                    <div class="markdown level0 summary">
+                        {await this.helper.md(this.doc.meta["code:data"].brief)}
+                    </div>
+                    <div class="markdown level0 summary">
+                        {await this.helper.md(this.doc.meta["code:data"].detail)}
+                    </div>
+                    {await this.generateMembers()}
+                </article>
+            </main>
+        );
+    }
 }

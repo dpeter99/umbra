@@ -1,4 +1,5 @@
 @use "header";
+@use "colors";
 @use "../libs/mixins";
 
 :root{
@@ -15,7 +16,8 @@ aside.drawer-holder {
     --drawer-width: 260px;
 
     position: sticky;
-    top: 0;
+    top: header.$header-height;
+    max-height: calc(100vh - header.$header-height);
 
     overflow-y: scroll;
     overflow-x: scroll;
@@ -24,7 +26,7 @@ aside.drawer-holder {
     grid-template-columns: [nav] 2fr [escape] 1fr;
 
 
-    max-height: 100vh;
+
     will-change: transform;
 
     @include mixins.media-breakpoint-down(md){
@@ -57,7 +59,7 @@ aside.drawer-holder {
         display: block;
         width: var(--drawer-width);
         contain: content;
-
+        //overflow: scroll;
         &-top{
             display: none;
         }
@@ -75,15 +77,49 @@ aside.drawer-holder {
     --nav-background-hover: #f1f3f4;
 }
 
-.nav-holder > .nav > ul{
-    --top-level-border: 1px solid #dadce0;
+.nav-holder .nav{
 
-    padding-top: 4px;
-    font-size: 13px;
+    ul {
+        padding-top: 4px;
+        font-size: 13px;
+    }
+    .nav-group > ul{
+        display: none;
+    }
 
-    a:hover,
-    .nav-group-header:hover{
-        background-color: var(--nav-background-hover);
+    li a,
+    li .nav-group-header{
+        border-radius: 0 12px 12px 0 ;
+
+        &[active] {
+            background-color: colors.$link-background-active;
+            color: colors.$link-color-active;
+            font-weight: 500;
+        }
+
+        &:hover{
+            background-color: var(--nav-background-hover);
+        }
+    }
+
+    @mixin nav-level($i, $max){
+        @if $i != 0 {
+            li {
+
+                & > a,
+                & > .nav-group-header{
+                    padding-left: 12px * ($max - $i);
+                }
+
+                @include nav-level($i - 1, $max);
+            }
+        }
+    }
+    @include nav-level(10,11);
+
+
+    .nav-group[open] > ul{
+        display: block;
     }
 
     .nav-group-header{
@@ -98,50 +134,45 @@ aside.drawer-holder {
         display: flex;
     }
 
-    .nav-group > ul{
-        display: none;
-        padding-left: 12px;
-    }
-
-    .nav-group[open] > ul{
-        display: block;
-
-    }
-
 }
 
 //Top level nodes
-.top-level > li{
-    //Each node has a bottom border
-    border-bottom: var(--top-level-border);
-    padding: 11px 0;
+.top-level {
+    display: block;
 
-    //The header for this node (not the ones below it in the tree)
-    & > .nav-group-header{
-        font-weight: 700;
-        display: flex;
+    & > li {
+        --top-level-border: 1px solid #dadce0;
+        //Each node has a bottom border
+        border-bottom: var(--top-level-border);
+        padding: 11px 0;
 
-        //The end indicator arrow
-        &:after{
-            content: '>';
-            margin-left: auto;
-            margin-right: 12px;
+        //The header for this node (not the ones below it in the tree)
+        & > .nav-group-header {
+            font-weight: 700;
+            display: flex;
 
-            transition: transform 0.6s ease-in-out;
+            //The end indicator arrow
+            &:after {
+                content: '>';
+                margin-left: auto;
+                margin-right: 12px;
+                transform: rotate(90deg);
+                transition: transform 0.6s ease-in-out;
+            }
+
+            &.caret-down:after {
+                transform: rotate(0deg);
+            }
         }
 
-        &.caret-down:after{
-            transform: rotate(90deg);
+        &:first-child {
+            //Add the top closing border for the first element
+            border-top: var(--top-level-border);
         }
-    }
 
-    &:first-child{
-        //Add the top closing border for the first element
-        border-top: var(--top-level-border);
-    }
-
-    & > ul{
-        padding-left: 0px !important;
+        & > ul {
+            padding-left: 0px !important;
+        }
     }
 }
 

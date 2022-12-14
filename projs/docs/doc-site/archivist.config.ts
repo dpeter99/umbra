@@ -1,7 +1,5 @@
-import * as Arch from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
+import * as Arch from "dpeter99/archivist/src/index.ts";
 import {root} from "./template/root.tsx";
-import {ArticleHelper} from "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/src/index.ts";
-import {Nav} from "./template/parts/Nav.tsx";
 import {TSXHelper} from "./template/TSXHelper.ts";
 
 

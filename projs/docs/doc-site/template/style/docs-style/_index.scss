@@ -1,0 +1,27 @@
+@use "../code";
+
+.member{
+
+  border-top-style: solid;
+  border-top-width: 1px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+
+  .member__name{
+    margin-top: 8px;
+    h4{
+      font-size: 16px;
+      margin-bottom: 8px;
+      margin-top: 0;
+    }
+
+    .member__type{
+      font-size: 12px;
+    }
+
+  }
+
+
+
+}

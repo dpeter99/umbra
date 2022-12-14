@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "dpeter99/archivist/": "https://raw.githubusercontent.com/dpeter99/archivist/d9a4223d3a462ac87958fef5cba96851e6d11a28/"
+  }
+}

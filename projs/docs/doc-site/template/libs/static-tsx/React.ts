@@ -1,19 +1,20 @@
 import {Style} from "../deno-tsx/style.ts";
 import {minify} from "https://deno.land/x/minifier/mod.ts";
 import {DocType} from "../deno-tsx/react.ts";
+
 export abstract class Component {
-    protected children: any[];
+    protected children: any[] = [];
 
     constructor(props: any) {
     }
 
     addChildren(children: any[]){
-        this.children= children;
+        this.children = children;
 
         return this;
     }
 
-    abstract render(): Component | null;
+    abstract render(): Promise<Component | null>;
 
 
     toString(): Promise<string>{
@@ -21,16 +22,23 @@ export abstract class Component {
     }
 
     async stringify(type: DocType): Promise<string> {
-        const s = await this?.render()?.stringify(type) ?? "";
-        debugger;
-        return s;
+        const ele = (await this?.render());
+
+        if(ele)
+            return await ele.stringify(type) ?? "";
+
+        //debugger;
+        return "";
     }
 }
 
+///@ts-ignore
 Component.prototype.isComponent = {};
 
-function shouldConstruct(Component: any) {
-    var prototype = Component.prototype;
+function shouldConstruct(type: any) {
+    if(type == "" || type == undefined)
+        return false;
+    var prototype = type.prototype;
     return !!(prototype && prototype.isComponent);
 }
 
@@ -59,14 +67,22 @@ export class NativeComp extends Component{
                     : k => this.props[k] !== undefined && this.props[k] !== null
             )
             .map(
-                k =>
-                    ` ${k}="${
+                k =>{
+
+                    if(typeof this.props[k] === 'boolean')
+                        if (this.props[k])
+                            return ` ${k}`;
+                        else
+                            return ``;
+
+                    return ` ${k}="${
                         k === 'style'
                             ? new Style(this.props[k]).toString()
                             : this.props[k] instanceof Function
                                 ? minify('js', `(${this.props[k].toString()})()`)
                                 : this.props[k].toString()
                     }"`
+                }
             )
             .join('')
     }
@@ -74,6 +90,9 @@ export class NativeComp extends Component{
     async children_string(type: DocType, children: any[] = this.children): Promise<string> {
         const concat = children
             .map(async c => {
+                    if(c instanceof Promise)
+                        c = await c;
+
                     if (typeof c === 'string')
                         return c;
                     if (c instanceof Promise)
@@ -96,6 +115,9 @@ export class NativeComp extends Component{
     }
 
     async stringify(type: DocType = 'html'): Promise<string> {
+        if(!this.tag || this.tag == "")
+            return `${await this.children_string(['svg', 'math'].includes(this.tag) ? 'xml' : type)}`;
+
         return `<${this.tag}${this.props_string()}>
             ${await this.children_string(['svg', 'math'].includes(this.tag) ? 'xml' : type)}
          </${this.tag}>`;
@@ -105,7 +127,8 @@ export class NativeComp extends Component{
         return this.stringify('html');
     }
 
-    render(): Component {
+    render(): Promise<Component> {
+        ///@ts-ignore
         return this.children;
     }
 }

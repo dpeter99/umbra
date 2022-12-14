@@ -1,9 +1,9 @@
-import {ArticleHelper, Content, React} from "./common.ts";
+import {ArticleHelper, Content, React, window} from "./common.ts";
 import {DocsPage} from "./parts/DocsPage.tsx";
 import {Nav} from "./parts/Nav.tsx";
-import h from "https://esm.sh/v99/uc.micro@1.0.6/deno/categories/Z/regex.js";
+import {TSXHelper} from "./TSXHelper.ts";
 
-export const root = (doc:Content, helper:ArticleHelper) => {
+export const root = (doc:Content, helper:TSXHelper) => {
 
     //console.log(Nav.prototype);
     //debugger;
@@ -20,7 +20,7 @@ export const root = (doc:Content, helper:ArticleHelper) => {
             <section class="page-root">
                 <Header></Header>
                 <content>
-                    <Nav helper={helper}></Nav>
+                    <Nav doc={doc} helper={helper}></Nav>
                     <DocsPage doc={doc} helper={helper}></DocsPage>
                 </content>
             </section>
@@ -34,7 +34,7 @@ const Header = ()=>(
     <div class="header-container">
         <div class="header-bar">
             <button onClick={
-                ()=>window.document.getElementById('drawer').toggleAttribute('open')
+                ()=>window.document.getElementById('drawer')?.toggleAttribute('open')
             }>-</button>
             <div class="logo">
                 <span>Umbra</span>
