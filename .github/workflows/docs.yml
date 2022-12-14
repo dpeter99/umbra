@@ -42,8 +42,7 @@ jobs:
           #  uses: actions/configure-pages@v2
           - name: Run Doxygen
             run: doxygen ./Doxyfile
-            with:
-                working-directory: ${{ env.BUILD_PATH }}
+            working-directory: ${{ env.BUILD_PATH }}
           - uses: denoland/setup-deno@v1
             with:
               deno-version: v1.x
