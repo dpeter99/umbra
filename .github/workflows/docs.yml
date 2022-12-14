@@ -35,13 +35,15 @@ jobs:
                 node-version: "16"
                 cache: ${{ steps.detect-package-manager.outputs.manager }}
                 cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
+          - name: Install doxygen
+            run: sudo apt-get install -y doxygen
           #- name: Setup Pages
           #  id: pages
           #  uses: actions/configure-pages@v2
-          - uses: mattnotmitt/doxygen-action@v1.9.5
+          - name: Run Doxygen
+            run: doxygen ./Doxyfile
             with:
                 working-directory: ${{ env.BUILD_PATH }}
-                doxyfile-path: 'Doxyfile'
           - uses: denoland/setup-deno@v1
             with:
               deno-version: v1.x
