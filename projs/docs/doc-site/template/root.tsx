@@ -2,6 +2,7 @@ import {ArticleHelper, Content, React, window} from "./common.ts";
 import {DocsPage} from "./parts/DocsPage.tsx";
 import {Nav} from "./parts/Nav.tsx";
 import {TSXHelper} from "./TSXHelper.ts";
+import {archivistInst} from "dpeter99/archivist/src/Archivist.ts";
 
 export const root = (doc:Content, helper:TSXHelper) => {
 
@@ -13,8 +14,8 @@ export const root = (doc:Content, helper:TSXHelper) => {
         <head>
             <title>Index</title>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <link rel="stylesheet" href="/index.css"/>
-            <script defer src="/index.js"></script>
+            <link rel="stylesheet" href={archivistInst.outputURL + "/index.css"}/>
+            <script defer src={archivistInst.outputURL + "/index.js"}></script>
         </head>
         <body>
             <section class="page-root">
