@@ -43,6 +43,14 @@ jobs:
           - name: Run Doxygen
             run: doxygen ./Doxyfile
             working-directory: ${{ env.BUILD_PATH }}
+
+          - name: Build Template
+            run: npm ci && npm run build
+            working-directory: ${{ env.BUILD_PATH }}/template
+            env:
+              ARCHIVIST_URL: ${{ steps.pages.outputs.base_url }}
+
+
           - uses: denoland/setup-deno@v1
             with:
               deno-version: v1.x
