@@ -1,5 +1,6 @@
 import {ArticleHelper, Content, React, Component, window} from "../common.ts";
 import {TSXHelper} from "../TSXHelper.ts";
+import {archivistInst} from "dpeter99/archivist/src/Archivist.ts";
 
 
 
@@ -82,7 +83,7 @@ export class Nav extends Component {
 
         return(
             <ul class="top-level">
-                {toc.children.map(c=>this.recurseToc(c,`/${c.name}/`))}
+                {toc.children.map(c=>this.recurseToc(c,`${archivistInst.outputURL?? ""}/${c.name}/`))}
             </ul>
         )
     }
