@@ -23,6 +23,26 @@ env:
     # BUILD_PATH: subfolder
 
 jobs:
+    # JOB to run change detection
+    changes:
+      runs-on: ubuntu-latest
+      # Required permissions
+      permissions:
+        pull-requests: read
+      # Set job outputs to values from filter step
+      outputs:
+        backend: ${{ steps.filter.outputs.docs }}
+        frontend: ${{ steps.filter.outputs.proj_shadow }}
+      steps:
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            docs:
+              - 'backend/**'
+            proj_shadow:
+              - 'projs/shadow/**'
     build:
         name: Build
         runs-on: ubuntu-latest
@@ -35,8 +55,25 @@ jobs:
                 node-version: "16"
                 cache: ${{ steps.detect-package-manager.outputs.manager }}
                 cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
+
+          - name: Cache doxygen
+            id: cache-doxygen
+            uses: actions/cache@v3
+            env:
+              cache-name: cache-node-modules
+            with:
+              # npm cache files are stored in `~/.npm` on Linux/macOS
+              path: ${{ env.BUILD_PATH }}/doxygen-out
+              key: proj-shadow-doxygen-${{ hashFiles('projs/shadow/**') }}
+
           - name: Install doxygen
+            if: ${{ steps.cache-doxygen.outputs.cache-hit != 'true' }}
             run: sudo apt-get install -y doxygen
+          - name: Run Doxygen
+            if: ${{ steps.cache-doxygen.outputs.cache-hit != 'true' }}
+            run: doxygen ./Doxyfile
+            working-directory: ${{ env.BUILD_PATH }}
+
           - name: Setup Pages
             id: pages
             uses: actions/configure-pages@v2
@@ -49,7 +86,6 @@ jobs:
             working-directory: ${{ env.BUILD_PATH }}/template
             env:
               ARCHIVIST_URL: ${{ steps.pages.outputs.base_url }}
-
 
           - uses: denoland/setup-deno@v1
             with:
