@@ -2,12 +2,13 @@ import * as Arch from "dpeter99/archivist/src/index.ts";
 import {root} from "./template/root.tsx";
 import {TSXHelper} from "./template/TSXHelper.ts";
 
-
 class ExperimentalTSXTemplater extends Arch.SimpleModule {
 
     async processDoc(doc: Arch.Content): Promise<any> {
         await super.processDoc(doc);
         let helper = new TSXHelper(doc.path,this);
+
+        //let root = (await import("./template/root.tsx")).root;
 
         let page_root = root(doc, helper);
 
