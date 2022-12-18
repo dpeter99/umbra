@@ -1,1 +1,0 @@
-import style from "./template/style/index.scss" assert { type: 'scss'}

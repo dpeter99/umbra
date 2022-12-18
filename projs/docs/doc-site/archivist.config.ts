@@ -2,6 +2,19 @@ import * as Arch from "dpeter99/archivist/src/index.ts";
 import {root} from "./template/root.tsx";
 import {TSXHelper} from "./template/TSXHelper.ts";
 
+import {branch_current, tag_current} from "./template/libs/git-helpers/index.ts";
+import * as ci from "https://deno.land/x/ci/mod.ts";
+
+let outputPath = "./out";
+
+const currentTag = await tag_current({});
+if(currentTag)
+    outputPath = outputPath + "/" + currentTag + "/";
+else
+    outputPath = outputPath + "/" + (await branch_current({}))
+
+console.log(outputPath);
+
 class ExperimentalTSXTemplater extends Arch.SimpleModule {
 
     async processDoc(doc: Arch.Content): Promise<any> {
@@ -20,7 +33,7 @@ export let config: Arch.Config = {
     env:"development",
     detailedOutput: false,
     template: "./template",
-    outputPath: "./out",
+    outputPath,
     outputURL: Deno.env.get("ARCHIVIST_URL")?? "",
     preProcessors: [
         Arch.Pipeline.fromModules({name:"build_template"},

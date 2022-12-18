@@ -29,13 +29,13 @@ export async function walk(
 
 
 const importMapBaseURL = new URL(import.meta.url);
-const importMap: ImportMap = (await import("./import_map.json", {
+const importMap: ImportMap = (await import("../import_map.json", {
     assert: { type: "json" },
 })).default;
 const resolvedImportMap = resolveImportMap(importMap, importMapBaseURL);
 
 
-const fileName = "./archivist.config.ts";
+const fileName = "./test.import.ts";
 
 type Dependencie = { from: string, path: string, resolved: string };
 
@@ -77,7 +77,6 @@ while (queue.length > 0){
 
 }
 
-
 async function loadTypeScript(data:Dependencie) {
     let content = await (await fetch(data.resolved)).text();
     const ast = ts.createSourceFile(data.resolved, content,ts.ScriptTarget.Latest);
@@ -95,18 +94,17 @@ async function loadTypeScript(data:Dependencie) {
 }
 
 async function loadStyle(data:Dependencie){
-    let content = await (await fetch(data.resolved)).text();
 
-    let compiled = sass(content,{
-        load_paths: [
-            //dirname(data.resolved)
-            "./template"
-        ]
-    });
+    const compiler = Deno.run({
+        cmd: ["cmd", "/c", "sass", `${data.path}:dist/${data.path}`]
+    })
 
-    console.log(compiled.to_string());
+    await compiler.status()
 
 }
+
+
+const res = await import(fileName);
 
 /*
 async function loadStyle_npm(data:Dependencie){
