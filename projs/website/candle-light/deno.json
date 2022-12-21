@@ -1,0 +1,7 @@
+{
+  "importMap": "../import_map_local.json",
+  "compilerOptions": {
+    "types": [
+    ]
+  }
+}

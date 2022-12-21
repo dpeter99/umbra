@@ -1,0 +1,96 @@
+@use "../libs/mixins";
+
+@use "colors";
+@use "elevation";
+
+$devsite-tab-marker-border-radius: 3px 3px 0 0;
+$header-row-height: 48px;
+$header-height: $header-row-height*2;
+
+.header-container {
+    position: sticky;
+    top:0;
+    width: 100%;
+    z-index: 100;
+}
+
+.header-bar{
+    height: $header-row-height;
+    display: flex;
+    align-items: stretch;
+
+    background-color: colors.$surface;
+
+    .logo__link{
+        display: flex;
+        align-items: center;
+    }
+
+    .logo{
+
+
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 24px;
+
+        margin-left: 24px;
+    }
+
+    nav{
+        display: flex;
+        bottom: 0;
+        right: 0;
+        top: 0;
+
+        @include mixins.media-breakpoint-down(sm){
+            display: none;
+        }
+
+        tab{
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+
+            &>*{
+                display: flex;
+                align-items: center;
+
+                padding: var(--devsite-link-padding,0 24px);
+            }
+
+            --site-on-primary-color: var(--site-on-primary-color);
+
+            &[active]>a:after{
+                border-color: var(--site-on-primary-color);
+                border-radius: #{$devsite-tab-marker-border-radius};
+
+                left: var(--devsite-tab-marker-position-x,0);
+                right: var(--devsite-tab-marker-position-x-end,var(--devsite-tab-marker-position-x,0));
+
+                border-top: 3px solid;
+                bottom: 0;
+                content: "";
+                display: block;
+                position: absolute;
+            }
+        }
+
+
+    }
+
+    button{
+
+
+        @include mixins.media-breakpoint-up(md){
+            display: none;
+        }
+    }
+}
+
+.header-bar.header-color{
+    background-color: var(--site-primary-color);
+    color: var(--site-on-primary-color);
+
+    @include elevation.md-elevation(5);
+}

@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "template/": "./_template/",
+    "dpeter99/archivist/": "file:///F:/_Projects/archivist/archivist/"
+  }
+}

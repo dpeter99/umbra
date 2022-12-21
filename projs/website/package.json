@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "name": "my-webpack-project",
+  "scripts": {
+    "serve": "web-dev-server --open --root-dir ./out/ --watch"
+  }
+}

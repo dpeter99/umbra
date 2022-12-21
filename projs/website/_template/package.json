@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "name": "my-webpack-project",
+  "scripts": {
+    "build": "sass --load-path=node_modules style/index.scss:dist/index.css && copyfiles -u 1 client/*.js dist"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "sass": "^1.56.2"
+  }
+}

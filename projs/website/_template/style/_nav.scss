@@ -1,0 +1,191 @@
+@use "header";
+@use "colors";
+@use "../libs/mixins";
+
+:root{
+    --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
+    --drawer-background: var(--surface-color);
+
+    --devsite-elevation-key-shadow-color: rgba(60, 64, 67, .3);
+    --devsite-elevation-ambient-shadow-color: rgba(60, 64, 67, .15);
+}
+
+aside.drawer-holder {
+    --easeOutExpo: cubic-bezier(0.4, 0, 0.2, 1);
+    --duration: .6s;
+    --drawer-width: 260px;
+
+    position: sticky;
+    top: header.$header-height;
+    max-height: calc(100vh - header.$header-height);
+
+    display: grid;
+    grid-template-columns: [nav] 2fr [escape] 1fr;
+
+
+
+    will-change: transform;
+
+    @include mixins.media-breakpoint-down(md){
+        position: sticky;
+        top: 0;
+        overscroll-behavior: contain;
+        visibility: hidden;
+        transform: translateX(-110vw);
+        will-change: transform;
+        transition: transform var(--duration) var(--easeOutExpo), visibility 0s linear var(--duration);
+
+        &[open]{
+            visibility: visible;
+            transform: translateX(0);
+            transition: transform var(--duration) var(--easeOutExpo);
+        }
+    }
+
+    & .nav-holder{
+        --nav-width: var(--drawer-width);
+    }
+
+    .drawer{
+        color: var(--on-surface-color);
+        background: var(--drawer-background);
+        box-shadow: var(--devsite-book-nav-box-shadow, 0 1px 2px 0 var(--devsite-elevation-key-shadow-color), 0 1px 3px 1px var(--devsite-elevation-ambient-shadow-color));
+
+        display: block;
+        width: var(--drawer-width);
+        contain: content;
+        //overflow: scroll;
+        &-top{
+            display: none;
+        }
+    }
+}
+
+#nav-level-button{
+    display: none;
+    @include mixins.media-breakpoint-down(sm){
+        display: block;
+    }
+}
+
+.nav-holder{
+    --nav-background-hover: #f1f3f4;
+}
+
+.nav-holder .nav{
+
+    ul {
+        padding-top: 4px;
+        font-size: 13px;
+    }
+    .nav-group > ul{
+        display: none;
+    }
+
+    li a,
+    li .nav-group-header{
+        border-radius: 0 12px 12px 0 ;
+
+        &[active] {
+            background-color: colors.$link-background-active;
+            color: colors.$link-color-active;
+            font-weight: 500;
+        }
+
+        &:hover{
+            background-color: var(--nav-background-hover);
+        }
+    }
+
+    @mixin nav-level($i, $max){
+        @if $i != 0 {
+            li {
+
+                & > a,
+                & > .nav-group-header{
+                    padding-left: 12px * ($max - $i);
+                }
+
+                @include nav-level($i - 1, $max);
+            }
+        }
+    }
+    @include nav-level(10,11);
+
+
+    .nav-group[open] > ul{
+        display: block;
+    }
+
+    .nav-group-header{
+        cursor: pointer;
+    }
+
+    .nav-group-header,
+    a{
+        padding-left: 24px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        display: flex;
+    }
+
+}
+
+//Top level nodes
+.top-level {
+    display: block;
+
+    & > li {
+        --top-level-border: 1px solid #dadce0;
+        //Each node has a bottom border
+        border-bottom: var(--top-level-border);
+        padding: 11px 0;
+
+        //The header for this node (not the ones below it in the tree)
+        & > .nav-group-header {
+            font-weight: 700;
+            display: flex;
+
+            //The end indicator arrow
+            &:after {
+                content: '>';
+                margin-left: auto;
+                margin-right: 12px;
+                transform: rotate(90deg);
+                transition: transform 0.6s ease-in-out;
+            }
+
+            &.caret-down:after {
+                transform: rotate(0deg);
+            }
+        }
+
+        &:first-child {
+            //Add the top closing border for the first element
+            border-top: var(--top-level-border);
+        }
+
+        & > ul {
+            padding-left: 0px !important;
+        }
+    }
+}
+
+
+.nav-holder{
+    display: flex;
+    justify-content: flex-end;
+
+    transition: transform .2s cubic-bezier(.4,0,.2,1),-webkit-transform .2s cubic-bezier(.4,0,.2,1);
+
+    & > *{
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    @include mixins.media-breakpoint-down(sm) {
+        &[top-level] {
+            transform: translateX(calc(var(--nav-width) * -1));
+        }
+    }
+}
