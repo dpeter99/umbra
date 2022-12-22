@@ -54,7 +54,10 @@ aside.drawer-holder {
         display: block;
         width: var(--drawer-width);
         contain: content;
-        //overflow: scroll;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+
         &-top{
             display: none;
         }

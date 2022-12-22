@@ -18,7 +18,7 @@ export class NavBar extends ArchExp.Component {
 
         return toc?.children.map(c=>(
             <tab>
-                <a href={`${this.props.tocPath}${c.name}`}>{c.content?.meta.title ?? c.name}</a>
+                <a href={c.content?.meta.url ?? ""}>{c.content?.meta.title ?? c.name}</a>
             </tab>
         ))
     }
@@ -26,9 +26,7 @@ export class NavBar extends ArchExp.Component {
     render() {
         return (
             <div class={this.props.secondary ? "header-bar header-color" : "header-bar"}>
-                <a class="logo__link" href={this.props.tocPath}>
-                    {this.children}
-                </a>
+                {...this.children}
                 <nav>
                     {this.getTabs()}
                 </nav>

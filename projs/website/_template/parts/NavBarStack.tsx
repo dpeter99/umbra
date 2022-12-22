@@ -17,9 +17,14 @@ export class NavBarStack extends ArchExp.Component {
             <div class="header-container">
 
                 <NavBar helper={this.helper} tocPath={"/"} secondary={false}>
-                    <div class="logo">
-                        <span>Candle Fire</span>
-                    </div>
+                    <button onClick={
+                        ()=>window.document.getElementById('drawer')?.toggleAttribute('open')
+                    } IIFE>-</button>
+                    <a className="logo__link" href={"/"}>
+                        <div class="logo">
+                            <span>Candle Fire</span>
+                        </div>
+                    </a>
                 </NavBar>
                 {
                     TocManager.getTocPathForPath(this.props.doc.meta["url_rel"])

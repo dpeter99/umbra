@@ -41,7 +41,7 @@ export class Nav extends Component {
 
             return (
                 <li>
-                    <a href={tocItem.content.meta["url_rel"]} active={open}>
+                    <a href={tocItem.content.meta["url"]} active={open}>
                         {tocItem.content.meta.title ?? tocItem.content.name}
                     </a>
                 </li>)
