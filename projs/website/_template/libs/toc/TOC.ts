@@ -1,4 +1,5 @@
 import {Content} from "../../common.ts";
+import {el} from "https://esm.sh/v99/entities@3.0.1/deno/lib/maps/entities.json.js";
 
 
 
@@ -6,11 +7,12 @@ export type TocItem = {
     name: string,
     content: Content|undefined,
     children: TocItem[],
+    path: string,
 }
 
 function treeify(files: Content[]) {
 
-    let result: TocItem = {name:"root", children:[], content: undefined};
+    let result: TocItem = {name:"root", children:[], content: undefined, path:""};
 
     files.forEach(content =>{
 
@@ -22,13 +24,15 @@ function treeify(files: Content[]) {
             let next = acc.children.find(n=>n.name === name);
             if(!next) {
                 //r[name] = { result: [] };
-                next = {name, children: [], content: undefined};
+                let path = acc.path+"/"+name;
+                next = {name, children: [], content: undefined, path};
 
-                if(i == a.length-1){
-                    next.content = content;
-                }
+
 
                 acc.children.push(next)
+            }
+            if(i == a.length-1){
+                next.content = content;
             }
 
             return next;
@@ -95,10 +99,6 @@ export function tocLevel(toc: TocItem, path: string) {
     return i;
 }
 
-export function tocForContent(toc: TocItem, content:Content){
-
-}
-
 export class TocManager {
     static tocRoot: TocItem | undefined;
 
@@ -112,6 +112,28 @@ export class TocManager {
         }
 
         return subToc(this.tocRoot!, path);
+    }
+
+    static getTocPathForPath(path: string){
+        if(!this.tocRoot){
+            throw new Error("No toc was generated");
+        }
+
+        const segments = path.split("/").filter(s=>s!=="");
+
+        let next: TocItem | undefined = this.tocRoot;
+
+        let tocPath: TocItem[] = [this.tocRoot];
+
+        for (const segmentsKey in segments) {
+            next = next?.children.find(c=>c.name === segments[segmentsKey]);
+            if(!next)
+                break;
+
+            tocPath.push(next);
+        }
+
+        return tocPath;
     }
 
     static getTocForFile(file: Content){
@@ -128,5 +150,23 @@ export class TocManager {
         }
 
         return tocLevel(this.tocRoot!, file.meta.url);
+    }
+
+    static printToc() {
+        if(!this.tocRoot){
+            throw new Error("No toc was generated");
+        }
+
+        this.printTocElement(this.tocRoot!,0);
+    }
+
+    static printTocElement(elem: TocItem, level: number){
+        const prefix = '|'.repeat(level)
+        console.log(`${prefix}-${elem.name} (${elem.content?.name ?? ""})`);
+        level++;
+        for (const child of elem.children) {
+            this.printTocElement(child, level);
+        }
+
     }
 }

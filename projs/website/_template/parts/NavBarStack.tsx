@@ -15,11 +15,23 @@ export class NavBarStack extends ArchExp.Component {
     render() {
         return (
             <div class="header-container">
-                <NavBar helper={this.helper} tocPath={"/"}>
+
+                <NavBar helper={this.helper} tocPath={"/"} secondary={false}>
                     <div class="logo">
                         <span>Candle Fire</span>
                     </div>
                 </NavBar>
+                {
+                    TocManager.getTocPathForPath(this.props.doc.meta.url)
+                        .filter(toc => toc.content?.meta["toc"] === "header")
+                        .map(toc => (
+                            <NavBar helper={this.helper} tocPath={toc.path+"/"} secondary>
+                                <div class="logo">
+                                    <span>{toc.content?.meta.title ?? toc.content?.name}</span>
+                                </div>
+                            </NavBar>
+                        ))
+                }
             </div>
         );
     }

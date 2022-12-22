@@ -10,4 +10,5 @@ export const React = ArchExp.React;
 export const Component = ArchExp.Component;
 
 
+//@ts-ignore
 export const window = ArchExp.DOM.window;

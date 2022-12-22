@@ -73,7 +73,7 @@ export class DocsPage extends ArchExp.Component{
 
     }
 
-    async render(): Promise<Component> {
+    async render(): Promise<ArchExp.Component> {
         return(
             <main>
                 <article>

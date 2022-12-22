@@ -1,5 +1,5 @@
 {
-  "importMap": "../import_map_local.json",
+  "importMap": "import_map.json",
   "compilerOptions": {
     "types": [
     ]

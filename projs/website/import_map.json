@@ -1,6 +1,6 @@
 {
   "imports": {
     "template/": "./_template/",
-    "dpeter99/archivist/": "https://raw.githubusercontent.com/dpeter99/archivist/a3578225987c87121a3ccb612cb2a2b2034e0eff/"
+    "dpeter99/archivist/": "https://raw.githubusercontent.com/dpeter99/archivist/doxygen-support/"
   }
 }

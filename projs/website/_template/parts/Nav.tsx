@@ -2,39 +2,36 @@ import {ArticleHelper, Content, React, Component, window} from "../common.ts";
 import {TSXHelper} from "../TSXHelper.ts";
 import {archivistInst} from "dpeter99/archivist/src/Archivist.ts";
 import {makeToc, subToc, TocItem, TocManager, tocSort} from "../libs/toc/TOC.ts";
+import {topbot} from "https://esm.sh/v99/entities@3.0.1/deno/lib/maps/entities.json.js";
 
 export class Nav extends Component {
 
     helper: TSXHelper;
     doc: Content;
-    tocPath: string;
 
-    constructor(props: { doc:Content, helper:TSXHelper, tocPath: string }) {
+    constructor(props: { doc:Content, helper:TSXHelper }) {
         super();
-        this.tocPath = props.tocPath;
         this.helper = props.helper;
         this.doc = props.doc;
     }
 
-    generateToc(){
-        let toc: TocItem | undefined = TocManager.getTocForPath(this.tocPath);
+    generateToc(toc: TocItem){
+        //let toc: TocItem | undefined = TocManager.getTocForPath(this.tocPath);
         if(toc) {
             toc.children = toc.children.sort(tocSort(false));
 
             return (
                 <ul class="top-level">
-                    {toc.children.map(c => this.recurseToc(c, `${archivistInst.outputURL?? ""}/${c.name}`))}
+                    {toc.children.map(c => this.recurseToc(c))}
                 </ul>
             )
         }
         return <></>
     }
 
-    recurseToc(tocItem: TocItem, path:string = ""){
+    recurseToc(tocItem: TocItem){
 
-        const open = TSXHelper.subArticle(path, this.doc) || path == this.doc.meta.url
-
-        if(this.doc.name.includes("ModelBuilder") && open) debugger;
+        const open = TSXHelper.subArticle(tocItem.path, this.doc) || tocItem.path == this.doc.meta.url
 
         if(tocItem.content) {
             if(tocItem.children.length !== 0){
@@ -54,18 +51,41 @@ export class Nav extends Component {
             <li class="nav-group" open={open}>
                 <div class="nav-group-header"> <span>{tocItem.name}</span> </div>
                 <ul>
-                    {tocItem.children.sort(tocSort(false)).map(a=>this.recurseToc(a, path+"/"+a.name))}
+                    {tocItem.children.sort(tocSort(false)).map(a=>this.recurseToc(a))}
                 </ul>
             </li>
         );
 
     }
 
-    render() {
-
-        let listItems = this.helper.subArticles().map((number) =>
-            <li><a href={number.meta.url}>{number}</a></li>
+    private versionSelector(toc: TocItem) {
+        return (
+            <select name="cars" id="version" onchange={()=>{window.location += '/' + window.document.getElementById('version').value}} IIFE>
+                <option value=""></option>
+                {toc.children.map(c=>(
+                    <option value={c.name}>{c.name}</option>
+                ))}
+            </select>
         );
+    }
+
+    render() {
+        let tocPath = TocManager.getTocPathForPath(this.doc.meta.url);
+        const top = tocPath.findLastIndex( t=> t.content?.meta["toc"] === "header")
+
+        if(this.doc.meta?.url?.includes("feature--archivist-docs")) debugger;
+
+        let topToc = tocPath[top+1];
+        if(topToc === undefined)
+            return <></>;
+
+        let navToc = topToc;
+
+        if(navToc.name === "docs" && tocPath.length > 3)
+            navToc = tocPath[top+2];
+
+
+
 
         return(
             <aside id="drawer" class="drawer-holder">
@@ -74,12 +94,20 @@ export class Nav extends Component {
                     ()=>window.document.getElementById('nav-holder')?.toggleAttribute('top-level')
                     }> "back" </button>
 
+                    {
+                        topToc?.name === "docs" ?
+                            this.versionSelector(topToc) : <></>
+                    }
+
                     <div id={"nav-holder"} class="nav-holder">
                         <nav class="nav nav-top">
                             <h1>Top</h1>
                         </nav>
                         <nav class="nav" id="nav">
-                            {this.generateToc()}
+                            {
+                                this.generateToc(navToc)
+                            }
+
                         </nav>
                     </div>
                 </div>
