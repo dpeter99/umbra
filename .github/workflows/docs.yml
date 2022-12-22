@@ -92,7 +92,7 @@ jobs:
               deno-version: v1.x
 
           - name: Build Docs
-            run: deno run -A --unstable ${{ env.BUILD_PATH }}/archivist.config.ts
+            run: deno run -A --unstable archivist.config.ts
             working-directory: ${{ env.BUILD_PATH }}
             env:
               ARCHIVIST_URL: ${{ steps.pages.outputs.base_url }}
