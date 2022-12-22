@@ -97,6 +97,11 @@ jobs:
             with:
               deno-version: v1.x
 
+          - run: |
+              ls ${{ env.BUILD_PATH }}
+              echo "------ Doxygen -------"
+              ls ${{ env.BUILD_PATH }}/doxygen-out/xml
+
           - name: Build Docs
             run: deno run -A --unstable archivist.config.ts
             working-directory: ${{ env.BUILD_PATH }}
