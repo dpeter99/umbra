@@ -26,7 +26,7 @@ export class NavBar extends ArchExp.Component {
     render() {
         return (
             <div class={this.props.secondary ? "header-bar header-color" : "header-bar"}>
-                {...this.children}
+                {this.children}
                 <nav>
                     {this.getTabs()}
                 </nav>
