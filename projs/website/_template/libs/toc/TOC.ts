@@ -1,4 +1,4 @@
-import {Content} from "../../common.ts";
+import {archivistInst, Content} from "../../common.ts";
 import {el} from "https://esm.sh/v99/entities@3.0.1/deno/lib/maps/entities.json.js";
 
 
@@ -18,7 +18,7 @@ function treeify(files: Content[]) {
 
         const url: string = content.meta.url
 
-        let path_segments = url.replaceAll('\\', '/').split('/').filter(s=>s !== "");
+        let path_segments = url.replace(archivistInst.rootURL ?? "", "").replaceAll('\\', '/').split('/').filter(s=>s !== "");
 
         path_segments.reduce((acc, name, i, a) => {
             let next = acc.children.find(n=>n.name === name);

@@ -22,7 +22,7 @@ export class NavBarStack extends ArchExp.Component {
                     </div>
                 </NavBar>
                 {
-                    TocManager.getTocPathForPath(this.props.doc.meta.url)
+                    TocManager.getTocPathForPath(this.props.doc.meta["url_rel"])
                         .filter(toc => toc.content?.meta["toc"] === "header")
                         .map(toc => (
                             <NavBar helper={this.helper} tocPath={toc.path+"/"} secondary>

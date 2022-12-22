@@ -31,7 +31,8 @@ export class Nav extends Component {
 
     recurseToc(tocItem: TocItem){
 
-        const open = TSXHelper.subArticle(tocItem.path, this.doc) || tocItem.path == this.doc.meta.url
+        //const open = TSXHelper.subArticle(tocItem.path, this.doc) || tocItem.path == this.doc.meta["url_rel"]
+        const open = TocManager.getTocPathForPath(this.doc.meta["url_rel"]).some(t=>t === tocItem);
 
         if(tocItem.content) {
             if(tocItem.children.length !== 0){
@@ -40,7 +41,7 @@ export class Nav extends Component {
 
             return (
                 <li>
-                    <a href={tocItem.content.meta.url} active={open}>
+                    <a href={tocItem.content.meta["url_rel"]} active={open}>
                         {tocItem.content.meta.title ?? tocItem.content.name}
                     </a>
                 </li>)
@@ -70,7 +71,7 @@ export class Nav extends Component {
     }
 
     render() {
-        let tocPath = TocManager.getTocPathForPath(this.doc.meta.url);
+        let tocPath = TocManager.getTocPathForPath(this.doc.meta["url_rel"]);
         const top = tocPath.findLastIndex( t=> t.content?.meta["toc"] === "header")
 
         if(this.doc.meta?.url?.includes("feature--archivist-docs")) debugger;
