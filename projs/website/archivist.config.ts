@@ -34,7 +34,7 @@ class AddVersionFiles extends Arch.SimpleModule{
 
 export let config: Arch.Config = {
     env:"development",
-    detailedOutput: false,
+    detailedOutput: true,
     template: "./_template",
     outputPath: "./out/",
     outputURL,
