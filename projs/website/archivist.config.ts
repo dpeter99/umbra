@@ -48,7 +48,7 @@ export let config: Arch.Config = {
     pipelines:[
         Arch.Pipeline.fromModules({name:"posts", contentRoot:"./src/"},
             new Arch.FileReaderModule("./**/*.md"),
-            new Arch.DoxygenReader("/doxygen-out/xml/**/*", "Projects/shadow-engine/docs/" + docs_path + "/"),
+            new Arch.DoxygenReader("../doxygen-out/xml/**/*", "Projects/shadow-engine/docs/" + docs_path + "/"),
             new AddVersionFiles("Projects/shadow-engine/docs/" + docs_path + "/", docs_path ?? ""),
             new Arch.ExtractMetadata(
                 new Arch.FrontMatterMetadata()
