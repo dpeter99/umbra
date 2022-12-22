@@ -19,7 +19,7 @@ concurrency:
     cancel-in-progress: true
 
 env:
-    BUILD_PATH: "projs/website/" # default value when not using subfolders
+    BUILD_PATH: "projs/website" # default value when not using subfolders
     # BUILD_PATH: subfolder
 
 jobs:
@@ -64,7 +64,6 @@ jobs:
             env:
               cache-name: cache-node-modules
             with:
-              # npm cache files are stored in `~/.npm` on Linux/macOS
               path: ${{ env.BUILD_PATH }}/doxygen-out
               key: proj-shadow-doxygen-${{ hashFiles('projs/shadow/**') }}
 
@@ -86,6 +85,13 @@ jobs:
             working-directory: ${{ env.BUILD_PATH }}/_template
             env:
               ARCHIVIST_URL: ${{ steps.pages.outputs.base_url }}
+
+          - uses: actions/cache@v3
+            with:
+              path: |
+                ~/.deno
+                ~/.cache/deno
+              key: ${{ runner.os }}-deno-${{ hashFiles('projs/website/**') }}
 
           - uses: denoland/setup-deno@v1
             with:
