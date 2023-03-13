@@ -2,7 +2,7 @@ name: Build and Test
 
 on: 
   push:
-    branches: [ main, bazel-setup ]
+    branches: [ main, ci-test ]
     paths-ignore: 
       - 'projs/docs/**'
       - 'specs/**'    
@@ -16,54 +16,29 @@ jobs:
       with:
         submodules: recursive
 
+      # Setup the build machine with the most recent versions of CMake and Ninja. Both are cached if not already: on subsequent runs both will be quickly restored from GitHub cache service.
+    - uses: lukka/get-cmake@latest
 
-    - name: Install bazelisk
-      run: |
-        choco install bazelisk
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-
-    - name: Build
-      run: |
-        bazel build //...
-
-    - name: use cache 
-      uses: actions/cache@v2
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
       with:
-        path: "./bazel-bin/projs"
-        key: ${{ runner.os }}-${{ github.run_id }}  
-      
+        version: latest
+        platform: x64
+
+    - name: Prepare Vulkan SDK
+      uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: 1.3.204.0
+        vulkan-components: Vulkan-Headers, Vulkan-Loader
+        vulkan-use-cache: true
+
+    - name: build
+      run: cmake -S . -B build
+    
     - name: Upload shadow-engine artifact
       uses: actions/upload-artifact@v3
       with:
         name: ${{ needs.update.outputs.old_version_name }}-${{ needs.update.outputs.new_version_name }}-patch
         path: './bazel-bin/projs/shadow-engine/**/*'
 
-  test-sff:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      contents: read
-      issues: read
-      checks: write
-      pull-requests: write
-    steps:
-    - name: use cache 
-      uses: actions/cache@v2
-      with:
-        path: "./bazel-bin/projs"
-        key: ${{ runner.os }}-${{ github.run_id }}
-
-    - name: Make output folder
-      run: mkdir ./test-results
-
-    - name: Test shadow-file-format
-      run: ./bazel-bin/projs/shadow-file-format/test.exe -r junit -o ./test-results/shadow-file-format-test.xml
-
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action/composite@v1
-      if: always()
-      with:
-        files: "test-results/**/*.xml"
-
+  
