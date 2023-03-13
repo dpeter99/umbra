@@ -26,8 +26,11 @@ jobs:
         vulkan-components: Vulkan-Headers, Vulkan-Loader
         vulkan-use-cache: true
 
-    - name: build
+    - name: cmake generate
       run: cmake -G "Ninja" -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++ .
+
+    - name: build
+      run: ninja  
     
     - name: Upload shadow-engine artifact
       uses: actions/upload-artifact@v3
