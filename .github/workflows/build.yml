@@ -27,7 +27,7 @@ jobs:
         vulkan-use-cache: true
 
     - name: build
-      run: cmake .
+      run: cmake -G "Ninja" -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++ .
     
     - name: Upload shadow-engine artifact
       uses: actions/upload-artifact@v3
