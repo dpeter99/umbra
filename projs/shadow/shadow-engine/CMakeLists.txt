@@ -10,6 +10,7 @@ FILE(GLOB_RECURSE SOURCES
         shadow-assets/src/*.cpp
         shadow-entity/src/*.cpp
         shadow-renderer/src/*.cpp
+        shadow-renderer-2d/src/*.cpp
         shadow-reflection/src/*.cpp
         shadow-utility/src/*.cpp
         shadow-math/src/*.cpp
@@ -21,6 +22,7 @@ SET(IncludeDirs
         shadow-assets/inc
         shadow-entity/inc
         shadow-renderer/inc
+        shadow-renderer-2d/inc
         shadow-reflection/inc
         shadow-utility/inc
         shadow-math/inc
