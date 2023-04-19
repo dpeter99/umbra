@@ -378,21 +378,20 @@ namespace ShadowEngine::Entities {
             int CID = T::TypeId();
 
             auto it = this->m_NodeContainerRegistry.find(CID);
-
-            return static_cast<NodeContainer<T> *>(it->second);
+            if (it != this->m_NodeContainerRegistry.end())
+                return static_cast<NodeContainer<T> *>(it->second);
+            else
+                return nullptr;
         }
     };
 
     class API SystemBase {
       public:
-        //SystemBase() {}
-        //virtual ~SystemBase() = default;
-
         virtual void run(NodeManager &nmgr) = 0;
     };
 
     template<class Target> requires std::derived_from<Target, NodeBase>
-    class API System : public SystemBase {
+    class System : public SystemBase {
         std::function<void(Target &node)> m_Func;
 
       public:
@@ -402,11 +401,11 @@ namespace ShadowEngine::Entities {
         }
 
         void run(NodeManager &nmgr) override {
-            auto &container = *nmgr.GetContainerByType<Target>();
-
-            for (auto it = container.begin(), end = container.end(); it != end; ++it) {
-                m_Func(*it);
-            }
+            auto container = nmgr.GetContainerByType<Target>();
+            if (container != nullptr)
+                for (auto it : *container) {
+                    m_Func(it);
+                }
         }
     };
 

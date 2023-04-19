@@ -21,9 +21,7 @@ namespace ShadowEngine {
 
     ShadowApplication *ShadowApplication::instance = nullptr;
 
-    std::unique_ptr<vlkx::RenderCommand> renderCommands;
-
-    std::weak_ptr<VulkanModule> renderer;
+    std::weak_ptr<CoreModule> core;
 
     ShadowApplication::ShadowApplication(int argc, char *argv[]) {
         instance = this;
@@ -71,9 +69,7 @@ namespace ShadowEngine {
 
         moduleManager.Init();
 
-        renderer = moduleManager.GetById<VulkanModule>("module:/renderer/vulkan");
-
-        renderCommands = std::make_unique<vlkx::RenderCommand>(2);
+        core = moduleManager.GetById<CoreModule>("module:/core");
     }
 
     void ShadowApplication::Start() {
@@ -89,12 +85,17 @@ namespace ShadowEngine {
 
             eventBus.fire(SH::Events::PreRender());
 
-            if (!renderer.expired()) {
-                auto r = renderer.lock();
-                r->BeginRenderPass(renderCommands);
+            if (!core.expired()) {
+                auto r = core.lock()->getRenderOrchestrator().getMainRenderer();
+                if (!r.expired()) {
+                    auto renderer = r.lock();
+                    renderer->BeginRenderPass();
+                }
             }
 
-            renderCommands->nextFrame();
+            //moduleManager.AfterFrameEnd();
+
+            //renderCommands->nextFrame();
             Time::UpdateTime();
         }
 

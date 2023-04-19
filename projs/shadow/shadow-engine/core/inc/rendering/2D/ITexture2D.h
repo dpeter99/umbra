@@ -1,6 +1,6 @@
 #pragma once
 
-namespace SH::Renderer2D {
+namespace SH::Renderer::R2D {
 
     /***
     * Interface for textures used in 2d drawing
@@ -20,5 +20,10 @@ namespace SH::Renderer2D {
         * @return Height
         */
         virtual int getHeight() const = 0;
+
+        /***
+         * @brief Returns the texture handle
+         */
+        virtual void *getHandle() const = 0;
     };
 }

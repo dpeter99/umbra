@@ -2,13 +2,13 @@
 
 extern "C" {
 void assembly_entry(ShadowEngine::ModuleManager &m) {
-    m.AddDescriptors({
-                         .id="module:/renderer/vulkan",
-                         .name = "Vulkan",
-                         .class_name = "VulkanModule",
-                         .assembly="assembly:/core",
-                         .dependencies={"module:/platform/sdl2"},
-                     });
+    //m.AddDescriptors({
+    //                     .id="module:/renderer/vulkan",
+    //                     .name = "Vulkan",
+    //                     .class_name = "VulkanModule",
+    //                     .assembly="assembly:/core",
+    //                     .dependencies={"module:/platform/sdl2"},
+    //                 });
 
     m.AddDescriptors({
                          .id="module:/core",

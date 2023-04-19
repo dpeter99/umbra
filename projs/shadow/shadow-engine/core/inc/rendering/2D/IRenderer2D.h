@@ -1,15 +1,16 @@
 #pragma once
 
 #include "ITexture2D.h"
+#include "rendering/IRenderer.h"
 
-namespace SH::Renderer2D {
+namespace SH::Renderer::R2D {
 
     /***
      * Interface for drawing 2D games.
      * Allows setting camera and drawing sprites.
      * @brief Interface for 2D renderer
      */
-    class IRenderer2D {
+    class IRenderer2D : public IRenderer {
 
       public:
         virtual ~IRenderer2D() = default;
@@ -39,8 +40,7 @@ namespace SH::Renderer2D {
         virtual void drawSprite(float x,
                                 float y,
                                 float width,
-                                float height,
-                                const ITexture2D &texture) = 0;
+                                float height) = 0;
     };
 
 }

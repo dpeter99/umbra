@@ -1,13 +1,7 @@
 #include <GameModule.h>
-#include "imgui.h"
 #include "spdlog/spdlog.h"
-#include "imgui_impl_vulkan.h"
-#include "imgui_impl_sdl.h"
-#include "core/Time.h"
 #include "vlkx/render/Camera.h"
 #include "vlkx/vulkan/abstraction/Buffer.h"
-#include "vlkx/render/render_pass/ScreenRenderPass.h"
-#include "temp/model/Builder.h"
 #include "core/module-manager-v2.h"
 #include "core/ShadowApplication.h"
 #include "TestScene.h"

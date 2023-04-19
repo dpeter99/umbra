@@ -3,6 +3,7 @@
 #include "core/Time.h"
 #include "core/module-manager-v2.h"
 #include "core/ShadowApplication.h"
+#include "rendering/IRenderer.h"
 
 SHObject_Base_Impl(ShadowEngine::Debug::DebugModule)
 
@@ -48,6 +49,16 @@ void ShadowEngine::Debug::DebugModule::DrawImguiDemo() {
 
     if(w_imguiDemo)
         ImGui::ShowDemoWindow(&w_imguiDemo);
+
+
+    if(ImGui::Begin("Game view", &active, ImGuiWindowFlags_MenuBar)) {
+        ImGui::Text("Game view");
+        ImGui::Image(
+            (void*)ShadowEngine::ShadowApplication::Get().GetModuleManager().GetById<SH::Renderer::IRenderer>("module:/sdl2renderer").lock()->getRenderTarget()->getHandle(),
+            ImVec2(800, 600));
+    }
+
+    ImGui::End();
 
 }
 

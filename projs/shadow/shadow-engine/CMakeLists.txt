@@ -14,6 +14,8 @@ FILE(GLOB_RECURSE SOURCES
         shadow-reflection/src/*.cpp
         shadow-utility/src/*.cpp
         shadow-math/src/*.cpp
+        ${Vulkan2D_SOURCE_DIR}/VK2D/*.c
+        ${VulkanMemoryAllocator_SOURCE_DIR}/src/VmaUsage.cpp
         )
 list(FILTER SOURCES EXCLUDE REGEX ".*.test.cpp$")
 
@@ -26,13 +28,15 @@ SET(IncludeDirs
         shadow-reflection/inc
         shadow-utility/inc
         shadow-math/inc
+        ${Vulkan2D_SOURCE_DIR}
+        ${VulkanMemoryAllocator_SOURCE_DIR}/src
         )
 
 
 add_library(shadow-engine SHARED ${SOURCES} $<TARGET_OBJECTS:imgui>)
 
 target_include_directories(shadow-engine
-        PRIVATE ${SDL2_INCLUDE_DIRS}
+        ##PRIVATE ${SDL2_INCLUDE_DIRS}
         PUBLIC ${IncludeDirs}
         ${glm_SOURCE_DIR}
         INTERFACE
@@ -40,13 +44,13 @@ target_include_directories(shadow-engine
         ${imgui_SOURCE_DIR}/backends)
 
 target_link_libraries(shadow-engine
-        PUBLIC Vulkan::Vulkan SDL2::SDL2 spdlog dylib imgui
+        PUBLIC SDL2::SDL2 Vulkan::Vulkan spdlog dylib imgui
         PRIVATE -static-libgcc -static-libstdc++
         )
 
 target_compile_definitions(shadow-engine PRIVATE "EXPORTING_SH_ENGINE")
 
-target_link_options(shadow-engine PUBLIC -Wl,--export-all-symbols)
+target_link_options(shadow-engine PRIVATE -Wl,--export-all-symbols)
 
 
 add_executable(tests ${TEST_SOURCES} ${SOURCES} $<TARGET_OBJECTS:imgui>)

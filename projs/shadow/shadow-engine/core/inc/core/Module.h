@@ -7,7 +7,7 @@
 
 namespace ShadowEngine {
 
-/// @brief ShadowModules are the base of the engine. They add core abilities.
+    /// @brief ShadowModules are the base of the engine. They add core abilities.
     class Module : public SHObject {
       SHObject_Base(Module)
 
@@ -42,11 +42,11 @@ namespace ShadowEngine {
         };
     };
 
-/**
- * A class especially for modules that are renderers.
- * Allows the engine to access state from the renderer independent of implementation.
- */
-    class RendererModule : public Module {
+    /**
+     * A class especially for modules that are renderers.
+     * Allows the engine to access state from the renderer independent of implementation.
+     */
+    class [[deprecated("Deprecated in favour of IRenderer")]] RendererModule : public Module {
       public:
         // Begin the render pass using the given commands.
         // Will call out through the regular modules to gather geometry to render.

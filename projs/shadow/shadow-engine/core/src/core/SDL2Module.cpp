@@ -2,7 +2,6 @@
 #include "core/ShadowWindow.h"
 #include "core/module-manager-v2.h"
 #include "spdlog/spdlog.h"
-#include "imgui_impl_sdl.h"
 
 #include "core/ShadowApplication.h"
 
