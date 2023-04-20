@@ -1,16 +1,82 @@
 #include "imgui/ImGuiModule.h"
 #include "core/module-manager-v2.h"
+#include "core/ShadowApplication.h"
 
-SHObject_Base_Impl(SH::ImGuiModule)
+namespace SH {
 
-MODULE_ENTRY(SH::ImGuiModule, ImGuiModule)
+    SHObject_Base_Impl(ImGuiModule)
 
-void SH::ImGuiModule::PreInit() {
+    MODULE_ENTRY(SH::ImGuiModule, ImGuiModule)
+
+    void ImGuiModule::Init() {
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO &io = ImGui::GetIO();
+        (void) io;
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+
+        // Setup Dear ImGui style
+        ImGui::StyleColorsDark();
+
+        findRenderer();
+        if (renderer.expired())
+            return;
+
+        renderer.lock()->InitImGui();
+    }
+
+    void ImGuiModule::PreInit() {
+
+    }
+
+    void ImGuiModule::Event(SDL_Event *e) {
+        ImGui_ImplSDL2_ProcessEvent(e);
+    }
+
+    void ImGuiModule::LateRender(VkCommandBuffer *commands, int frame) {
+        if (renderer.expired())
+            return;
+
+        auto r = renderer.lock();
+        r->FrameStart();
+
+        ImGui_ImplSDL2_NewFrame();
+        ImGui::NewFrame();
+
+        if (editorEnabled) {
+            static bool active = true;
+            if (ImGui::Begin("Game View", &active, ImGuiWindowFlags_None)) {
+                auto r = coreModule.lock()->getRenderOrchestrator().getMainRenderer();
+
+                ImGui::Image(
+                    (ImTextureID) r.lock()->getRenderTarget()->getHandle(),
+                    {640, 480});
+            }
+            ImGui::End();
+        }
+        ShadowEngine::ShadowApplication::Get().GetModuleManager().OverlayRender();
+
+        ImGui::Render();
+        ImGuiIO &io = ImGui::GetIO();
+
+        r->FrameEnd();
+
+        // Update and Render additional Platform Windows
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+        }
+    }
+
+    void ImGuiModule::findRenderer() {
+        //TODO: actually check if we have a renderer and all that malarkey
+        auto r = coreModule.lock()->getRenderOrchestrator().getMainRenderer().lock();
+        if (!(r->getCapabilities() & SH::Renderer::RendererCapabilities::RENDERER_IMGUI)) {
+            return;
+        }
+
+        renderer = dynamic_pointer_cast<SH::Renderer::IImGuiRenderer>(r);
+    }
 
 }
-
-void SH::ImGuiModule::Event(SDL_Event *e) {
-    ImGui_ImplSDL2_ProcessEvent(e);
-}
-
-

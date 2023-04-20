@@ -12,13 +12,5 @@ void assembly_entry(ShadowEngine::ModuleManager &m) {
                              "module:/entity-system",
                              "module:/V2DRenderer"},
                      });
-
-    m.AddDescriptors({
-                         .id="module:/V2DRenderer",
-                         .name = "Vulkan 2d Renderer",
-                         .class_name = "V2DRenderer",
-                         .assembly="assembly:/core",
-                         .dependencies={"module:/platform/sdl2"},
-                     });
 }
 }

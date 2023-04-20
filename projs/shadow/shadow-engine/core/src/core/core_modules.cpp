@@ -18,6 +18,22 @@ void assembly_entry(ShadowEngine::ModuleManager &m) {
                      });
 
     m.AddDescriptors({
+                         .id="module:/imgui",
+                         .name = "ImGui",
+                         .class_name = "ImGuiModule",
+                         .assembly="assembly:/core",
+                         .dependencies={"module:/platform/sdl2", "module:/V2DRenderer"},
+                     });
+
+    m.AddDescriptors({
+                         .id="module:/V2DRenderer",
+                         .name = "Vulkan 2d Renderer",
+                         .class_name = "V2DRenderer",
+                         .assembly="assembly:/core",
+                         .dependencies={"module:/platform/sdl2"},
+                     });
+
+    m.AddDescriptors({
                          .id="module:/platform/sdl2",
                          .name = "SDL2",
                          .class_name = "SDL2Module",

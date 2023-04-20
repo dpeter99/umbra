@@ -63,7 +63,7 @@ void GameModule::OverlayRender() {}
 
 void GameModule::AfterFrameEnd() {}
 
-void GameModule::LateRender(VkCommandBuffer &commands, int frame) {}
+void GameModule::LateRender(VkCommandBuffer *commands, int frame) {}
 
 void GameModule::PreRender() {}
 

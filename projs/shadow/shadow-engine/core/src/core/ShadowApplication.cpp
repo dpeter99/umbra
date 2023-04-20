@@ -70,6 +70,11 @@ namespace ShadowEngine {
         moduleManager.Init();
 
         core = moduleManager.GetById<CoreModule>("module:/core");
+
+        auto renderer = moduleManager.GetById<SH::Renderer::IRenderer>("module:/V2DRenderer").lock();
+        renderer->setRenderExtent(800, 600);
+        renderer->RenderSceneToTexture();
+
     }
 
     void ShadowApplication::Start() {

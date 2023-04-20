@@ -5,10 +5,10 @@
 
 class GameModule : public ShadowEngine::Module {
 
-    SHObject_Base(GameModule)
+  SHObject_Base(GameModule)
 
     std::string tets = "asdasd";
-public:
+  public:
     void PreInit() override;
 
     void Init() override;
@@ -21,14 +21,14 @@ public:
 
     void OverlayRender() override;
 
-    void Render(VkCommandBuffer& commands, int frame) override;
+    void Render(VkCommandBuffer &commands, int frame) override;
 
-    void LateRender(VkCommandBuffer& commands, int frame) override;
+    void LateRender(VkCommandBuffer *commands, int frame) override;
 
     void AfterFrameEnd() override;
 
     void Destroy() override;
 
-    void Event(SDL_Event*) override;
+    void Event(SDL_Event *) override;
 
 };

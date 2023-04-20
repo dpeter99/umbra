@@ -2,11 +2,14 @@
 
 #include "2D/ITexture2D.h"
 
+#include "enum-helpers.h"
+
 namespace SH::Renderer {
 
-    enum RendererCapabilities {
+    enum class RendererCapabilities {
         RENDERER_2D = 1 << 0,
         RENDERER_3D = 1 << 1,
+        RENDERER_IMGUI = 1 << 2,
         RENDERER_2D_3D = RENDERER_2D | RENDERER_3D
     };
 
@@ -18,10 +21,14 @@ namespace SH::Renderer {
          */
         virtual RendererCapabilities getCapabilities() const = 0;
 
+        virtual void setRenderExtent(int width, int height) = 0;
+
         /***
          * @brief Returns the active render target
          */
         virtual R2D::ITexture2D *getRenderTarget() const = 0;
+
+        virtual void RenderSceneToTexture() = 0;
 
         virtual void BeginRenderPass() = 0;
     };
