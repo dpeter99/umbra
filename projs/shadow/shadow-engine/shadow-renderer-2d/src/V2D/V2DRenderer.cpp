@@ -4,6 +4,8 @@
 #include "imgui_impl_vulkan.h"
 
 #include <VK2D/Opaque.h>
+#include <VK2D/LogicalDevice.h>
+#include <VK2D/VulkanInterface.h>
 
 namespace SH::Renderer::V2D {
 
@@ -45,14 +47,15 @@ namespace SH::Renderer::V2D {
         vk2dRendererStartFrame(clearColour);
 
         if (renderingToTexture) {
-            vk2dRendererSetTarget(render_target->getTexture());
+            //vk2dRendererSetTarget(render_target->getTexture());
         }
 
         // Draw your things
         vk2dRendererDrawRectangle(0, 0, 100, 100, 0, 0, 0);
 
-        if (renderingToTexture)
-            vk2dRendererSetTarget(nullptr);
+        if (renderingToTexture) {
+            //vk2dRendererSetTarget(nullptr);
+        }
 
         manager.LateRender(nullptr, 0);
 
@@ -126,7 +129,7 @@ namespace SH::Renderer::V2D {
         init_info.Queue = vk2dR->ld->queue;
         init_info.PipelineCache = VK_NULL_HANDLE;
         init_info.DescriptorPool = imGuiPool;
-        init_info.Subpass = 1;
+        //init_info.Subpass = 0;
         init_info.MinImageCount = vk2dR->swapchainImageCount;
         init_info.ImageCount = vk2dR->swapchainImageCount;
         init_info.MSAASamples = VK_SAMPLE_COUNT_1_BIT;
@@ -134,6 +137,10 @@ namespace SH::Renderer::V2D {
         init_info.CheckVkResultFn = nullptr;
 
         ImGui_ImplVulkan_Init(&init_info, vk2dR->renderPass);
+
+        auto cmdBuffer = vk2dLogicalDeviceGetSingleUseBuffer(vk2dR->ld);
+        ImGui_ImplVulkan_CreateFontsTexture(cmdBuffer);
+        vk2dLogicalDeviceSubmitSingleBuffer(vk2dR->ld, cmdBuffer);
 
     }
 }

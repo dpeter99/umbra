@@ -53,9 +53,9 @@ void ShadowEngine::Debug::DebugModule::DrawImguiDemo() {
 
     if(ImGui::Begin("Game view", &active, ImGuiWindowFlags_MenuBar)) {
         ImGui::Text("Game view");
-        ImGui::Image(
-            (void*)ShadowEngine::ShadowApplication::Get().GetModuleManager().GetById<SH::Renderer::IRenderer>("module:/sdl2renderer").lock()->getRenderTarget()->getHandle(),
-            ImVec2(800, 600));
+        //ImGui::Image(
+        //    (void*)ShadowEngine::ShadowApplication::Get().GetModuleManager().GetById<SH::Renderer::IRenderer>("module:/sdl2renderer").lock()->getRenderTarget()->getHandle(),
+        //    ImVec2(800, 600));
     }
 
     ImGui::End();

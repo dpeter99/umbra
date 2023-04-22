@@ -1,14 +1,12 @@
-#define STB_IMAGE_IMPLEMENTATION
-
+#include <dylib.hpp>
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <spdlog/spdlog.h>
 
 #include "core/ShadowApplication.h"
 #include "core/Time.h"
-#include "dylib.hpp"
-#include "vlkx/vulkan/abstraction/Commands.h"
-#include "vlkx/vulkan/VulkanModule.h"
+#include "core/CoreModule.h"
+#include "debug-trap.h"
 
 #define CATCH(x) \
     try { x } catch (std::exception& e) { spdlog::error(e.what()); exit(0); }
@@ -31,6 +29,9 @@ namespace ShadowEngine {
                 std::string param(argv[i]);
                 if (param == "-debug") {
                     this->debug = true;
+                }
+                if (param == "-break") {
+                    spdlog::info("Breaking for debugger");
                 }
                 if (param == "-game") {
                     this->game = argv[i + 1];
@@ -72,8 +73,8 @@ namespace ShadowEngine {
         core = moduleManager.GetById<CoreModule>("module:/core");
 
         auto renderer = moduleManager.GetById<SH::Renderer::IRenderer>("module:/V2DRenderer").lock();
-        renderer->setRenderExtent(800, 600);
-        renderer->RenderSceneToTexture();
+        //renderer->setRenderExtent(800, 600);
+        //renderer->RenderSceneToTexture();
 
     }
 

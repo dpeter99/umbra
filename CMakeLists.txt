@@ -75,7 +75,7 @@ FetchContent_MakeAvailable(VMA)
 FetchContent_Declare(
         Vulkan2D
         GIT_REPOSITORY "https://github.com/dpeter99/Vulkan2D.git"
-        GIT_TAG 19369cfa3a2e04f0bb5fe74e7a1e6d6991e9f07f
+        GIT_TAG 2978e7fe10c6007b6aee7b569985092b50d53510
 )
 FetchContent_MakeAvailable(Vulkan2D)
 

@@ -43,18 +43,7 @@ namespace SH {
 
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
-
-        if (editorEnabled) {
-            static bool active = true;
-            if (ImGui::Begin("Game View", &active, ImGuiWindowFlags_None)) {
-                auto r = coreModule.lock()->getRenderOrchestrator().getMainRenderer();
-
-                ImGui::Image(
-                    (ImTextureID) r.lock()->getRenderTarget()->getHandle(),
-                    {640, 480});
-            }
-            ImGui::End();
-        }
+        
         ShadowEngine::ShadowApplication::Get().GetModuleManager().OverlayRender();
 
         ImGui::Render();
