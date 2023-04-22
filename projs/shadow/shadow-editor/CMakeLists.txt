@@ -1,12 +1,13 @@
-set(CMAKE_CXX_STANDARD 20)
 find_package(SDL2 CONFIG REQUIRED)
+
+set(CMAKE_CXX_STANDARD 20)
 
 FILE(GLOB_RECURSE SOURCES src/*.cpp inc/*.h)
 
 add_executable(shadow-editor ${SOURCES})
 
 target_include_directories(shadow-editor
-        PUBLIC inc/
+        PUBLIC inc/ -all_load
         PRIVATE ${SDL2_INCLUDE_DIRS})
 target_link_libraries(shadow-editor PRIVATE SDL2::SDL2main PUBLIC shadow-engine)
 

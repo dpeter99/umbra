@@ -50,7 +50,7 @@ target_link_libraries(shadow-engine
 
 target_compile_definitions(shadow-engine PRIVATE "EXPORTING_SH_ENGINE")
 
-target_link_options(shadow-engine PRIVATE -Wl,--export-all-symbols)
+target_link_options(shadow-engine PUBLIC -Wl,--export-all-symbols)
 
 
 add_executable(tests ${TEST_SOURCES} ${SOURCES} $<TARGET_OBJECTS:imgui>)
