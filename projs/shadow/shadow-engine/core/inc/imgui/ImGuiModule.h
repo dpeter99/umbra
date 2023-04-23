@@ -2,13 +2,14 @@
 
 #include "core/Module.h"
 
-#include "imgui_impl_sdl.h"
+#include "imgui_impl_sdl2.h"
 
 #include "imgui.h"
 #include "core/ShadowApplication.h"
 #include "core/CoreModule.h"
 
 #include "rendering/IImGuiRenderer.h"
+#include "rendering/render-events.h"
 
 namespace SH {
 
@@ -34,21 +35,11 @@ namespace SH {
 
         void Update(int frame) override {}
 
-        void Recreate() override {}
-
-        void PreRender() override {}
-
-        void Render(VkCommandBuffer &commands, int frame) override {}
-
-        void LateRender(VkCommandBuffer *commands, int frame) override;
-
-        void OverlayRender() override {}
-
-        void AfterFrameEnd() override {}
+        void LateRender(SH::Renderer::LateRender &e);
 
         void Destroy() override {}
 
-        void Event(SDL_Event *e) override;
+        void SDLEvent(SH::Events::SDLEvent &e);
 
     };
 }

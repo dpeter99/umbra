@@ -13,7 +13,7 @@ void __declspec(dllexport) assembly_entry(ShadowEngine::ModuleManager &m) {
                          .name = "Editor",
                          .class_name = "EditorModule",
                          .assembly=assemblyID,
-                         .dependencies={"module:/platform/sdl2"},
+                         .dependencies={"module:/platform/sdl2", "module:/V2DRenderer"},
                      });
 }
 }

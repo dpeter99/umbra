@@ -24,17 +24,21 @@ namespace SH {
             return;
 
         renderer.lock()->InitImGui();
+
+        auto eventBus = ShadowEngine::ShadowApplication::Get().GetEventBus();
+        eventBus.subscribe(this, &ImGuiModule::SDLEvent);
+        eventBus.subscribe(this, &ImGuiModule::LateRender);
     }
 
     void ImGuiModule::PreInit() {
 
     }
 
-    void ImGuiModule::Event(SDL_Event *e) {
-        ImGui_ImplSDL2_ProcessEvent(e);
+    void ImGuiModule::SDLEvent(SH::Events::SDLEvent &e) {
+        ImGui_ImplSDL2_ProcessEvent(&e.event);
     }
 
-    void ImGuiModule::LateRender(VkCommandBuffer *commands, int frame) {
+    void ImGuiModule::LateRender(SH::Renderer::LateRender &e) {
         if (renderer.expired())
             return;
 
@@ -43,8 +47,8 @@ namespace SH {
 
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
-        
-        ShadowEngine::ShadowApplication::Get().GetModuleManager().OverlayRender();
+
+        ShadowEngine::ShadowApplication::Get().GetEventBus().fire(SH::Events::OverlayRender());
 
         ImGui::Render();
         ImGuiIO &io = ImGui::GetIO();

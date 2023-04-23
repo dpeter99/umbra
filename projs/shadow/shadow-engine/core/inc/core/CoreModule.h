@@ -20,11 +20,5 @@ class CoreModule : public ShadowEngine::Module {
 
     void Update(int frame) override {}
 
-    void Recreate() override {}
-
-    void PreRender() override {}
-
-    void Destroy() override {
-
-    }
+    void Destroy() override {}
 };

@@ -3,12 +3,9 @@
 #include <SDL_events.h>
 
 #include "SHObject.h"
+#include "event_bus.h"
 
 namespace SH::Events {
-
-    class Event : public ShadowEngine::SHObject {
-      SHObject_Base(Event)
-    };
 
     class SDLEvent : public Event {
       SHObject_Base(SDLEvent)

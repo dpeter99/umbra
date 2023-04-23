@@ -3,6 +3,7 @@
 #include "core/Module.h"
 #include "EditorWindow.h"
 #include "core/ShadowApplication.h"
+#include "event-bus/events.h"
 
 #include <map>
 

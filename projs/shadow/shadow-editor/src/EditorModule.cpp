@@ -6,6 +6,7 @@
 #include "windows/DebugWindows.h"
 #include "string-helpers.h"
 #include "core/module-manager-v2.h"
+#include "core/CoreModule.h"
 
 namespace ShadowEngine::Editor {
 
@@ -79,11 +80,15 @@ namespace ShadowEngine::Editor {
     }
 
     void EditorModule::Init() {
-        ShadowEngine::ShadowApplication::Get().GetEventBus()
+        ShadowApplication &application = ShadowEngine::ShadowApplication::Get();
+        application.GetEventBus()
             .subscribe(this, &EditorModule::OverlayRender);
 
         windows.push_back(std::make_shared<SceneView>());
         windows.push_back(std::make_shared<DebugWindows>());
+
+        application.GetModuleManager().GetById<CoreModule>("module:/core").lock()
+            ->getRenderOrchestrator().getMainRenderer().lock()->RenderSceneToTexture();
     }
 
     void EditorModule::RegisterMenu(std::string path, Menu m) {

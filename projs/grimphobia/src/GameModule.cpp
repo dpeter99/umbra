@@ -53,21 +53,3 @@ void GameModule::Init() {
 
 }
 
-void GameModule::Recreate() {}
-
-void GameModule::Update(int frame) {}
-
-void GameModule::Render(VkCommandBuffer &commands, int frame) {}
-
-void GameModule::OverlayRender() {}
-
-void GameModule::AfterFrameEnd() {}
-
-void GameModule::LateRender(VkCommandBuffer *commands, int frame) {}
-
-void GameModule::PreRender() {}
-
-void GameModule::Destroy() {}
-
-void GameModule::Event(SDL_Event *) {}
-

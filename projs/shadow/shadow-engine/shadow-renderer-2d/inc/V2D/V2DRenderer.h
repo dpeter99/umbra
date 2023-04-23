@@ -26,6 +26,9 @@ namespace SH::Renderer::V2D {
         bool renderingToTexture = false;
         V2DTexture2D *render_target = nullptr;
         glm::ivec2 render_target_size;
+
+        VK2DCameraIndex windowCam;
+        VK2DCameraSpec cam;
       public:
         V2DRenderer() : manager(ShadowEngine::ShadowApplication::Get().GetModuleManager()) {
         }
@@ -63,21 +66,7 @@ namespace SH::Renderer::V2D {
 
         void Update(int frame) override {}
 
-        void Recreate() override {}
-
-        void PreRender() override {}
-
-        void Render(VkCommandBuffer &commands, int frame) override;
-
-        void LateRender(VkCommandBuffer *commands, int frame) override {}
-
-        void OverlayRender() override {}
-
-        void AfterFrameEnd() override {}
-
         void Destroy() override {}
-
-        void Event(SDL_Event *e) override {}
 
     };
 }

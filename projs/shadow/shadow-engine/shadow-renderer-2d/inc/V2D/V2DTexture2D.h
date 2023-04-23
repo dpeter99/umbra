@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VK2D/VK2D.h"
+#include "VK2D/Opaque.h"
 
 #include "rendering/2D/ITexture2D.h"
 
@@ -13,26 +14,18 @@ namespace SH::Renderer::V2D {
         V2DTexture2D(int width, int height) : texture(vk2dTextureCreate(width, height)) {
 
         }
-        
+
         ~V2DTexture2D() override {
             vk2dTextureFree(texture);
         }
 
-        int getWidth() const override {
-            return vk2dTextureWidth(texture);
-        }
+        int getWidth() const override;
 
-        int getHeight() const override {
-            return vk2dTextureHeight(texture);
-        }
+        int getHeight() const override;
 
-        void *getHandle() const override {
-            return vk2dTextureGetImage(texture);
-        }
+        void *getHandle() const override;
 
-        VK2DTexture getTexture() const {
-            return texture;
-        }
+        VK2DTexture GetTexture() const;
 
     };
 

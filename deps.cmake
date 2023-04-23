@@ -59,7 +59,7 @@ endif ()
 FetchContent_Declare(
         imgui
         GIT_REPOSITORY https://github.com/ocornut/imgui
-        GIT_TAG 71a0701920dbc83155f718182f01132d1ec2d51e
+        GIT_TAG d2291df55190e2f070af2635863f47a96d378a52
 )
 FetchContent_MakeAvailable(imgui)
 
@@ -89,6 +89,6 @@ FetchContent_MakeAvailable(VMA)
 FetchContent_Declare(
         Vulkan2D
         GIT_REPOSITORY "https://github.com/dpeter99/Vulkan2D.git"
-        GIT_TAG 2978e7fe10c6007b6aee7b569985092b50d53510
+        GIT_TAG 0b99f3d056c67cab36b49323492717537de27b8f
 )
 FetchContent_MakeAvailable(Vulkan2D)

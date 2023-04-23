@@ -5,9 +5,12 @@
 #include <ranges>
 
 #include "SHObject.h"
-#include "events.h"
 
 namespace SH::Events {
+
+    class Event : public ShadowEngine::SHObject {
+      SHObject_Base(Event)
+    };
 
     template<typename T>
     concept EventType = std::is_base_of<Event, T>::value;
@@ -40,7 +43,7 @@ namespace SH::Events {
         static BusMap subscriptions;
     };
 
-    #define Event_Impl(type) template<> API EventDispatcherHolder<type>::BusMap EventDispatcherHolder<type>::subscriptions(10);
+    #define Event_Impl(type) template<> API SH::Events::EventDispatcherHolder<type>::BusMap SH::Events::EventDispatcherHolder<type>::subscriptions(10);
 
     template<EventType T,
         BusID Bus = SH::Events::MainBus,

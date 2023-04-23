@@ -1,16 +1,17 @@
 #pragma once
 
+#include <memory>
 #include "../EditorWindow.h"
-#include "vlkx/vulkan/VulkanModule.h"
+#include "rendering/IRenderer.h"
 
 namespace ShadowEngine::Editor {
 
-    class SceneView : public EditorWindow{
-    SHObject_Base(SceneView)
+    class SceneView : public EditorWindow {
+      SHObject_Base(SceneView)
 
-    VulkanModule* renderer;
+        std::weak_ptr<SH::Renderer::IRenderer> renderer;
 
-    public:
+      public:
         SceneView();
 
         void Draw() override;

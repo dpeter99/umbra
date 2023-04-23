@@ -1,12 +1,11 @@
 #include <dylib.hpp>
-#include <imgui.h>
-#include <imgui_impl_sdl.h>
 #include <spdlog/spdlog.h>
 
 #include "core/ShadowApplication.h"
 #include "core/Time.h"
 #include "core/CoreModule.h"
 #include "debug-trap.h"
+#include "event-bus/events.h"
 
 #define CATCH(x) \
     try { x } catch (std::exception& e) { spdlog::error(e.what()); exit(0); }
@@ -32,6 +31,7 @@ namespace ShadowEngine {
                 }
                 if (param == "-break") {
                     spdlog::info("Breaking for debugger");
+                    psnip_trap();
                 }
                 if (param == "-game") {
                     this->game = argv[i + 1];
@@ -82,9 +82,7 @@ namespace ShadowEngine {
         SDL_Event event;
         while (running) {
             while (SDL_PollEvent(&event)) {  // poll until all events are handled!
-                SH::Events::SDLEvent e(event);
-                SH::Events::EventDispatcher<SH::Events::SDLEvent>::call(e);
-                //eventBus.fire(e);
+                eventBus.fire(SH::Events::SDLEvent(event));
                 if (event.type == SDL_QUIT)
                     running = false;
             }
