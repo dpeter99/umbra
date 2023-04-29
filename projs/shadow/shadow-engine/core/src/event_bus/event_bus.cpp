@@ -9,6 +9,10 @@ namespace SH::Events {
 
     Event_Impl(SDLEvent)
 
+    SHObject_Base_Impl(UpdateEvent)
+
+    Event_Impl(UpdateEvent)
+
     SHObject_Base_Impl(OverlayRender)
 
     Event_Impl(OverlayRender)

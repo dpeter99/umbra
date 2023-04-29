@@ -18,6 +18,15 @@ namespace SH::Events {
         SDL_Event event;
     };
 
+    class UpdateEvent : public Event {
+      SHObject_Base(UpdateEvent)
+      public:
+        UpdateEvent(int frame, float deltaTime) : frame(frame), deltaTime(deltaTime) {};
+
+        int frame;
+        float deltaTime;
+    };
+
     class OverlayRender : public Event {
       SHObject_Base(OverlayRender)
     };

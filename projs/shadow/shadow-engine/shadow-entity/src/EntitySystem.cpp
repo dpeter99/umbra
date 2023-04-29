@@ -29,7 +29,7 @@ namespace ShadowEngine::Entities {
             child->Add<Builtin::Position>({10.0f * i, 10, 10});
         }
 
-        world.system<Builtin::Position>()->forEach([](auto &pos) {
+        world.system<Builtin::Position>()->forEach([](auto &pos, auto) {
             pos.y += 1.0f;
         });
 
@@ -43,9 +43,4 @@ namespace ShadowEngine::Entities {
         ShadowEngine::ShadowApplication::Get().GetEventBus()
             .subscribe(this, &EntitySystem::OverlayRender);
     }
-
-    void EntitySystem::Update(int frame) {
-        this->world.Step();
-    }
-
 }

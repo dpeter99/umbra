@@ -8,6 +8,8 @@
 
 #include "SHObject.h"
 #include "NodeManager.h"
+#include "event-bus/event_bus.h"
+#include "core/ShadowApplication.h"
 
 namespace ShadowEngine::Entities {
 
@@ -388,24 +390,62 @@ namespace ShadowEngine::Entities {
         //SystemBase() {}
         //virtual ~SystemBase() = default;
 
-        virtual void run(NodeManager &nmgr) = 0;
+        virtual void run(NodeManager &nmgr, SH::Events::Event &e) = 0;
     };
 
-    template<class Target> requires std::derived_from<Target, NodeBase>
+    template<class Target, SH::Events::EventType E> requires std::derived_from<Target, NodeBase>
     class API System : public SystemBase {
-        std::function<void(Target &node)> m_Func;
+        using Clkb = std::function<void(Target &node, E &e)>;
+        Clkb m_Func;
 
       public:
-        System<Target> &forEach(std::function<void(Target &)> func) {
+        System<Target, E> &forEach(Clkb func) {
             this->m_Func = func;
             return *this;
         }
 
-        void run(NodeManager &nmgr) override {
+        void run(NodeManager &nmgr, SH::Events::Event &e) override {
             auto &container = *nmgr.GetContainerByType<Target>();
-
+            auto &event = static_cast<E &>(e);
             for (auto it = container.begin(), end = container.end(); it != end; ++it) {
-                m_Func(*it);
+                m_Func(*it, e);
+            }
+        }
+    };
+
+    class API ISystemRunner {
+      public:
+        virtual ~ISystemRunner() = default;
+
+        virtual void AddSystem(std::shared_ptr<SystemBase> system) = 0;
+    };
+
+    template<SH::Events::EventType E>
+    class API SystemRunner : public ISystemRunner {
+
+        SH::Events::SubRef<E> sub;
+      public:
+        std::vector<std::shared_ptr<SystemBase>> m_Systems;
+
+        SystemRunner(NodeManager &nmgr) {
+            sub = ShadowEngine::ShadowApplication::Get().GetEventBus().subscribe<E>(
+                std::bind(&SystemRunner::Run,
+                          this,
+                          nmgr,
+                          std::placeholders::_1));
+        }
+
+        ~SystemRunner() {
+            ShadowEngine::ShadowApplication::Get().GetEventBus().unsubscribe(sub);
+        }
+
+        void AddSystem(std::shared_ptr<SystemBase> system) override {
+            m_Systems.push_back(system);
+        }
+
+        void Run(NodeManager &nmgr, E &e) {
+            for (auto &s : m_Systems) {
+                s->run(nmgr, e);
             }
         }
     };
@@ -413,25 +453,26 @@ namespace ShadowEngine::Entities {
     class API SystemManager {
         NodeManager &nodeManager;
 
-        //vector storing the systems
-        std::vector<std::shared_ptr<SystemBase>> m_Systems;
+        std::unordered_map<TypeID, ISystemRunner> m_SystemMap;
+
+        ISystemRunner &GetSystemRunner(TypeID id) {
+            auto it = m_SystemMap.find(id);
+            if (it == m_SystemMap.end()) {
+                m_SystemMap[id] = SystemRunner<SH::Events::EventType(id)>(nodeManager);
+            }
+            return m_SystemMap[id];
+        }
 
       public:
         SystemManager(NodeManager &nmgr) : nodeManager(nmgr) {
 
         }
 
-        template<class T>
-        std::shared_ptr<System<T>> system() {
-            auto ptr = std::make_unique<System<T>>();
-            m_Systems.push_back(std::make_shared<System<T>>());
-            return std::dynamic_pointer_cast<System<T>>(m_Systems.back());
-        }
-
-        void run() {
-            for (auto &s : m_Systems) {
-                s->run(nodeManager);
-            }
+        template<class T, SH::Events::EventType E>
+        std::shared_ptr<System<T, E>> system() {
+            auto ptr = std::make_shared<System<T, E>>();
+            m_SystemMap[E::TypeId()].AddSystem(ptr);
+            return ptr;
         }
     };
 
@@ -463,13 +504,9 @@ namespace ShadowEngine::Entities {
             return root->Add<T>(scene);
         }
 
-        template<class T>
-        std::shared_ptr<System<T>> system() {
-            return systemManager.system<T>();
-        }
-
-        void Step() {
-            systemManager.run();
+        template<class T, SH::Events::EventType E = SH::Events::UpdateEvent>
+        std::shared_ptr<System<T, E>> system() {
+            return systemManager.system<T, E>();
         }
 
         NodeManager &GetManager() { return manager; }

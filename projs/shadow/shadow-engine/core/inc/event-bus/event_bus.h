@@ -86,6 +86,11 @@ namespace SH::Events {
         }
 
         template<EventType T>
+        SubRef<T> unsubscribe(const SubRef<T> ref) {
+            Dispatcher<T>::unsubscribe(ref);
+        }
+
+        template<EventType T>
         void fire(T &e) {
             Dispatcher<T>::call(e);
         }
