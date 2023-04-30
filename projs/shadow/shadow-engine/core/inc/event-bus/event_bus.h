@@ -54,7 +54,7 @@ namespace SH::Events {
             return sub;
         }
 
-        void unsubscribe(const SubRef<T> ref) {
+        static void unsubscribe(const SubRef<T> ref) {
             auto &subList = Holder::subscriptions[Bus];
             subList.erase(std::remove(subList.begin(), subList.end(), ref), subList.end());
         }
@@ -86,7 +86,7 @@ namespace SH::Events {
         }
 
         template<EventType T>
-        SubRef<T> unsubscribe(const SubRef<T> ref) {
+        void unsubscribe(const SubRef<T> ref) {
             Dispatcher<T>::unsubscribe(ref);
         }
 

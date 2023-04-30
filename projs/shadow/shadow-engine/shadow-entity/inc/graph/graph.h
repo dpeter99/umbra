@@ -408,7 +408,7 @@ namespace ShadowEngine::Entities {
             auto &container = *nmgr.GetContainerByType<Target>();
             auto &event = static_cast<E &>(e);
             for (auto it = container.begin(), end = container.end(); it != end; ++it) {
-                m_Func(*it, e);
+                m_Func(*it, event);
             }
         }
     };
@@ -453,12 +453,14 @@ namespace ShadowEngine::Entities {
     class API SystemManager {
         NodeManager &nodeManager;
 
-        std::unordered_map<TypeID, ISystemRunner> m_SystemMap;
+        std::unordered_map<TypeID, std::shared_ptr<ISystemRunner>> m_SystemMap;
 
-        ISystemRunner &GetSystemRunner(TypeID id) {
+        template<SH::Events::EventType T>
+        std::shared_ptr<ISystemRunner> GetSystemRunner() {
+            TypeID id = T::TypeId();
             auto it = m_SystemMap.find(id);
             if (it == m_SystemMap.end()) {
-                m_SystemMap[id] = SystemRunner<SH::Events::EventType(id)>(nodeManager);
+                m_SystemMap[id] = std::make_shared<SystemRunner<T>>(nodeManager);
             }
             return m_SystemMap[id];
         }
@@ -471,7 +473,7 @@ namespace ShadowEngine::Entities {
         template<class T, SH::Events::EventType E>
         std::shared_ptr<System<T, E>> system() {
             auto ptr = std::make_shared<System<T, E>>();
-            m_SystemMap[E::TypeId()].AddSystem(ptr);
+            this->GetSystemRunner<E>()->AddSystem(ptr);
             return ptr;
         }
     };

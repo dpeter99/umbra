@@ -190,7 +190,10 @@ void VulkanModule::PreInit() {
 
 void VulkanModule::BeginRenderPass(const std::unique_ptr<vlkx::RenderCommand> &commands) {
     const auto update = !editorEnabled
-                        ? [](const int frame) { ShadowEngine::ShadowApplication::Get().GetModuleManager().Update(frame); }
+                        ? [](const int frame) {
+            ShadowEngine::ShadowApplication::Get().GetEventBus().fire(SH::Events::UpdateEvent(frame,
+                                                                                              0));
+        }
                         : [](const int frame) {};
 
     const auto res =
