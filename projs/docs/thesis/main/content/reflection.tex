@@ -1,0 +1,112 @@
+\chapter{Reflection}\label{ch:reflection}
+
+In programming, reflection refers to any case where the program needs to reason about itself, especially during execution.
+This can be anything from the list of all the classes that implement a specific interface, or the list of fields inside one of those classes.
+This can be extremely useful when serializing data into a human-readable format, as in these cases we would need to iterate all the data members inside the object.
+
+Reflection is a common capability of most high level languages, for example, JS even has the ability to print out the code for a class of function.
+In C\# and Java, we have the ability to list every class or my type of members inside them.
+
+This ability is missing from C++ by default as it is Wii complex and would be extra data only useful in a few use cases.
+Because of this everyone who needs this data in their code needs to find some way to generate and store the information.
+
+If reflection is not available then it is possible to use manually written functions that return the same data.
+<Code example>
+
+In the example, we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
+This approach works and can give all the data that one could need.
+However, this is a lot of manual work and puts the responsibility on the coder to write the function correctly.
+This takes time away from actual development.
+
+Another solution is to use a tool that can generate these functions or generate the data in a portable format that can be loaded during runtime.
+
+
+\section{Why we need reflection}\label{sec:why-we-need-reflection}
+
+In a game engine reflection is used for (among other things) serialising the level data.
+For this we need to know what data fields an object has and witch of those need to be written to the level file.
+On top of this, we also need to display all the fields in the editor, so the designer can change those with ease.
+
+\subsection{Other engines}
+
+The two engines that use the easiest to understand process for getting reflection data are UE and Source
+
+\subsubsection{Source}
+Source uses the simplest approach where the developer is responsible for creating a function that returns all the metadata about a class.
+To make this easier they have made a few macros that complete in the necessary lines of code.
+<Code example>
+
+As source uses an external editor that doesn't depend on the game source code they also create a description file that tells the Hammer editor what entities exist in the game with what possible properties.
+
+\subsubsection{UE}
+
+Ue uses a tool that generates the reflection information by parsing the source code of the game and engine.
+This tool is strongly integrated into the build process and relies on a few changes to the compiler.
+Partial
+
+
+\section{Shadow header tool}\label{sec:shadow-header-tool}
+
+For Shadow Engine I have decided to try and create a similar tool to what UE has.
+This would allow the users of the project a more seamless experience and free up development time in the future.
+I have explored multiple possible ways to create such a tool, as for this I would need a partial AST (Abstract syntax tree).
+This is notoriously hard to generate for Cpp.
+
+I have found multiple online tutorials on how to create compiler plugins for clang.
+Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/Cpp compilers.
+While these tutorials showed great results and allowed full integration into the compilation process, they almost all required compiling clang from scratch.
+
+I have tried following some of these tutorials, but I have run into many issues that would have need way more time to solve than I had available.
+Most of my problems boiled down to one thing, there is no distribution of clang for Windows that supports loading and developing plugins.
+Because of this I would need to compile clang myself and this is not an easy task and can differ based on the system being used.
+
+After realising that getting clang plugins working is a way bigger task than I should work on, I have decided to write a simple parser in C\#.
+I have chosen C\# because I'm familiar with it and has better string manipulation methods than cpp.
+
+...
+
+Cpp attributes
+
+\subsection{Goal}
+Get a list of all the classes that are in the code.
+To be expandable in the future the tool parses all the classes no matter if they have an attribute that marks it for reflection.
+
+\subsection{Ast}
+After the initial regex based implementation I got inspiration and initial help creating a more advanced code processor that is much closerin design to a classical compiler. These software usually have the following steps:
+- Lexer
+- parser
+- etc..
+The lexer is responsible for dividing the source code into lexicographical tokens.
+These are usually things like keywords, identifiers, and the different kinds of brackets.
+This is done by iterating over the input text character by character and if the character is a known char we put it into a list of tokens.
+<Example code>
+In my implementation I parse the following tokens:
+<List>
+These are not all the possible tokens, but they are enough for what this tool needs to understand.
+
+\subsection{Parser}
+Parsing is the step where we iterate over all the tokens that makeup a file and form logical units out of them.
+These are going to be the Nodes that make up the final AST. For each file the root of the corresponding AST is going to be a CompilationUnitNode.
+
+For example the following series of tokens represent a basic class.
+
+<Example of class tokens>
+
+Would turn into this:
+
+<Pseudo code of class node>
+
+During parsing we find these patterns and form node from them.
+
+To get this we can do a similar forward iteration as we did while lexing but this time we iterate on the token level.
+Most of these patterns are well documented in the cop specifications and are more easily available online in cppreference.com
+
+In the tool I have created a partial parser as I do not care about most of the cop code.
+As a result my parser ignores all the function bodies and any declarations that it doesn't recognise as a class head or a member field.
+
+\subsection{Output}
+Both of the parsers (regex based and lexing) output the data they gather in a common format.
+This makes it easy to add new code processors in the future, thus leaving the possibility of a clang integration open.
+
+The output writer is a simple function that finds all classes with the correct attribute (SH::Reflect) and,
+using simple string interpolation writes the necessary functions into a common file.

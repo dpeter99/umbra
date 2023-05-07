@@ -1,0 +1,60 @@
+\chapter{Project foundation}
+
+
+\section{Setting up the project}
+
+\subsection{Version control}
+
+As this is going to be a rojec that multile eople work on we need a way to syncronise our work. For this
+
+Casue we liked it and it is the standard
+
+\subsection{Build systems}
+
+\subsubsection{Msbuild}
+The obvious choice
+MsBuild is the build system Microsoft uses in VisualStudio and what most of the games companies use.
+It is an obvious choice as it has great integration with VS and the Windows ecosystem.
+But it also locks the project to be windows only, as it is nearly impossible to build a MSBuild C++ project on Linux or MacOS.
+This means that we can't use it if we ever want to make the engine multi-platform.
+MSBuild also locks us in to Visual Studio as the code editor, and not every potential contributor likes it, so this is also a problem.
+As an open source project we want to allow contributors to use whatever IDE they want to minimizes friction, and make onboarding as easy as possible.
+
+\subsubsection{Bazel}
+The new kid
+Bazel is a relatively less used build system that Google developed for their own monorepo.
+It is optimized for large projects that have complex interdependencies.
+For us the two major features that would be useful are the build cache and multiple language support.
+The Bazel build cache is capable of uploading to a server the results of individual compilation steps and then allow all other developer to download the results.
+This is accomplished by making the build steps strictly deterministic and caching the result.
+The second important thing Bazel can offer is multiple language support,
+this means that it would be possible to truly have a single repository for all that is connected to teh project.
+For example the repo could contain the website, thesis latex and engine code.
+
+Problems with bazel
+
+Lack of language servers
+Bad integration
+
+\subsubsection{CMake}
+The common one
+
+CMake is the most common build system among cross-platform projects.
+It is not a single ready to use package tho.
+Users can generate multiple types of configurations from the same CMake files.
+This means that on Windows one could generate Visual Studio project files, on Linux Make files and so on.
+
+\subsubsection{The choice}
+I have experimented and tried the project setup with all 3 of the options that came up.
+MsBuild was quickly discarded as none of us wanted to use Visual Studio.
+It turned out that our preferred editor is CLion from Intelij.
+This meant that both Bazel and Cmake could work.
+
+First I tried to use Bazel but that turned out to be lacking many comforts that a modern coding environment is expected to have (See Bazel>Problems).
+Because of this I even had a call with the current product manager of Bazel where I described most of the issues I had, I hope to try it again and be more successful in a year or so.
+
+Finally, we settled on CMake as it is a known usable system and has excellent integration in CLion.
+~~This is also a known tool in the Linux community and should allow us to build on any platform.~~
+
+One of the important things CMake allows us to do is minimize the amount of dependencies the developers need to manually download.
+This means that all the libraries that we use are downloaded by CMake based on versioned URLs
