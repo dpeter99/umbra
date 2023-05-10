@@ -1,0 +1,59 @@
+\chapter{Entities}
+
+Just as there are many game engines, there are just as many definitions and nomenclature
+for what to call the pieces that build up the game world.
+Game worlds usually have many different types of objects,
+but the most common distinction that can be made is between static and dynamic objects.
+Static objects form up the unchangeable parts of the world, such as the ground, walls, and other objects that are not meant to be interacted with.
+The other category is dynamic objects, these are the objects that can be interacted with by the player or other dynamic objects.
+Despite the lack of a standardized terminology,
+understanding the unique approaches taken by existing engines is important when developing a new engine.
+Unity refers to its in-game objects as "GameObjects",
+Unreal Engine 4/5 employs the term "Actors",
+and the Source Engine designates its elements as "Entities".
+While they use different names and have different capabilities,
+the fundamental concepts behind them are the same.
+
+Unity has GameObjects that build up everything in the game world.
+These form a spatial hierarchy [1] that allows us to group and move game objects together,
+this can be used for a player where we might need to move multiple models together.
+
+<Image Hierarchy>
+
+The user then can attach components to these game objects, which than define what it is capable of.
+For example, the user can attach a Mesh and mesh renderer to create something that will show u in the world.
+On to of the built-in components, the user can define their own components in c\# scripting by extending Mono behaviour
+
+In Unreal Engine 4/5, Actors serve as the foundation for all interactive elements within a game world.
+Similar to Unity's game objects, Actors form a hierarchical structure,
+enabling the organization and manipulation of multiple objects in tandem,
+such as character models or environmental assets.
+
+<Image Outliner>
+
+Within each Actor, Components can be added, which determine the object's functionality and behaviour.
+These Components themselves can be organized in a hierarchical fashion,
+allowing for a more structured and efficient setup.
+For example, a Static Mesh Component can be added to an Actor, enabling it to be visually represented within the game world.
+Users can also create custom Components using C++ or Blueprints,
+Unreal Engine's visual scripting system, by extending the base Actor Component class.
+This offers a powerful and flexible way to tailor functionality to specific needs while maintaining a well-organized Component hierarchy within each Actor.
+
+Source engine uses a fix set of entities that are compiled with the engine.
+
+\subsection{Shadow Engine}
+In shadow engine we use a more complex setup that borrows form UE4/5.
+In this solution we imagine the game world as a graph, namely a tree.
+Everything in this tree is a Node, and these can be further specialized according to what role they fulfil.
+
+There are 2 types of main Nodes: Actros and Entites, the difference is that Actors have names, and both can have public and internal hierarchy.
+The internal hieracrhy is similar to what UE4/5 offers
+
+The start of the graph is a RootNode that has all the loaded scenes as it's children.
+
+entity graph
+NodeBase
+Node
+Entity
+Scene
+	 

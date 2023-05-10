@@ -8,6 +8,8 @@
 
 \ifxetexorluatex
   \usepackage{fontspec}
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
 \else
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
@@ -34,7 +36,9 @@
 
 \usepackage[unicode]{hyperref} % For hyperlinks in the generated document.
 \usepackage{xcolor}
-\usepackage{listings} % For source code snippets.
+%\usepackage{listings} % For source code snippets.
+
+\usepackage[outputdir=\outdir]{minted}
 
 \usepackage[amsmath,thmmarks]{ntheorem} % Theorem-like environments.
 
@@ -65,5 +69,3 @@
 
 \usepackage[numbers]{natbib}
 \usepackage{xspace}
-
-\usepackage{gitver}

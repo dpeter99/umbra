@@ -7,13 +7,38 @@ This can be extremely useful when serializing data into a human-readable format,
 Reflection is a common capability of most high level languages, for example, JS even has the ability to print out the code for a class of function.
 In C\# and Java, we have the ability to list every class or my type of members inside them.
 
-This ability is missing from C++ by default as it is Wii complex and would be extra data only useful in a few use cases.
+This ability is missing from C++ by default as it is too complex and would be extra data only useful in a few use cases.
 Because of this everyone who needs this data in their code needs to find some way to generate and store the information.
 
 If reflection is not available then it is possible to use manually written functions that return the same data.
-<Code example>
 
-In the example, we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+    class Base {
+    public:
+        virtual const MetaData& getMetaData() const = 0;
+    };
+
+    class Derived : public Base {
+    public:
+        const MetaData& getMetaData() const override {
+            static MetaData data = {
+                .name = "Derived",
+                .fields = {
+                    { "field1", ... },
+                    { "field2", ... },
+                    { "field3", ... },
+                }
+            };
+            return data;
+        }
+    };
+    \end{minted}
+    \caption{Example for a manual reflection function}
+    \label{listing:maual-reflection}
+\end{listing}
+
+In the example (\ref{listing:maual-reflection}), we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
 This approach works and can give all the data that one could need.
 However, this is a lot of manual work and puts the responsibility on the coder to write the function correctly.
 This takes time away from actual development.
@@ -50,10 +75,10 @@ Partial
 For Shadow Engine I have decided to try and create a similar tool to what UE has.
 This would allow the users of the project a more seamless experience and free up development time in the future.
 I have explored multiple possible ways to create such a tool, as for this I would need a partial AST (Abstract syntax tree).
-This is notoriously hard to generate for Cpp.
+This is notoriously hard to generate for C++.
 
 I have found multiple online tutorials on how to create compiler plugins for clang.
-Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/Cpp compilers.
+Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/C++ compilers.
 While these tutorials showed great results and allowed full integration into the compilation process, they almost all required compiling clang from scratch.
 
 I have tried following some of these tutorials, but I have run into many issues that would have need way more time to solve than I had available.
@@ -72,7 +97,8 @@ Get a list of all the classes that are in the code.
 To be expandable in the future the tool parses all the classes no matter if they have an attribute that marks it for reflection.
 
 \subsection{Ast}
-After the initial regex based implementation I got inspiration and initial help creating a more advanced code processor that is much closerin design to a classical compiler. These software usually have the following steps:
+After the initial regex based implementation I got inspiration and initial help creating a more advanced code processor that is much closerin design to a classical compiler.
+These software usually have the following steps:
 - Lexer
 - parser
 - etc..
