@@ -68,8 +68,8 @@
     \pagenumbering{arabic}
 
 %TODO import your own content
-    \include{content/intro}
-    \include{content/project-foundation}
+    \include{content/001-intro}
+    \include{content/002-project-foundation}
     \include{content/architecture}
     \include{content/entites}
     \include{content/reflection}
@@ -92,13 +92,20 @@
 
     % Bibliography
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    %\addcontentsline{toc}{chapter}{\bibname}
-    %\bibliography{bib/mybib}
+    \addcontentsline{toc}{chapter}{\bibname}
+    \bibliography{bib/mybib}
+
 
 
     % Appendix
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     %\include{content/appendices}
+
+    \newpage
+    \chapter*{Document info}
+    This document was compiled from the Umbra monorepo on \date{}
+    Commit: \gitcommit
+    Branch: \gitbranch
 
     %\label{page:last}
 \end{document}
