@@ -1,26 +1,31 @@
-\chapter{Intro}
+\chapter{Summary}
 
 This projects goal is to create a game engine, similar in design to what is currently available from big commercial engines.
 As this is a large undertaking that far exceeds the limits and practicality of a thesis project, I will be focusing on giving the project a good foundation. This means considerable time will be spent investigating solutions to issues other projects do not care about. By the end I hope to have a solid foundation and core systems for the engine that I plan to use and extend in the coming years.
 Planned parts:
-- CI/CD pipelines
-- Choosing a build system that is usable with large projects
-- Dynamic DLL loading to allow for hot reloading of the game code
-- Basic Entity system
-- Reflection system for runtime code metadata
+
+\begin{itemize}
+    \item CI/CD pipelines
+    \item Choosing a build system that is usable with large projects
+    \item Dynamic DLL loading to allow for hot reloading of the game code
+    \item Basic Entity system
+    \item Reflection system for runtime code metadata
+\end{itemize}
 
 The project is a collaboration between me and a friend of mine, she will be writing the renderer and donating some other bits of code.
 The project is hosted on github and is MIT licensed.
 
 
-\section{What is a game engine?}
-A game engine is a highly complex software that allows the creation of computer games. They can vary is what functionality they provide and how the game maker interacts with them. They can have graphical interfaces and easy to understand UI, or be code only and need programming knowledge. The most wildly known games engines (like Unity and UE4) provide a single editor application that the user (the game maker) interacts with. These programs have many built in tools that help with creating a game.
+\chapter{Intro}
 
-There are game engines witch are availabe for free and are used by many companies for buiilding games. While other games use either a purpuse built engine or one that the comany develoed inhouse.
+\section{What is a game engine?}
+A game engine is a highly complex software that allows the creation of computer games. They can vary is what functionality they provide and how the game's creator interacts with them. They can have graphical interfaces and easy to understand UI, or be code only and need programming knowledge to use. The most wildly known games engines (like Unity and UE4) provide a single editor application that the user (the game maker) interacts with. These programs have many built in tools that help with creating a game, like level editor tools, or material editors, some even provide node based scripting tools.
+
+There are game engines witch are available for free and used by many companies to building games. While other companies use either a purpuse built engines for their games or one that the company developed in-house.
 
 
 \section{How games work}
-Games are real time graphical applications, meaning that they redraw the contents of the screen fast enough where they form a continous animation. Films work the same way but as they are not interactive they can work with 15 frames per second (FPS), but as games need to react to the user's input they should strive to draw as many frames as the hardware can process. For games developed for PCs the recommended minimum is 60 frames per second. This means the game has to finish redrawing and updating everything in the game world 60 times a second. ~~This gives us **16.7 milliseconds** to do everything.~~
+Games are real time graphical applications, meaning that they redraw the contents of the screen fast enough where they form a continous animation. Films work the same way but as they are not interactive they can work with 25 frames per second (FPS), but as games need to react to the user's input they should strive to draw as many frames as the hardware can process. For games developed for PCs the recommended minimum is 60 frames per second. This means the game has to finish redrawing and updating everything in the game world 60 times a second. ~~This gives us **16.7 milliseconds** to do everything.~~
 
 Engines are the core of a games code, they provide many of the utility functions that are needed to draw the game, gather input, load files and many more. Just as there are many different styles of games, there are many different game engines. Some are purpose built engines for a specific game with no intention to be reusable. While others are general purpose engines that can be used to make a wide range of games. These game engines will also warry in what they provide, for example an engine for a single player game will probbaly not have any networking code.
 

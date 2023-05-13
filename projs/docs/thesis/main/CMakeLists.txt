@@ -1,4 +1,6 @@
 
+project(thesis)
+
 SET(OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 SET(LatexMkRC "latexmk.rc")
@@ -18,7 +20,7 @@ add_custom_command(
 
 SET(GIT_INFO_GENERATION_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/gen_git.ps1)
 add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex ${CMAKE_CURRENT_BINARY_DIR}/__git_data.tex
         COMMAND powershell -ExecutionPolicy Bypass -File ${GIT_INFO_GENERATION_SCRIPT}
         ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex
         ${OUTPUT_DIRECTORY}

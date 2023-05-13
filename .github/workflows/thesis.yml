@@ -1,0 +1,35 @@
+name: Build thesis docs
+
+on: [push]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: lukka/get-cmake@latest
+
+      - run: cmake -Bbuild -GNinja .
+        working-directory: ./projs/docs/thesis/main
+
+      - name: Build
+        shell: pwsh
+        working-directory: ./projs/docs/thesis/main
+        run: |
+          ./gen_git.ps1 "./git_data.tex" "./" "./"
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          latexmk_shell_escape: true
+          latexmk_use_lualatex: true
+          working_directory: ./projs/docs/thesis/main
+
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: ./projs/docs/thesis/main/main.pdf
+
