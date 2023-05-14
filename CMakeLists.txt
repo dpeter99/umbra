@@ -83,4 +83,4 @@ add_subdirectory(projs/shadow/shadow-editor)
 
 add_subdirectory(projs/test-game)
 
-add_subdirectory(projs/docs/thesis/main)
+add_subdirectory(projs/docs/publications/thesis)

@@ -1,5 +1,7 @@
-
 project(thesis)
+
+find_package(PlantUML REQUIRED)
+
 
 SET(OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -11,12 +13,20 @@ SET(LatexMkFlags
         -aux-directory=${OUTPUT_DIRECTORY}
         -r ${LatexMkRC}
         -lualatex -shell-escape
-        )
+)
 
 add_custom_command(
         OUTPUT always_rebuild
         COMMAND cmake -E echo
 )
+
+
+FILE(GLOB_RECURSE umlfiles
+        content/**/*.plantuml
+        )
+
+
+add_diagram(umldiagrams ${umlfiles} eps)
 
 SET(GIT_INFO_GENERATION_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/gen_git.ps1)
 add_custom_command(

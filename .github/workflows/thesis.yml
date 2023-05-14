@@ -8,14 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - uses: lukka/get-cmake@latest
+      #- uses: lukka/get-cmake@latest
 
-      - run: cmake -Bbuild -GNinja .
-        working-directory: ./projs/docs/thesis/main
+      #- run: cmake -Bbuild -GNinja .
+      #  working-directory: ./projs/docs/publications/thesis
 
       - name: Build
         shell: pwsh
-        working-directory: ./projs/docs/thesis/main
+        working-directory: ./projs/docs/publications/thesis
         run: |
           ./gen_git.ps1 "./git_data.tex" "./" "./"
 
@@ -25,11 +25,13 @@ jobs:
           root_file: main.tex
           latexmk_shell_escape: true
           latexmk_use_lualatex: true
-          working_directory: ./projs/docs/thesis/main
+          working_directory: ./projs/docs/publications/thesis
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
+        env:
+          PLANTUML_JAR: ${{env.GITHUB_WORKSPACE}}/projs/docs/tools/plantuml.jar
         with:
           name: PDF
-          path: ./projs/docs/thesis/main/main.pdf
+          path: ./projs/docs/publications/thesis/main.pdf
 
