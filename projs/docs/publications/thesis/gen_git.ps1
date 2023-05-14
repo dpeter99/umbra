@@ -1,3 +1,5 @@
+#!/usr/bin/powershell -Command
+
 Write-Host "Writing the git status file for Latex";
 Get-Location | Write-Host;
 Write-Host "Target file is" $args[0];

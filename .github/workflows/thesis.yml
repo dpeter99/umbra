@@ -8,24 +8,43 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      #- uses: lukka/get-cmake@latest
+      - uses: lukka/get-cmake@latest
 
       #- run: cmake -Bbuild -GNinja .
       #  working-directory: ./projs/docs/publications/thesis
 
-      - name: Build
-        shell: pwsh
-        working-directory: ./projs/docs/publications/thesis
-        run: |
-          ./gen_git.ps1 "./git_data.tex" "./" "./"
+      #- name: Build
+      #  shell: pwsh
+      #  working-directory: ./projs/docs/publications/thesis
+      #  run: |
+      #    ./gen_git.ps1 "./git_data.tex" "./" "./"
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v2  
         with:
-          root_file: main.tex
-          latexmk_shell_escape: true
-          latexmk_use_lualatex: true
-          working_directory: ./projs/docs/publications/thesis
+          packages: >-
+            scheme-full
+            cleveref
+            hyperref
+            latexmk
+            collection-fontsrecommended
+            collection-fontutils
+            biber
+            biblatex
+
+      - name: Run CMake consuming CMakePresets.json
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: ${{ github.workspace }}/projs/docs/publications/thesis/CMakeLists.txt
+          workflowPreset: 'thesis'
+
+      #- name: Compile LaTeX document
+      #  uses: xu-cheng/latex-action@v2
+      #  with:
+      #    root_file: main.tex
+      #    latexmk_shell_escape: true
+      #    latexmk_use_lualatex: true
+      #    working_directory: ./projs/docs/publications/thesis
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v3

@@ -1,0 +1,39 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "Debug",
+      "displayName": "Default Config",
+      "description": "Debug build using Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/bin/Debug/cmake"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Build-Thesis",
+      "configurePreset": "Debug",
+      "targets": ["thesis"]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "thesis",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "Debug"
+        },
+        {
+          "type": "build",
+          "name": "Build-Thesis"
+        }
+      ]
+    }
+  ]
+}

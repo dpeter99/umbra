@@ -1,5 +1,10 @@
 project(thesis)
 
+
+if(PROJECT_IS_TOP_LEVEL)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../../../cmake")
+endif()
+
 find_package(PlantUML REQUIRED)
 
 
@@ -28,10 +33,16 @@ FILE(GLOB_RECURSE umlfiles
 
 add_diagram(umldiagrams ${umlfiles} eps)
 
+if(WIN32)
+    set(powershell powershell)
+else()
+    set(powershell pwsh)
+endif()
+
 SET(GIT_INFO_GENERATION_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/gen_git.ps1)
 add_custom_command(
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex ${CMAKE_CURRENT_BINARY_DIR}/__git_data.tex
-        COMMAND powershell -ExecutionPolicy Bypass -File ${GIT_INFO_GENERATION_SCRIPT}
+        COMMAND ${powershell} -ExecutionPolicy Bypass -File ${GIT_INFO_GENERATION_SCRIPT}
         ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex
         ${OUTPUT_DIRECTORY}
         ${OUTPUT_DIRECTORY}
