@@ -1,0 +1,18 @@
+@startuml
+[shadow-engine] <<dynamic lib>> as shengine
+
+[shadow-runner] <<exe>> as runner
+
+[shadow-editor] <<exe>> as editor
+
+[test-game] <<dynamic lib>> as game
+
+shengine <- editor : linking
+runner -> shengine : linking
+
+game ..> shengine : uses
+
+runner --> game : loads
+editor --> game : loads
+
+@enduml
