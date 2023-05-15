@@ -51,6 +51,11 @@ add_custom_command(
 )
 
 add_custom_target(
+        thesis-pre
+        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex umldiagrams
+)
+
+add_custom_target(
         thesis
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND latexmk ${LatexMkFlags} main.tex

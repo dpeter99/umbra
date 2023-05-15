@@ -11,19 +11,19 @@
       "displayName": "Default Config",
       "description": "Debug build using Ninja generator",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/bin/Debug/cmake"
+      "binaryDir": "${sourceDir}/bin/"
     }
   ],
   "buildPresets": [
     {
-      "name": "Build-Thesis",
+      "name": "Prepare-Thesis",
       "configurePreset": "Debug",
-      "targets": ["thesis"]
+      "targets": ["thesis-pre"]
     }
   ],
   "workflowPresets": [
     {
-      "name": "thesis",
+      "name": "thesis-prep",
       "steps": [
         {
           "type": "configure",
@@ -31,7 +31,7 @@
         },
         {
           "type": "build",
-          "name": "Build-Thesis"
+          "name": "Prepare-Thesis"
         }
       ]
     }

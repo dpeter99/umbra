@@ -19,37 +19,39 @@ jobs:
       #  run: |
       #    ./gen_git.ps1 "./git_data.tex" "./" "./"
 
-      - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v2  
-        with:
-          packages: >-
-            scheme-full
-            cleveref
-            hyperref
-            latexmk
-            collection-fontsrecommended
-            collection-fontutils
-            biber
-            biblatex
+      #- name: Setup TeX Live
+      #  uses: teatimeguest/setup-texlive-action@v2  
+      #  with:
+      #    packages: >-
+      #      scheme-full
+      #      cleveref
+      #      hyperref
+      #      latexmk
+      #      collection-fontsrecommended
+      #      collection-fontutils
+      #      biber
+      #      biblatex
 
       - name: Run CMake consuming CMakePresets.json
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: ${{ github.workspace }}/projs/docs/publications/thesis/CMakeLists.txt
-          workflowPreset: 'thesis'
+          workflowPreset: 'thesis-prep'
 
-      #- name: Compile LaTeX document
-      #  uses: xu-cheng/latex-action@v2
-      #  with:
-      #    root_file: main.tex
-      #    latexmk_shell_escape: true
-      #    latexmk_use_lualatex: true
-      #    working_directory: ./projs/docs/publications/thesis
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        env:
+          PLANTUML_JAR: ${{env.GITHUB_WORKSPACE}}/projs/docs/tools/plantuml.jar
+        with:
+          pre_compile: "tlmgr update --self && tlmgr update --all"
+          root_file: main.tex
+          latexmk_shell_escape: true
+          latexmk_use_lualatex: true
+          working_directory: ./projs/docs/publications/thesis
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -aux-directory=./bin/"
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
-        env:
-          PLANTUML_JAR: ${{env.GITHUB_WORKSPACE}}/projs/docs/tools/plantuml.jar
         with:
           name: PDF
           path: ./projs/docs/publications/thesis/main.pdf
