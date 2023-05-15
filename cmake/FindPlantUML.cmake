@@ -7,7 +7,7 @@ set(PLANTUML_JARFILE ${PROJECT_SOURCE_DIR}/../../tools/plantuml.jar)
 function(add_diagram target source type)
 
     # Program used to render the diagram.
-    set(plantuml java -jar ${PLANTUML_JARFILE})
+    set(plantuml java -Djava.awt.headless=true -jar ${PLANTUML_JARFILE})
 
     set(commands)
     set(output)

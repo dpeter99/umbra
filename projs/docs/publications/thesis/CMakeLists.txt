@@ -1,4 +1,4 @@
-project(thesis)
+project(thesis NONE)
 
 
 if (PROJECT_IS_TOP_LEVEL)
@@ -31,7 +31,7 @@ FILE(GLOB_RECURSE umlfiles
         )
 
 
-add_diagram(umldiagrams ${umlfiles} latex)
+add_diagram(umldiagrams ${umlfiles} eps)
 
 if (WIN32)
     set(powershell powershell)

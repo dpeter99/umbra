@@ -19,7 +19,7 @@ To make sure the engine is easy to extend and can be used for any game, it is im
 
 To achieve this, we need a way to not include certain parts of the code in the compilation. The simplest way to do this would be to create multiple CMake configurations that leave out the not needed files, or use the preprocessor to disable the code in those sections. The problem with these is that they are hard to maintain, and require the creation of game specific compilations, which goes against the idea of a single executable for the whole engine.
 
-The second solution is to put the potentially not needed code into DLLs and load them at runtime if there is a need. To allow for this, I have created a Module system for Shadow engine. This system covers the startup and core loop of the engine. The engine is split into multiple projects inside the repository, they are eachh responsible for a specific part of the engein.
+The second solution is to put the potentially not needed code into DLLs and load them at runtime if there is a need. To allow for this, I have created a Module system for Shadow engine. This system covers the startup and core loop of the engine. The engine is split into multiple projects inside the repository, they are each responsible for a specific part of the engine (shown in \ref{fig:dll-diagram}).
 
 \begin{itemize}
     \item shdaow-engine: The core of the engine that contains most of the code
@@ -28,9 +28,9 @@ The second solution is to put the potentially not needed code into DLLs and load
 \end{itemize}
 
 \begin{figure}
-    \includegraphics[width=1\textwidth]{content/003-architecture/project-layout.eps}
-    \caption{The main function of the runtime executable}
-    \label{fig:figure}
+    \includegraphics[width=1\textwidth]{/content/003-architecture/project-layout.eps}
+    \caption{The high level components of the engine}
+    \label{fig:dll-diagram}
 \end{figure}
 
 \subsection{The App startup}\label{subsec:the-app-startup}
@@ -42,6 +42,12 @@ That library can be loaded in by either the shadow-runtime, or shadow-editor exe
     \caption{The main function of the runtime executable}
     \label{listing:shadow-runtime-main}
 \end{listing}
+
+\begin{figure}
+    \includegraphics[width=1\textwidth]{\auxdir/content/003-architecture/startup.eps}
+    \caption{The high level components of the engine}
+    \label{fig:dll-diagram}
+\end{figure}
 
 The \verb|ShadowEngine::ShadowApplication| is the core of the engine, provided by the shadow-engine DLL. This class creates the Module Manager which is responsible for loading in the modules that make up the engine. Every module needs to extend the base \verb|Module| class. Each module needs to be registered to the Module manager using a descriptor.
 

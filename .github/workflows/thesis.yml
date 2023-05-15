@@ -1,14 +1,16 @@
 name: Build thesis docs
 
-on: [push]
+on: [ push ]
 
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
-      - uses: lukka/get-cmake@latest
+
+      #- uses: lukka/get-cmake@latest
+
+      #- run: sudo apt install graphviz
 
       #- run: cmake -Bbuild -GNinja .
       #  working-directory: ./projs/docs/publications/thesis
@@ -32,27 +34,46 @@ jobs:
       #      biber
       #      biblatex
 
-      - name: Run CMake consuming CMakePresets.json
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: ${{ github.workspace }}/projs/docs/publications/thesis/CMakeLists.txt
-          workflowPreset: 'thesis-prep'
+      #- name: Run CMake consuming CMakePresets.json
+      #  uses: lukka/run-cmake@v10
+      #  with:
+      #    cmakeListsTxtPath: ${{ github.workspace }}/projs/docs/publications/thesis/CMakeLists.txt
+      #    workflowPreset: 'thesis-prep'
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-        env:
-          PLANTUML_JAR: ${{env.GITHUB_WORKSPACE}}/projs/docs/tools/plantuml.jar
+      #- name: Compile LaTeX document
+      #  uses: xu-cheng/latex-action@v2
+      #  env:
+      #    PLANTUML_JAR: ${{env.GITHUB_WORKSPACE}}/projs/docs/tools/plantuml.jar
+      #  with:
+      #    #pre_compile: "tlmgr update --self && tlmgr update --all"
+      #    root_file: main.tex
+      #    latexmk_shell_escape: true
+      #    latexmk_use_lualatex: true
+      #    working_directory: ./projs/docs/publications/thesis
+      #    args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -aux-directory=./bin/"
+
+      - uses: xu-cheng/texlive-action/full@v1
         with:
-          pre_compile: "tlmgr update --self && tlmgr update --all"
-          root_file: main.tex
-          latexmk_shell_escape: true
-          latexmk_use_lualatex: true
-          working_directory: ./projs/docs/publications/thesis
-          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -aux-directory=./bin/"
+          run: |
+            apk add cmake ninja powershell graphviz
+            apk add git openjdk11-jre fontconfig ttf-dejavu font-droid font-droid-nonlatin freetype tree
+            export LD_LIBRARY_PATH=/usr/lib
+
+            tlmgr update --all
+
+            git config --global --add safe.directory /github/workspace
+            chmod -R 777 ./
+
+            cd ./projs/docs/publications/thesis
+
+            mkdir build
+            tree -dfi --noreport ./ | xargs -I{} mkdir -p "./build/{}"
+            cmake -G Ninja -B build
+            cmake --build build -t thesis
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: ./projs/docs/publications/thesis/main.pdf
+          path: ./projs/docs/publications/thesis/build/main.pdf
 
