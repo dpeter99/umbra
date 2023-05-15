@@ -2,7 +2,7 @@
 
 Nowadays, game makers think of game engines as a single application they download and use to create the game they want. This means that they don't want and need to recompile the engine's source code to develop their own game. This leads to fast iteration times and easier workflows. This means you only need to install the Unity or Unreal editors once, and you can make multiple games without compiling them from source. Of course, if it is necessary most engines do give the ability to modify their source code and create studio/game specific versions of them.
 
-To achieve this, the Game specific code needs to be loaded at runtime, from it's compiled form. In our case, this means that we need to load the DLL containing the game specific code. This is easily possible on every platform using the dylib \cite{dylib} library, that makes calling the platform specific functions easier. It provides a single function that wraps each platform's corresponding call, and gives back a pointer that represents the platform specific result. 
+To achieve this, the Game specific code needs to be loaded at runtime, from it's compiled form. In our case, this means that we need to load the DLL containing the game specific code. This is easily possible on every platform using the dylib \cite{dylib} library, that makes calling the platform specific functions easier. It provides a single function that wraps each platform's corresponding call, and gives back a pointer that represents the platform specific result.
 
 \begin{minted}{cpp}
 dylib lib("foo");
@@ -21,20 +21,24 @@ To achieve this, we need a way to not include certain parts of the code in the c
 
 The second solution is to put the potentially not needed code into DLLs and load them at runtime if there is a need. To allow for this, I have created a Module system for Shadow engine. This system covers the startup and core loop of the engine. The engine is split into multiple projects inside the repository, they are eachh responsible for a specific part of the engein.
 
-- shdaow-engine: The core of the engine that contains most of the code
-- shadow-runtime: Small startup code for plaiyng a finished game
-- shadow-editor: The startup and editor related code for the engine
+\begin{itemize}
+    \item shdaow-engine: The core of the engine that contains most of the code
+    \item shadow-runtime: Small startup code for plaiyng a finished game
+    \item shadow-editor: The startup and editor related code for the engine
+\end{itemize}
 
-\begin{plantuml}
-\input{project-layout.plantuml}
-\end{plantuml}
+\begin{figure}
+    \includegraphics[width=1\textwidth]{content/003-architecture/project-layout.eps}
+    \caption{The main function of the runtime executable}
+    \label{fig:figure}
+\end{figure}
 
-\subsection{The App startup}
-The core of the engine is contained in the shadow-engine project, which gets compiled into a DLL. 
+\subsection{The App startup}\label{subsec:the-app-startup}
+The core of the engine is contained in the shadow-engine project, which gets compiled into a DLL\@.
 That library can be loaded in by either the shadow-runtime, or shadow-editor executables depending on if you are playing or making a game. Both of these have a similar simple main function \ref{}
 
 \begin{listing}[!ht]
-    \inputminted{cpp}{../../../../shadow/shadow-runtime/src/main.cpp}
+    \inputminted{cpp}{content/003-architecture/main.cpp}
     \caption{The main function of the runtime executable}
     \label{listing:shadow-runtime-main}
 \end{listing}
@@ -51,17 +55,20 @@ m.AddDescriptors({
  });
 \end{minted}
 
-This object describes everything that is needed to create the module, and what other modules it needs to function correctly. The \verb|id| field is a string identifier for the module that is compatible with the planned resource system. (More in \ref{addendum:resources}), and the \verb|assembly| field is a similar ID it defines in witch DLL the manager needs to search for this class. The \verb|dependencies| list is a list of string IDs of the modules that need to be loaded before this module.
+This object describes everything that is needed to create the module, and what other modules it needs to function correctly. The \verb|id| field is a string identifier for the module that is compatible with the planned resource system, and the \verb|assembly| field is a similar ID it defines in witch DLL the manager needs to search for this class. The \verb|dependencies| list is a list of string IDs of the modules that need to be loaded before this module.
 
 Based on the dependencies described in the descriptors, the Module manager uses a Depth first search to try and create a topological sort. To ensure the dependencies are cycle free is the job of the user at this point. When this order is found, the module manager tries to create each of the modules. This is done by searching for a special function in the assembly the module is in. This function needs to follow these rules:
-- Must be marked with ``extern "C"``
-- ``<class name>_entry()`` where the ``<class name>`` section is the same as the classes name without the namespace section.  These special functions
-- needs to give back a ``std::shared_ptr`` to a freshly created instance of the module.
-To help create these functions I have made ``MODULE_ENTRY`` which is a preprocessor macro that creates them form based on the class name.
+\begin{itemize}
+    \item Must be marked with \verb|extern "C"|
+    \item It's name must be in the format \verb|<class name>_entry()| where the \verb|<class name>| section is the same as the classes name without the namespace section. These special functions
+    \item Needs to give back a \verb|std::shared_ptr| to a freshly created instance of the module.
+\end{itemize}
+
+To help create these functions I have made \verb|MODULE_ENTRY| which is a preprocessor macro that creates them based on the class name.
 
 After every module was successfully instantiated, the module manager calls pre-Init and Init on the modules. Between these steps, the DFS sorting is re-run to ensure every module still has the necessary modules to continue loading. For example, a VR module might exit in pre-init if it finds no VR headset to work with.
 
 After this initialization sequence is done, the runtime calls the Start method on the shadow application which starts the main update loop.
 
-## The update loop
+\subsection{The update loop}
 

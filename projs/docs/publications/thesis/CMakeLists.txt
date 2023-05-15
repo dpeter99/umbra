@@ -1,9 +1,9 @@
 project(thesis)
 
 
-if(PROJECT_IS_TOP_LEVEL)
+if (PROJECT_IS_TOP_LEVEL)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../../../cmake")
-endif()
+endif ()
 
 find_package(PlantUML REQUIRED)
 
@@ -18,7 +18,7 @@ SET(LatexMkFlags
         -aux-directory=${OUTPUT_DIRECTORY}
         -r ${LatexMkRC}
         -lualatex -shell-escape
-)
+        )
 
 add_custom_command(
         OUTPUT always_rebuild
@@ -31,13 +31,13 @@ FILE(GLOB_RECURSE umlfiles
         )
 
 
-add_diagram(umldiagrams ${umlfiles} eps)
+add_diagram(umldiagrams ${umlfiles} latex)
 
-if(WIN32)
+if (WIN32)
     set(powershell powershell)
-else()
+else ()
     set(powershell pwsh)
-endif()
+endif ()
 
 SET(GIT_INFO_GENERATION_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/gen_git.ps1)
 add_custom_command(
@@ -54,5 +54,5 @@ add_custom_target(
         thesis
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND latexmk ${LatexMkFlags} main.tex
-        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex
+        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/git_data.tex umldiagrams
 )
