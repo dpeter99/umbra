@@ -1,0 +1,7 @@
+{
+  "destroyOtherPlugins": false,
+  "extensions": [
+    "tex",
+    "bib"
+  ]
+}
