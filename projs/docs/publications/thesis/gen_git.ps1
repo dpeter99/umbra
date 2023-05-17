@@ -14,7 +14,7 @@ $gitBranch = git rev-parse --abbrev-ref HEAD
 Add-Content -Path $args[0] -Value ("\newcommand{\gitbranch}{" + $gitBranch + "}");
 Write-Host $gitBranch
 
-$gitVersion = git describe "--dirty=-dev" 2>$null
+$gitVersion = git describe "--dirty=-dev" 2> $null
 Add-Content -Path $args[0] -Value ("\newcommand{\gitversion}{" + $gitVersion + "}");
 Write-Host $gitVersion
 

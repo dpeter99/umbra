@@ -33,11 +33,13 @@ cycle
 classes
 calls
 continue
+content
 Architecture
 App
 AddDescriptors
 After
 Nowadays
+Needs
 game
 games
 give
@@ -66,6 +68,7 @@ made
 macro
 might
 method
+must
 think
 they
 to
@@ -114,6 +117,9 @@ executables
 everything
 ensure
 exit
+eps
+extern
+entry
 as
 application
 and
@@ -129,6 +135,9 @@ are
 against
 assembly
 addendum
+auxdir
+architecture
+app
 single
 source
 studio
@@ -162,6 +171,10 @@ sorting
 still
 sequence
 starts
+shown
+subsec
+std
+shared
 download
 don
 develop
@@ -178,6 +191,8 @@ defines
 described
 descriptors
 done
+dll
+diagram
 use
 using
 used
@@ -249,6 +264,7 @@ listing
 label
 loading
 list
+level
 fast
 from
 form
@@ -266,6 +282,9 @@ found
 follow
 freshly
 finds
+fig
+figure
+format
 iteration
 install
 if
@@ -285,6 +304,9 @@ instance
 instantiated
 init
 initialization
+itemize
+item
+includegraphics
 you
 Unity
 Unreal
@@ -328,6 +350,7 @@ provided
 planned
 point
 pre
+ptr
 From
 For
 here
@@ -336,12 +359,14 @@ hard
 help
 has
 headset
+high
 However
 Modules
 Module
 Manager
 More
 Must
+MODULE
 VR
 Vulkan
 VulkanModule
@@ -357,5 +382,6 @@ Based
 Between
 Every
 Each
+ENTRY
 job
 When

@@ -158,6 +158,11 @@
   },
   "active": "52caa07e19fe2050",
   "lastOpenFiles": [
+    "main.aex",
+    "main.tex~",
+    "content/003-architecture/003-architecture.tex~",
+    "common/includes/preamble.tex~",
+    "common/includes/packages.tex~",
     "CMakeLists.txt~",
     "CMakePresets.json",
     "content/003-architecture/project-layout.plantuml",
@@ -166,11 +171,6 @@
     "content/003-architecture",
     "content/Modules.md",
     "content/Entities.md",
-    "content/002-project-foundation.tex",
-    "content/001-intro.tex",
-    "gitcommit.sty",
-    "content/intro.tex",
-    "content/project-foundation.tex",
     "Scratch.md"
   ]
 }

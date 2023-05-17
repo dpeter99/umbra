@@ -1,36 +1,57 @@
 @startuml
+skin rose
 autonumber
 'autoactivate on
+skinparam SequenceGroupBodyBackgroundColor #FFFFFF90
+skinparam Shadowing true
+
 
 participant "shadow-runner" as runner << exe >>
 
 box "shadow-engine \n<< dynamic lib >>" #LightBlue
-participant "app" as app << ShadowApplication >>
+    participant "app" as app << ShadowApplication >>
 
-participant "moduleManager" as modulemgr << ModuleManager >>
+    participant "moduleManager" as modulemgr << ModuleManager >>
+
+    participant "shadow-engine" as engineDLL << DLL >>
+end box
+
+participant "test-game" as gameDLL << DLL >>
 
 'participant "shadow-editor" as editor << exe >>
 
-[-> runner ++ : main
-create app
-runner -> app ++ : new
-    create modulemgr
-    app -> modulemgr : new
-return
+[-> runner ++ : main(game)
+    create app
+    runner -> app ++ : new(game)
+        create modulemgr
+        app -> modulemgr : new
+    return
 
 
-runner -> app ++ : Init()
-    app -> modulemgr : AddAssembly({\n .id="assembly:/core",\n .path="shadow-engine"\n})
-    app -> modulemgr : LoadModulesFromAssembly\n("assembly:/core")
+    runner -> app ++ : Init()
+        app -> modulemgr : AddAssembly({\n .id="assembly:/core",\n .path="shadow-engine"\n})
+        app -> modulemgr ++ : LoadModulesFromAssembly\n("assembly:/core")
+            modulemgr -> engineDLL ++ : assembly_entry()
+                engineDLL -> modulemgr : AddDescriptors()
+            return
+        return
 
-    alt game exists
-        app -> modulemgr : AddAssembly({\n .id="assembly:/"+game,\n .path=game\n})
-        app -> modulemgr : LoadModulesFromAssembly\n("assembly:/"+game)
-    end
+        alt game exists
+            app -> modulemgr : AddAssembly({\n .id="assembly:/"+game,\n .path=game\n})
+            app -> modulemgr ++ : LoadModulesFromAssembly\n("assembly:/"+game)
+                create gameDLL
+                modulemgr -> gameDLL : load_lib
+                modulemgr -> gameDLL ++ : assembly_entry()
+                    gameDLL -> modulemgr : AddDescriptors()
+                return    
+            return
+        end
 
-    app -> modulemgr : Init()
-return
+        app -> modulemgr ++ : Init()
+        'modulemgr -> modulemgr : SortModules()
+        return
+    return
 
-return
+'return
 
 @enduml

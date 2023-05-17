@@ -13,9 +13,9 @@ function(add_diagram target source type)
     set(output)
     foreach (header ${source})
         # Diagram source file basename used to create output file name.
-        get_filename_component(fileName ${source} NAME_WE)
+        get_filename_component(fileName ${header} NAME_WE)
 
-        cmake_path(GET source PARENT_PATH srcDir)
+        cmake_path(GET header PARENT_PATH srcDir)
         cmake_path(RELATIVE_PATH srcDir OUTPUT_VARIABLE relDir)
 
         list(APPEND commands COMMAND ${plantuml} -o ${CMAKE_CURRENT_BINARY_DIR}/${relDir} -t${type} ${header})

@@ -1,0 +1,61 @@
+@startuml
+skin rose
+autonumber
+'autoactivate on
+skinparam SequenceGroupBodyBackgroundColor #FFFFFF90
+skinparam Shadowing true
+
+
+
+
+box "shadow-engine \n<< dynamic lib >>" #LightBlue
+    participant "app" as app << ShadowApplication >>
+
+    participant "moduleManager" as modulemgr << ModuleManager >>
+
+    'participant "shadow-engine" as engineDLL << DLL >>
+    collections "modules" as modules << list >>
+end box
+
+collections "loaded DLLs" as dlls << DLL >>
+
+
+app -> modulemgr ++ : Init()
+    modulemgr -> modulemgr : SortModules()
+
+    loop each module
+        alt assembly not loaded
+            modulemgr -> modulemgr : LoadAssembly()
+        end 
+        modulemgr -> modulemgr ++ : LoadModule(module)
+            modulemgr -> dlls ++ : module.name + "_entry" ()
+                note over dlls
+                Method in the DLL the module was definedd in
+                named <class name>_entry().
+                Creates new module instance.
+                end note
+            return : std::shared_ptr<Module>
+            modulemgr -> modules : add()
+        return
+    end
+
+    modulemgr -> modulemgr : SortModules()
+
+    loop each module
+        modulemgr -> modules : PreInit(module)
+    end
+
+    modulemgr -> modulemgr : SortModules()
+
+    loop each module
+        modulemgr -> modules : Init(module)
+    end
+
+    modulemgr -> modulemgr : SortModules()
+    
+return
+
+
+'return
+
+@enduml

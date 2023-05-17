@@ -4,6 +4,7 @@
     "ShadowApplication",
     "ShadowEngine",
     "dylib",
-    "dylib"
+    "dylib",
+    "sahdow-engine"
   ]
 }

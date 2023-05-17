@@ -31,7 +31,7 @@ FILE(GLOB_RECURSE umlfiles
         )
 
 
-add_diagram(umldiagrams ${umlfiles} eps)
+add_diagram(umldiagrams "${umlfiles}" eps)
 
 if (WIN32)
     set(powershell powershell)
