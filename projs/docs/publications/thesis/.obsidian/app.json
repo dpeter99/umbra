@@ -5,6 +5,7 @@
     "ShadowEngine",
     "dylib",
     "dylib",
-    "sahdow-engine"
+    "sahdow-engine",
+    "Vulkan"
   ]
 }

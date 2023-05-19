@@ -13,14 +13,43 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/003-architecture/003-architecture.tex",
+                "file": "content/001-intro.tex",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "stacked": true
+        ]
+      },
+      {
+        "id": "b9a4f413e3929c02",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "24a85d74461c4b94",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Scratch.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ba21fc4f8f843052",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/001-intro-old.tex",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -94,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/003-architecture/003-architecture.tex",
+                "file": "Scratch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/003-architecture/003-architecture.tex",
+                "file": "Scratch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/003-architecture/003-architecture.tex"
+                "file": "Scratch.md"
               }
             }
           }
@@ -156,21 +185,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "52caa07e19fe2050",
+  "active": "24a85d74461c4b94",
   "lastOpenFiles": [
+    "content/001-intro.tex",
+    "Scratch.md",
+    "content/002-project-foundation.tex",
+    "content/001-intro-old.tex",
     "main.aex",
+    "content/001-intro.tex~",
+    "bib/mybib.bib~",
     "main.tex~",
+    "content/003-architecture/003-architecture.tex",
     "content/003-architecture/003-architecture.tex~",
     "common/includes/preamble.tex~",
-    "common/includes/packages.tex~",
-    "CMakeLists.txt~",
-    "CMakePresets.json",
-    "content/003-architecture/project-layout.plantuml",
-    "content/003-architecture.tex",
-    "content/003-architecture/003-architecture.tex",
-    "content/003-architecture",
     "content/Modules.md",
-    "content/Entities.md",
-    "Scratch.md"
+    "content/Entities.md"
   ]
 }

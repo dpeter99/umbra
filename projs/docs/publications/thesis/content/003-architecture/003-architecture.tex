@@ -35,7 +35,7 @@ The second solution is to put the potentially not needed code into DLLs and load
 \end{figure}
 
 
-\section{The App startup}\label{subsec:the-app-startup}
+\section{The App startup}\label{sec:the-app-startup}
 The core of the engine is contained in the shadow-engine project, which gets compiled into a DLL.
 That library is loaded in by either the shadow-runtime, or shadow-editor executables, depending on if you are playing or making a game. Both of these have a similar simple main function (\autoref{listing:shadow-runtime-main})
 
