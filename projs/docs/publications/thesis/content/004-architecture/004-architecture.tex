@@ -1,0 +1,76 @@
+\chapter{Architecture}
+
+As I have shown in the \ref{research} chapter almoast all of the new and poppular engines have a unified editor for authoring the game. These offer a streamlined and integrated development experience that improves efficiency and productivity.  It removes the need to switch between different tools for different types of editing, which can be time-consuming and disrupt the workflow. Having all the tools - from asset management, animation, visual effect creation, to level design - within the same editor ensures consistency and allows for seamless interaction between these tools. Furthermore, it reduces the learning curve as developers only need to familiarize themselves with one integrated system rather than multiple separate programs.
+
+These engines, while allowing for, usually don't need a game specific editor, meaning that the same executable can be used for many different games. This, for example, is not true for Source engine, where each game has its own version of the engine with its own set of tools compiled for that game. This can make the development process extremely hard, as compiling and distributing a game engine is not a trivial task. For example, a Full compilation of Unreal Engine 5 can take up to 160 GB of disk space and more than an hour. Because of this, it is a requirement now days to be able to use the same unified editor for every project.
+
+To achieve this, the Game specific code needs to be loaded at runtime, from it's compiled form. In my case, this means that I need to load the DLL containing the game specific code. This is easily possible on every platform using the dylib \cite{dylib} library, that makes calling the platform specific functions easier. It provides a single function that wraps each platform's corresponding call, and gives back a pointer that represents the platform specific result.
+
+\begin{minted}{cpp}
+dylib lib("foo");
+
+auto adder = lib.get_function<double(double, double)>("adder");
+
+double result = adder(6, 6);
+\end{minted}
+
+From here we can then request functions based on their names. However, this can only find functions that were marked exported when the DLL was compiled.
+
+\subsection{Modules}
+To make sure the engine is easy to extend and can be used for any game, it is important to have a mechanism which can add new core components to it. This for example would allow us to have a VR module that we can load in only when we are developing a VR game and not have to keep such a large component in games where it is never going to be used.
+
+To achieve this, we need a way to not include certain parts of the code in the compilation. The simplest way to do this would be to create multiple CMake configurations that leave out the not needed files, or use the preprocessor to disable the code in those sections. The problem with these is that they are hard to maintain, and require the creation of game specific compilations, which goes against the idea of a single executable for the whole engine.
+
+The second solution is to put the potentially not needed code into DLLs and load them at runtime if there is a need. To allow for this, I have created a Module system for Shadow engine. This system covers the startup and core loop of the engine. The engine is split into multiple projects inside the repository, they are each responsible for a specific part of the engine (shown in \ref{fig:dll-diagram}).
+
+\begin{itemize}
+    \item shdaow-engine: The core of the engine that contains most of the code
+    \item shadow-runtime: Small startup code for plaiyng a finished game
+    \item shadow-editor: The startup and editor related code for the engine
+\end{itemize}
+
+\begin{figure}
+    \includegraphics[width=1\textwidth]{content/003-architecture/project-layout.eps}
+    \caption{The high level components of the engine}
+    \label{fig:dll-diagram}
+\end{figure}
+
+\subsection{The App startup}\label{subsec:the-app-startup}
+The core of the engine is contained in the shadow-engine project, which gets compiled into a DLL\@.
+That library can be loaded in by either the shadow-runtime, or shadow-editor executables depending on if you are playing or making a game. Both of these have a similar simple main function \ref{}
+
+\begin{listing}[!ht]
+    \inputminted{cpp}{content/003-architecture/main.cpp}
+    \caption{The main function of the runtime executable}
+    \label{listing:shadow-runtime-main}
+\end{listing}
+
+The \verb|ShadowEngine::ShadowApplication| is the core of the engine, provided by the shadow-engine DLL. This class creates the Module Manager which is responsible for loading in the modules that make up the engine. Every module needs to extend the base \verb|Module| class. Each module needs to be registered to the Module manager using a descriptor.
+
+\begin{minted}{cpp}
+m.AddDescriptors({
+	 .id="module:/renderer/vulkan",
+	 .name = "Vulkan",
+	 .class_name = "VulkanModule",
+	 .assembly="assembly:/core",
+	 .dependencies={"module:/platform/sdl2"},
+ });
+\end{minted}
+
+This object describes everything that is needed to create the module, and what other modules it needs to function correctly. The \verb|id| field is a string identifier for the module that is compatible with the planned resource system, and the \verb|assembly| field is a similar ID it defines in witch DLL the manager needs to search for this class. The \verb|dependencies| list is a list of string IDs of the modules that need to be loaded before this module.
+
+Based on the dependencies described in the descriptors, the Module manager uses a Depth first search to try and create a topological sort. To ensure the dependencies are cycle free is the job of the user at this point. When this order is found, the module manager tries to create each of the modules. This is done by searching for a special function in the assembly the module is in. This function needs to follow these rules:
+\begin{itemize}
+    \item Must be marked with \verb|extern "C"|
+    \item It's name must be in the format \verb|<class name>_entry()| where the \verb|<class name>| section is the same as the classes name without the namespace section. These special functions
+    \item Needs to give back a \verb|std::shared_ptr| to a freshly created instance of the module.
+\end{itemize}
+
+To help create these functions I have made \verb|MODULE_ENTRY| which is a preprocessor macro that creates them based on the class name.
+
+After every module was successfully instantiated, the module manager calls pre-Init and Init on the modules. Between these steps, the DFS sorting is re-run to ensure every module still has the necessary modules to continue loading. For example, a VR module might exit in pre-init if it finds no VR headset to work with.
+
+After this initialization sequence is done, the runtime calls the Start method on the shadow application which starts the main update loop.
+
+\subsection{The update loop}
+

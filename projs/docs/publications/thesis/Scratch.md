@@ -102,3 +102,33 @@ there will be many different projects that will
 
 
 
+
+
+# Architecture
+
+As I have shown in the \ref{research} chapter almoast all of the new and poppular engines have a unified editor for authoring the game. These offer a streamlined and integrated development experience that improves efficiency and productivity.  It removes the need to switch between different tools for different types of editing, which can be time-consuming and disrupt the workflow. Having all the tools - from asset management, animation, visual effect creation, to level design - within the same editor ensures consistency and allows for seamless interaction between these tools. Furthermore, it reduces the learning curve as developers only need to familiarize themselves with one integrated system rather than multiple separate programs.
+
+
+
+
+kind of setups the user only needs to interact with a single interface, witch helps make it easier to learn.
+
+
+This means that game creators don't  want and need to recompile the engine's source code to develop their own game.
+
+
+
+A single unified game engine editor, like those provided by Unity, Unreal, or Godot, offers a streamlined and integrated development experience that improves efficiency and productivity. It removes the need to switch between different tools for various aspects of game development, which can be time-consuming and disrupt the workflow. Having all the tools - from scripting, asset management, animation, to level design - within the same editor ensures consistency and allows for seamless interaction between different elements of the game. Furthermore, it reduces the learning curve as developers only need to familiarize themselves with one integrated system rather than multiple separate programs. This approach results in a smoother, more intuitive development process, which can lead to better quality games and faster production times.
+
+These engines, while allowing for, usually don't need a game specific editor, meaning that the same executable can be used for many different games. This, for example, is not true for Source engine, where each game has its own version of the engine with its own set of tools compiled for that game. This can make the development process extremely hard, as compiling and distributing a game engine is not a trivial task. For example, a Full compilation of Unreal Engine 5 can take up to 160 GB of disk space and more than an hour. Because of this, it is a requirement now days to be able to use the same unified editor for every project.
+
+Another important aspect of these editors is that they don't 
+
+
+Nowadays, game makers think of game engines as a single application they download and use to create the game they want. This means that they don't want and need to recompile the engine's source code to develop their own game. This leads to fast iteration times and easier workflows. This means you only need to install the Unity or Unreal editors once, and you can make multiple games without compiling them from source. Of course, if it is necessary most engines do give the ability to modify their source code and create studio/game specific versions of them.
+
+
+
+
+To achieve this, the Game specific code needs to be loaded at runtime, from it's compiled form. In our case, this means that we need to load the DLL containing the game specific code. This is easily possible on every platform using the dylib \cite{dylib} library, that makes calling the platform specific functions easier. It provides a single function that wraps each platform's corresponding call, and gives back a pointer that represents the platform specific result.
+

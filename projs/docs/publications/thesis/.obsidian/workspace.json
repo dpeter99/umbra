@@ -6,40 +6,37 @@
       {
         "id": "c485a7c7364d2bf0",
         "type": "tabs",
-        "dimension": 51.01431980906921,
         "children": [
           {
             "id": "52caa07e19fe2050",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/002-research/002-research.tex",
+                "file": "content/004-architecture/004-architecture.tex",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "pinned": true
             }
-          }
-        ]
-      },
-      {
-        "id": "b9a4f413e3929c02",
-        "type": "tabs",
-        "dimension": 48.98568019093079,
-        "children": [
+          },
           {
-            "id": "ba21fc4f8f843052",
+            "id": "9a1d5de31c7cb0c8",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Scratch.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "pinned": true
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -97,7 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 241.5
   },
   "right": {
     "id": "561335ead3969316",
@@ -113,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/002-research/002-research.tex",
+                "file": "content/004-architecture/004-architecture.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/002-research/002-research.tex",
+                "file": "content/004-architecture/004-architecture.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -153,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/002-research/002-research.tex"
+                "file": "content/004-architecture/004-architecture.tex"
               }
             }
           }
@@ -178,20 +175,19 @@
   "active": "52caa07e19fe2050",
   "lastOpenFiles": [
     "Scratch.md",
-    "content/002-research/002-research.tex",
-    "main.aex",
-    "content/002-research/002-research.tex~",
-    "bib/mybib.bib~",
-    "content/002-research/unity-editor.png",
-    "main.tex~",
+    "content/004-architecture/004-architecture.tex",
+    "content/004-architecture/Untitled.md",
     "content/00x-project-foundation.tex",
-    "content/001-intro.tex",
-    "content/001-intro-old.tex",
-    "content/002-research/002-research.md",
-    "content/002-research/using-editor-window.png",
+    "content/002-research/unity-editor.png",
+    "content/002-research/002-research.tex",
     "content/002-research",
-    "content/001-intro/using-editor-window.png",
-    "content/001-intro",
+    "content/004-entity/ue5-scene-outliner-panel.png",
+    "content/004-entity",
+    "CMakeLists.txt~",
+    "CMakePresets.json",
+    "content/004-architecture/project-layout.plantuml",
+    "content/003-architecture.tex",
+    "content/004-architecture",
     "content/Modules.md",
     "content/Entities.md"
   ]
