@@ -6,6 +6,7 @@
       {
         "id": "c485a7c7364d2bf0",
         "type": "tabs",
+        "dimension": 51.01431980906921,
         "children": [
           {
             "id": "52caa07e19fe2050",
@@ -13,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/001-intro.tex",
+                "file": "content/002-research/002-research.tex",
                 "mode": "source",
                 "source": false
               }
@@ -24,26 +25,15 @@
       {
         "id": "b9a4f413e3929c02",
         "type": "tabs",
+        "dimension": 48.98568019093079,
         "children": [
-          {
-            "id": "24a85d74461c4b94",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Scratch.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
           {
             "id": "ba21fc4f8f843052",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/001-intro-old.tex",
+                "file": "Scratch.md",
                 "mode": "source",
                 "source": false
               }
@@ -123,7 +113,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Scratch.md",
+                "file": "content/002-research/002-research.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,7 +130,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Scratch.md",
+                "file": "content/002-research/002-research.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -163,7 +153,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Scratch.md"
+                "file": "content/002-research/002-research.tex"
               }
             }
           }
@@ -185,19 +175,23 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "24a85d74461c4b94",
+  "active": "52caa07e19fe2050",
   "lastOpenFiles": [
-    "content/001-intro.tex",
     "Scratch.md",
-    "content/002-project-foundation.tex",
-    "content/001-intro-old.tex",
+    "content/002-research/002-research.tex",
     "main.aex",
-    "content/001-intro.tex~",
+    "content/002-research/002-research.tex~",
     "bib/mybib.bib~",
+    "content/002-research/unity-editor.png",
     "main.tex~",
-    "content/003-architecture/003-architecture.tex",
-    "content/003-architecture/003-architecture.tex~",
-    "common/includes/preamble.tex~",
+    "content/00x-project-foundation.tex",
+    "content/001-intro.tex",
+    "content/001-intro-old.tex",
+    "content/002-research/002-research.md",
+    "content/002-research/using-editor-window.png",
+    "content/002-research",
+    "content/001-intro/using-editor-window.png",
+    "content/001-intro",
     "content/Modules.md",
     "content/Entities.md"
   ]
