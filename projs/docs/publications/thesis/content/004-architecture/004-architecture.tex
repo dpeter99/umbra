@@ -17,9 +17,9 @@ double result = adder(6, 6);
 From here we can then request functions based on their names. However, this can only find functions that were marked exported when the DLL was compiled.
 
 \subsection{Modules}
-To make sure the engine is easy to extend and can be used for any game, it is important to have a mechanism which can add new core components to it. This for example would allow us to have a VR module that we can load in only when we are developing a VR game and not have to keep such a large component in games where it is never going to be used.
+To make sure the engine is easy to extend and can be used for any game, it is important to have a mechanism which can add new core components to it. This for example would allow the engine to have a VR module that we can load in only when we are developing a VR game and not have to keep such a large component in games where it is never going to be used.
 
-To achieve this, we need a way to not include certain parts of the code in the compilation. The simplest way to do this would be to create multiple CMake configurations that leave out the not needed files, or use the preprocessor to disable the code in those sections. The problem with these is that they are hard to maintain, and require the creation of game specific compilations, which goes against the idea of a single executable for the whole engine.
+To achieve this, I need a way to exclude certain parts of the code from the compilation. The simplest way to do this would be to create multiple CMake configurations that leave out the not needed files, or use the preprocessor to disable the code in those sections. The problem with these is that they are hard to maintain, and require the creation of game specific compilations, which goes against the idea of a single executable for the whole engine.
 
 The second solution is to put the potentially not needed code into DLLs and load them at runtime if there is a need. To allow for this, I have created a Module system for Shadow engine. This system covers the startup and core loop of the engine. The engine is split into multiple projects inside the repository, they are each responsible for a specific part of the engine (shown in \ref{fig:dll-diagram}).
 
