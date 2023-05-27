@@ -1,6 +1,6 @@
 \chapter{Architecture}
 
-As I have shown in the \autoref{chapter:planning} chapter almoast all of the new and poppular engines have a unified editor for authoring the game. These offer a streamlined and integrated development experience that improves efficiency and productivity.  It removes the need to switch between different tools for different types of editing, which can be time-consuming and disrupt the workflow. Having all the tools - from asset management, animation, visual effect creation, to level design - within the same editor ensures consistency and allows for seamless interaction between these tools. Furthermore, it reduces the learning curve as developers only need to familiarize themselves with one integrated system rather than multiple separate programs.
+As I have shown in the \autoref{chapter:planning} chapter almoast all of the new and poppular engines have a unified editor for authoring the game. These offer a streamlined and integrated development experience that improves efficiency and productivity. It removes the need to switch between different tools for different types of editing, which can be time-consuming and disrupt the workflow. Having all the tools - from asset management, animation, visual effect creation, to level design - within the same editor ensures consistency and allows for seamless interaction between these tools. Furthermore, it reduces the learning curve as developers only need to familiarize themselves with one integrated system rather than multiple separate programs.
 
 These engines, while allowing for, usually don't need a game specific editor, meaning that the same executable can be used for many different games. This, for example, is not true for Source engine, where each game has its own version of the engine with its own set of tools compiled for that game. This can make the development process extremely hard, as compiling and distributing a game engine is not a trivial task. For example, a Full compilation of Unreal Engine 5 can take up to 160 GB of disk space and more than an hour. Because of this, it is a requirement now days to be able to use the same unified editor for every project.
 
@@ -36,7 +36,7 @@ The second solution is to put the potentially not needed code into DLLs and load
 \end{itemize}
 
 \begin{figure}
-    \includegraphics[width=1\textwidth]{content/003-architecture/project-layout.eps}
+    \includegraphics[width=1\textwidth]{content/architecture/project-layout.eps}
     \caption{The high level components of the engine}
     \label{fig:dll-diagram}
 \end{figure}
@@ -46,7 +46,7 @@ The core of the engine is contained in the shadow-engine project, which gets com
 That library can be loaded in by either the shadow-runtime, or shadow-editor executables depending on if you are playing or making a game. Both of these have a similar simple main function \ref{}
 
 \begin{listing}[!ht]
-    \inputminted{cpp}{content/003-architecture/main.cpp}
+    \inputminted{cpp}{content/architecture/main.cpp}
     \caption{The main function of the runtime executable}
     \label{listing:shadow-runtime-main}
 \end{listing}
