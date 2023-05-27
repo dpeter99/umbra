@@ -23,7 +23,7 @@ In sahdow engien we use a more complex setup that borrows form UE4/5. In this so
 
 \subsection{Node Base}
 
-The NodeBase class serves as the foundation for all elements in the graph. Each NodeBase instance carries a globally unique ID (\verb|runtime\_uid|) and a runtime index (\verb|runtime\_index|). The \verb|runtime\_uid| is unique for each instance and can be used for entity lookup, though this is not recommended due to performance considerations. The \verb|runtime\_index| provides a faster alternative for accessing entities. However, it is not unique, meaning that when an entity is released, its index can be re-assigned to a different entity.
+The NodeBase class serves as the foundation for all elements in the graph. Each NodeBase instance carries a globally unique ID (\verb|runtime_uid|) and a runtime index (\verb|runtime_index|). The \verb|runtime_uid| is unique for each instance and can be used for entity lookup, though this is not recommended due to performance considerations. The \verb|runtime_index| provides a faster alternative for accessing entities. However, it is not unique, meaning that when an entity is released, its index can be re-assigned to a different entity.
 
 \subsection{Specialized Node Types}
 
@@ -36,7 +36,7 @@ The ShadowEngine entity system provides various specialized node classes, includ
 \subsubsection{Node}
 
 The \verb|Node| class extends \verb|NodeBase| and represents a complex node that can have children nodes.
-It has two vectors, \verb|hierarchy| and \verb|internal\_hierarchy|, representing the children and internal children nodes respectively.
+It has two vectors, \verb|hierarchy| and \verb|internal_hierarchy|, representing the children and internal children nodes respectively.
 These are new names for the two concets already present in UE5 and Unity.
 Internal hiererarchy is the list of internal building blocks similar to UE5's component hierarchy with the differece being that any type of Node can be added to it making it more flexible.
 The Hierarchy list is the Unity like public hierarchy.
@@ -55,7 +55,7 @@ The `Build` method is defined as a pure virtual function, enforcing that every s
 
 \verb|Entity| and \verb|Scene| are two more specialized node types. An \verb|Entity| is a specialized \verb|Node| and can be thought of as an object within the game world.
 
-On the other hand, \verb|Scene| is an \verb|Actor| that maintains a \verb|static\_hierarchy| of nodes.
+On the other hand, \verb|Scene| is an \verb|Actor| that maintains a \verb|static_hierarchy| of nodes.
 A \verb|Scene| essentially represents a level or a stage in a game, and it is responsible for managing and organizing the entities within that level.
 Each \verb|Scene| also possesses a name, which aids in scene identification and management.
 

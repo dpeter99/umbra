@@ -6,9 +6,13 @@ Write-Host "Target file is" $args[0];
 
 Set-Content -Path $args[0] -Value "";
 
-$gitCommit = git rev-parse --short HEAD
+$gitCommit = git rev-parse HEAD
 Add-Content -Path $args[0] -Value ("\newcommand{\gitcommit}{" + $gitCommit + "}");
 Write-Host $gitCommit
+
+$gitCommitShort = $gitCommit.Substring(0, 7);
+Add-Content -Path $args[0] -Value ("\newcommand{\gitcommitshort}{" + $gitCommitShort + "}");
+Write-Host $gitCommitShort
 
 $gitBranch = git rev-parse --abbrev-ref HEAD
 Add-Content -Path $args[0] -Value ("\newcommand{\gitbranch}{" + $gitBranch + "}");
