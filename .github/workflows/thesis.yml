@@ -52,14 +52,14 @@ jobs:
       #    working_directory: ./projs/docs/publications/thesis
       #    args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -aux-directory=./bin/"
 
+      #    tlmgr update --all
+
       - uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
             apk add cmake ninja powershell graphviz
             apk add git openjdk11-jre fontconfig ttf-dejavu font-droid font-droid-nonlatin freetype tree
             export LD_LIBRARY_PATH=/usr/lib
-
-            tlmgr update --all
 
             git config --global --add safe.directory /github/workspace
             chmod -R 777 ./
