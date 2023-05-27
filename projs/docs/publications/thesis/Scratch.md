@@ -91,6 +91,64 @@ Lumen, on the other hand, is a fully dynamic global illumination solution that c
 
 
 
+
+# Planing
+
+My goal for this project is to start creating a game engine that I can work on in the future, and hopefully gather many of my friends to help me as well. 
+Given the complexity and scope of this endeavour, it's crucial to start with a solid foundation.
+For this regard, I have looked into many of the popular game engines as outlined in \autoref{} and tried to pick the best ideas from each. 
+For a successful open source project, it is important to make contributing as easy as possible, while also planning for growth of the project. Keeping this in mind was really important for me while choosing technologies to use, and will be detailing more in \autoref{}
+
+
+
+## Modular Design
+
+
+## Unified Editor
+
+To create a fully unified editor we also needs to keep all the authoring tools inside the editor. This is hard to do at the begining as many assets have really good exisitng tools that do most of what we needs. Because of this I'm not going to focus on recreating industry standard tools inside my engine from the start. 
+
+a separate DLL and load and unload it as the code changes. 
+
+
+
+One of the critical learnings from examining popular game engines is the importance of a unified editor. Having an integrated system for all aspects of game development, such as scripting, asset management, level design, and animation, is not merely a convenience—it is a game-changer for productivity. A unified editor facilitates a seamless workflow, with all the necessary tools and features accessible within a single interface. This greatly simplifies the development process, fostering creativity and efficiency. Implementing a unified editor is therefore a central goal for this engine project.
+
+Requiremnets
+- modular
+- unified editor
+- entity system
+- reflection
+
+From this I have found that the most important 
+
+conducted comprehensive research on popular game engines, studying their features, strengths, and weaknesses. This exercise has allowed me to identify several core attributes that I believe are fundamental to the design of an effective game engine. These include a well-structured project setup, extensibility, a unified editor, and an entity-component system.
+
+
+My ambition for this project is not only to kick-start the creation of a game engine but also to foster a robust platform for collaborative development in the future. 
+I hope to create a project where I can invite other developers, to join in and contribute their expertise, making this venture a community-driven effort that evolves over time.
+Our collective objective would be to design an engine that addresses the diverse needs of developers and is adaptable to a wide range of game projects.
+
+
+
+A robust project setup is essential as it streamlines the development process and enhances productivity. Extensibility ensures that our engine remains versatile and can be customized to fit specific needs. A unified editor offers an integrated and efficient environment for all aspects of game development, while an entity-component system fosters flexibility and control over game object behavior.
+
+By integrating these features, I am confident that our engine will be capable of facilitating a diverse range of game development projects. It's my hope that this endeavor will be the springboard for a tool that not only caters to our immediate needs but also evolves with the industry and continues to serve us well into the future.
+
+
+After conducting extensive research and analysis on existing game engines, several key features have emerged that I consider imperative for my game engine project. It's important to take into account the successes and failures of other engines to build a tool that caters to developers' needs while avoiding common pitfalls.
+
+
+The game engine will be written in C++ and will use OpenGL for rendering.
+The game engine will be cross-platform and will run on Windows, Linux and Mac OS X. 
+The game engine will be written in a modular way so that it can be extended easily. 
+The game engine will be written in a way that it can be used to create a 2D or 3D game. 
+The game engine will be written in a way that it can be used to create a game that is either a first person shooter or a third person shooter. 
+The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game.
+
+
+The game engine will be written in C++ and will use OpenGL for rendering. The game engine will be cross-platform and will run on Windows, Linux and Mac OS X. The game engine will be written in a modular way so that it can be extended easily. The game engine will be written in a way that it can be used to create a 2D or 3D game. The game engine will be written in a way that it can be used to create a game that is either a first person shooter or a third person shooter. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game.
+
 # Project Foundation
 
 Chosing the tecnology
@@ -100,7 +158,13 @@ imgui
 
 there will be many different projects that will 
 
+The organization and management of a codebase is a fundamental aspect of any software development project, and even more so for a task as intricate as game engine development. After considerable deliberation, I have chosen to adopt a monorepo approach for this project. This decision was largely influenced by its potential to simplify project setup and maintain organization across all elements related to the project.
 
+A monorepo, by housing all code and assets in a single, version-controlled repository, offers an uncomplicated and effective means to set up projects. It allows for easy sharing of code, streamlines the management of dependencies, and enhances the overall coordination in large-scale development efforts. These advantages are especially relevant for our collaborative endeavor, which will involve multiple contributors working on diverse aspects of the engine.
+
+Throughout the decision-making process for this project, I paid careful attention to successful strategies used by industry leaders. One such strategy is the utilization of a monorepo for the codebase, a concept that has been widely adopted by tech giants like Google. A monorepo is a version-controlled repository that stores all code and assets for a project in a single location. The adoption of a monorepo can facilitate easier code sharing, simplify dependency management, and streamline large-scale refactoring processes. This approach, while not without its challenges, offers significant potential benefits in terms of scalability and ease of collaboration.
+
+Google's extensive use of a monorepo was particularly influential in my decision. With their vast experience managing large-scale software projects, Google's methods offer invaluable insights. Their use of a monorepo for storing and managing their enormous codebase is a testament to the strategy's effectiveness. Google's monorepo not only facilitates widespread code reuse but also ensures consistency across multiple projects and teams, making it an efficient choice for collaborative efforts. Inspired by this approach, I have decided to employ a monorepo for the game engine project, with the expectation that it will streamline collaboration and foster consistency across the development process.
 
 
 

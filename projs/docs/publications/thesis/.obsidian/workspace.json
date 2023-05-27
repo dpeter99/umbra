@@ -6,21 +6,27 @@
       {
         "id": "c485a7c7364d2bf0",
         "type": "tabs",
+        "dimension": 43.408203125,
         "children": [
           {
-            "id": "52caa07e19fe2050",
+            "id": "a4b600e69fda2c84",
             "type": "leaf",
-            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/004-architecture/004-architecture.tex",
+                "file": "content/planning/planning.tex",
                 "mode": "source",
                 "source": false
-              },
-              "pinned": true
+              }
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "4c815f70e4740682",
+        "type": "tabs",
+        "dimension": 56.591796875,
+        "children": [
           {
             "id": "9a1d5de31c7cb0c8",
             "type": "leaf",
@@ -35,8 +41,7 @@
               "pinned": true
             }
           }
-        ],
-        "stacked": true
+        ]
       }
     ],
     "direction": "vertical"
@@ -94,7 +99,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 241.5
+    "width": 211.5124969482422
   },
   "right": {
     "id": "561335ead3969316",
@@ -110,7 +115,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/004-architecture/004-architecture.tex",
+                "file": "Scratch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +132,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/004-architecture/004-architecture.tex",
+                "file": "Scratch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,12 +155,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/004-architecture/004-architecture.tex"
+                "file": "Scratch.md"
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -172,22 +177,32 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "52caa07e19fe2050",
+  "active": "9a1d5de31c7cb0c8",
   "lastOpenFiles": [
+    "content/planning/planning.tex",
     "Scratch.md",
-    "content/004-architecture/004-architecture.tex",
+    "content/research/Unity-inspector.png",
+    "content/research/Unity-Hierarchy.png",
+    "content/research/unity-editor.png",
+    "content/research/Unity-Editor-2.jpg",
+    "content/research/research.tex",
+    "content/research",
+    "content/planning",
+    "content/architecture/Untitled.md",
+    "content/architecture/startup.plantuml",
+    "content/architecture/project-layout.plantuml",
+    "content/architecture/startup-init.plantuml",
+    "content/architecture/main.cpp",
+    "content/architecture/Architecture.tex",
+    "content/architecture",
+    "content/Architecture/Untitled.md",
+    "content/Research/Unity-inspector.png",
+    "content/Research/Unity-Hierarchy.png",
+    "content/Research/Unity-Editor-2.jpg",
+    "content/Research/unity-editor.png",
+    "content/002-research/Unity-inspector.png",
+    "content/002-research/Unity-Hierarchy.png",
     "content/004-architecture/Untitled.md",
-    "content/00x-project-foundation.tex",
-    "content/002-research/unity-editor.png",
-    "content/002-research/002-research.tex",
-    "content/002-research",
-    "content/004-entity/ue5-scene-outliner-panel.png",
-    "content/004-entity",
-    "CMakeLists.txt~",
-    "CMakePresets.json",
-    "content/004-architecture/project-layout.plantuml",
-    "content/003-architecture.tex",
-    "content/004-architecture",
     "content/Modules.md",
     "content/Entities.md"
   ]

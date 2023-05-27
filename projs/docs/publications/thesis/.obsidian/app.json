@@ -7,5 +7,6 @@
     "dylib",
     "sahdow-engine",
     "Vulkan"
-  ]
+  ],
+  "showUnsupportedFiles": true
 }
