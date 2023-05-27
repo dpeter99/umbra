@@ -6,15 +6,16 @@ Unity's GameObjects build up everything in the game world. These form a spatial 
 
 <Image>
 
-The user then can attach components to these game objects, which then define what it is capabilities. For example, the user can attach a Mesh and MeshRenderer to create something that will show up in the world. On top of the built-in components, the user can define their own components in c# by extending MonoBehaviour base class.
+The user then can attach components to these game objects, which then define what it is capabilities. For example, the user can attach a Mesh and MeshRenderer to create something that will show up in the world. On top of the built-in components, the user can define their own components in c\# by extending MonoBehaviour base class.
 
 In Unreal Engine 4/5, Actors serve as the foundation for all interactive elements within a game world. Actors can be attached to each other to form a hierarchical structure, but this is less used, as it also rovides a folder system that enables the organization the gameplay objects, such as characters or environmental assets.
 
 <Image>
 
-Within each Actor, Components can be added, which determine the object's functionality and behavior. These Components can be organized in a hierarchical fashion, allowing for a more structured setup. Users can also create custom Components using C++ or Blueprints, Unreal Engine's visual scripting system, by extending the base Actor Component class. This offers a  flexible way to tailor functionality to specific needs while maintaining a well-organized Component hierarchy within each Actor.
+Within each Actor, Components can be added, which determine the object's functionality and behavior. These Components can be organized in a hierarchical fashion, allowing for a more structured setup. Users can also create custom Components using C++ or Blueprints, Unreal Engine's visual scripting system, by extending the base Actor Component class. This offers a flexible way to tailor functionality to specific needs while maintaining a well-organized Component hierarchy within each Actor.
 
 Source engine uses a fix set of enitites that are compiled with the engine.
+
 
 \section{Shadow Engine and entities}
 
@@ -22,7 +23,7 @@ In sahdow engien we use a more complex setup that borrows form UE4/5. In this so
 
 \subsection{Node Base}
 
-The NodeBase class serves as the foundation for all elements in the graph. Each NodeBase instance carries a globally unique ID (runtime_uid) and a runtime index (runtime_index). The runtime_uid is unique for each instance and can be used for entity lookup, though this is not recommended due to performance considerations. The runtime_index provides a faster alternative for accessing entities. However, it is not unique, meaning that when an entity is released, its index can be re-assigned to a different entity.
+The NodeBase class serves as the foundation for all elements in the graph. Each NodeBase instance carries a globally unique ID (\verb|runtime\_uid|) and a runtime index (\verb|runtime\_index|). The \verb|runtime\_uid| is unique for each instance and can be used for entity lookup, though this is not recommended due to performance considerations. The \verb|runtime\_index| provides a faster alternative for accessing entities. However, it is not unique, meaning that when an entity is released, its index can be re-assigned to a different entity.
 
 \subsection{Specialized Node Types}
 
@@ -34,24 +35,29 @@ The ShadowEngine entity system provides various specialized node classes, includ
 
 \subsubsection{Node}
 
-The `Node` class extends `NodeBase` and represents a complex node that can have children nodes. It has two vectors, `hierarchy` and `internal_hierarchy`, representing the children and internal children nodes respectively. These are new names for the two concets already present in UE5 and Unity. Internal hiererarchy is the list of internal building blocks similar to UE5's component hierarchy with the differece being that any type of Node can be added to it making it more flexible.  The Hierarchy list is the Unity like public hierarchy.
+The \verb|Node| class extends \verb|NodeBase| and represents a complex node that can have children nodes.
+It has two vectors, \verb|hierarchy| and \verb|internal\_hierarchy|, representing the children and internal children nodes respectively.
+These are new names for the two concets already present in UE5 and Unity.
+Internal hiererarchy is the list of internal building blocks similar to UE5's component hierarchy with the differece being that any type of Node can be added to it making it more flexible.
+The Hierarchy list is the Unity like public hierarchy.
 
-Nodes provide the ability to build complex entities in the game world by combining various components and other nodes. This freedom to create any structure, makes the engine less opinionated but also can lead to confusion. To mitigate this in the furute stronger suggested layouts should be developed and given as default for the developers.
+Nodes provide the ability to build complex entities in the game world by combining various components and other nodes.
+This freedom to create any structure, makes the engine less opinionated but also can lead to confusion.
+To mitigate this in the furute stronger suggested layouts should be developed and given as default for the developers.
 
 \subsubsection{Actor}
 
-`Actor` is a specialized `Node` that possesses a name and a `Build` method. This abstract class is designed to be the
+\verb|Actor| is a specialized \verb|Node| that possesses a name and a \verb|Build| method. This abstract class is designed to be the
 base for game-world objects that have specific functionality and may interact with other objects in the scene.
 The `Build` method is defined as a pure virtual function, enforcing that every subclass of `Actor` must provide its own implementation of how it is constructed.
 
 \subsubsection{Entity and Scene}
 
-`Entity` and `Scene` are two more specialized node types. An `Entity` is a specialized `Node` and can be thought of as an object within the game world.
+\verb|Entity| and \verb|Scene| are two more specialized node types. An \verb|Entity| is a specialized \verb|Node| and can be thought of as an object within the game world.
 
-On the other hand, `Scene` is an `Actor` that maintains a `static_hierarchy` of nodes. A `Scene` essentially represents a level or a stage in a game, and it is responsible for managing and organizing the entities within that level.
-Each `Scene` also possesses a name, which aids in scene identification and management.
-
-
+On the other hand, \verb|Scene| is an \verb|Actor| that maintains a \verb|static\_hierarchy| of nodes.
+A \verb|Scene| essentially represents a level or a stage in a game, and it is responsible for managing and organizing the entities within that level.
+Each \verb|Scene| also possesses a name, which aids in scene identification and management.
 
 \subsection{Node Manager}
 
