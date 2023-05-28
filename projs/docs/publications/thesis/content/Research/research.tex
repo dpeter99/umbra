@@ -24,14 +24,14 @@ Because of this constant chase of the new technologies, there are many areas whe
     \label{fig:unity-editor}
 \end{figure}
 
-\begin{figure}
-    \begin{minipage}[c]{0.4\linewidth}
+\begin{figure}[h]
+    \begin{minipage}[c]{0.5\linewidth}
         \includegraphics[width=\textwidth]{content/Research/Unity-Hierarchy.png}
         \caption{Screenshot of the Unity engine's Hierarchy view, showing a tree of all the Game Objects present in the scene.}
         \label{fig:unity-hierarchy}
     \end{minipage}
     \hfill
-    \begin{minipage}[c]{0.4\linewidth}
+    \begin{minipage}[c]{0.5\linewidth}
         \includegraphics[width=\textwidth]{content/Research/Unity-Inspector.png}
         \caption{Screenshot of the Unity engine's Inspector view, showing the properties and components of a selected Game Object.}
         \label{fig:unity-inspector}
@@ -41,8 +41,26 @@ Because of this constant chase of the new technologies, there are many areas whe
 
 \section{Unreal Engine 5}
 
-Unreal Engine, developed by Epic Games, has a rich and long history that has significantly influenced the landscape of modern gaming. The inception of Unreal Engine dates back to 1998, when the first-person shooter game 'Unreal'\cite{unreal-game} was released. Since then, it has undergone several mayor transformations, resulting in its latest iteration, Unreal Engine 5. Throughout the years, the engine has consistently pushed the boundaries of what's possible in game development, from pioneering high-fidelity graphics to orchestrating expansive virtual worlds.
+Unreal Engine (UE), developed by Epic Games, has a rich and long history that has significantly influenced the landscape of modern gaming. The inception of Unreal Engine dates back to 1998, when the first-person shooter game 'Unreal'\cite{unreal-game} was released. Since then, it has undergone several mayor transformations, resulting in its latest iteration, Unreal Engine 5 (UE5). Throughout the years, the engine has consistently pushed the boundaries of what's possible in game development, from pioneering high-fidelity graphics to orchestrating expansive virtual worlds.
 
 Unreal Engine 5, boasts a tremendous leap forward in visual fidelity, by using groundbreaking technologies such as Nanite and Lumen.
 Nanite is a system that essentially eliminates the limitations of polygon count and draw call overheads in 3D environment modelling. It achieves this by using so-called "virtual polygons", allowing for much greater model detail to be used without major performance hit. This system can replace the traditional Level Of Detail (LOD)\footnote{A system where separate models are created for when the given object is further away.} approach, allowing for much faster development time.
 Lumen, on the other hand, is a fully dynamic global illumination solution that can immediately react to scene and light changes, producing more lifelike environments. It is important to highlight that while these technologies can produce stunning visuals, they are slower than traditional approaches and not suitable for every game, or platform.
+
+\subsection{Actors and the Outliner}
+
+In UE 5, the fundamental building blocks of a game world are called Actors. An Actor is essentially any object that can be placed into the game world, and they can represent characters, scenery, and even complex gameplay elements. There are many built in Actors that do common functionality, for example common game objects such as characters, cameras, lights, and physics objects.
+
+But the user has multiple options to create new types, specific to their game. One such method is through the use of Blueprints, a visual scripting system that allows for the creation of custom Actors without the need for traditional programming. This system uses visual nodes to define the code flow, and is quite beginner-friendly. By combining pre-existing components and defining their interactions through Blueprint nodes, developers can create new Actor types that fit their game's requirements.
+
+Another method for creating new Actor types is through C++ programming. 
+UE5 is written in C++ and natively only supports C++ based scripting, but plugins exist for that allow for other languages like C\# to be used for coding. These methods are more complex and requires a good understanding of C++ and the UE5 API, but it allows for more advanced functionality and performance optimizations.
+
+The list of the actors present in the game world is shown in the Outliner witch is a tool within UE5 editor that provides a hierarchical view of all the Actors present in a level\autoref{fig:unreal-outliner}.
+
+\begin{figure}[h] 
+    \centering 
+    \includegraphics[width=0.5\textwidth]{content/Research/ue5-scene-outliner-panel.png} 
+    \caption{The Outliner in Unreal Engine 5} 
+    \label{fig:unreal-outliner} 
+\end{figure}

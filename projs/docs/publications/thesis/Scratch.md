@@ -86,8 +86,26 @@ Unreal Engine 5, boasts a tremendous leap forward in visual fidelity, my using g
 Nanite is a system that essentially eliminates the limitations of polygon count and draw call overheads in 3D environment modelling. It achieves this by using so-called "virtual polygons", allowing for much greater model detail to be used without major performance hit. This system can replace the traditional Level Of Detail (LOD)\footnote{A system where separate models are created for when the given object is further away.} approach, allowing for much faster development time.
 Lumen, on the other hand, is a fully dynamic global illumination solution that can immediately react to scene and light changes, producing more lifelike environments. It is important to highlight that while these technologies can produce stunning visuals, they are slower than traditional approaches and not suitable for every game. 
 
+### Actors
+
+In addition to these methods, UE5 also provides a variety of pre-defined Actor classes that can be used as a starting point for creating new Actor types. These include common game objects such as characters, cameras, lights, and physics objects. These pre-defined Actor classes can be extended and customized through Blueprints or C++, allowing developers to quickly create new Actor types with common functionality.
+
+Once a new Actor type has been created, it can be instantiated in the game world by dragging it from the Content Browser into the viewport or by using the "Spawn Actor" function in Blueprints or C++. Each instance of an Actor can be further customized in the Details panel, allowing developers to adjust its properties and components to fit the specific needs of the game world.
+
+The list of these Actors is shown in the Outliner that provides a hierarchical view of all the Actors in the current level.
+
+It allows developers to quickly navigate, select, and modify Actors within a level. The Outliner displays a tree-like structure, where parent Actors can have one or more child Actors. This hierarchical structure can be used to create complex relationships between Actors, which can be crucial for creating intricate gameplay mechanics or detailed environmental setups.
+
+Each Actor in a level is an instance of an Actor class, which defines the Actor's properties and behavior. The Actor class is a part of the Unreal Engine's core framework and serves as the base class for all interactive objects in a game world.
+
+In Unreal Engine 5 (UE5), the core elements that constitute a game world are referred to as Actors. An Actor is essentially an object that can be inserted into the game world. These Actors can embody a wide range of elements, from characters and scenery to intricate gameplay components. This broad definition allows for a high degree of flexibility in game design, as virtually any object or event in the game world can be represented as an Actor\cite{unreal-actors}.
+
+Actors in UE5 are designed to be highly modular, with each Actor being composed of multiple sub-components. These components can be added, removed, or modified to create complex hierarchies and behaviors. For example, a character Actor might consist of a skeletal mesh component for the character's body, a camera component for the player's viewpoint, and various script components to control the character's behavior. This modular approach allows for a high degree of flexibility and reusability in game design.
 
 
+
+
+It allows developers to quickly navigate and manage the Actors and their components within a level. The Outliner displays a tree-like structure, where parent Actors can have multiple child Actors, forming a hierarchy. This hierarchy can be used to create complex relationships between Actors, such as a car Actor with multiple wheel child Actors.
 
 
 
