@@ -5,9 +5,9 @@ This can be anything from the list of all the classes that implement a specific 
 This can be extremely useful when serializing data into a human-readable format, as in these cases we would need to iterate all the data members inside the object.
 
 Reflection is a common capability of most high level languages, for example, JS even has the ability to print out the code for a class of function.
-In C\# and Java, we have the ability to list every class or my type of members inside them.
+In \Csh and Java, we have the ability to list every class or my type of members inside them.
 
-This ability is missing from C++ by default as it is too complex and would be extra data only useful in a few use cases.
+This ability is missing from \Cpp by default as it is too complex and would be extra data only useful in a few use cases.
 Because of this everyone who needs this data in their code needs to find some way to generate and store the information.
 
 If reflection is not available then it is possible to use manually written functions that return the same data.
@@ -75,18 +75,18 @@ Partial
 For Shadow Engine I have decided to try and create a similar tool to what UE has.
 This would allow the users of the project a more seamless experience and free up development time in the future.
 I have explored multiple possible ways to create such a tool, as for this I would need a partial AST (Abstract syntax tree).
-This is notoriously hard to generate for C++.
+This is notoriously hard to generate for \Cpp.
 
 I have found multiple online tutorials on how to create compiler plugins for clang.
-Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/C++ compilers.
+Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/\Cpp compilers.
 While these tutorials showed great results and allowed full integration into the compilation process, they almost all required compiling clang from scratch.
 
 I have tried following some of these tutorials, but I have run into many issues that would have need way more time to solve than I had available.
 Most of my problems boiled down to one thing, there is no distribution of clang for Windows that supports loading and developing plugins.
 Because of this I would need to compile clang myself and this is not an easy task and can differ based on the system being used.
 
-After realising that getting clang plugins working is a way bigger task than I should work on, I have decided to write a simple parser in C\#.
-I have chosen C\# because I'm familiar with it and has better string manipulation methods than cpp.
+After realising that getting clang plugins working is a way bigger task than I should work on, I have decided to write a simple parser in \Csh.
+I have chosen \Csh because I'm familiar with it and has better string manipulation methods than cpp.
 
 ...
 

@@ -12,13 +12,13 @@ As this is going to be a project that multiple people work on we need a way to s
 
 \subsection{Build systems}
 
-To give the project a good foundation and to even start development I had to chose a build system. As C/C++ doesn't have a standard build infrastructure, there are many different ones that have their own pros, and cons.
+To give the project a good foundation and to even start development I had to chose a build system. As C/\Cpp doesn't have a standard build infrastructure, there are many different ones that have their own pros, and cons.
 
 \subsubsection{Msbuild}
 The obvious choice
 MsBuild is the build system Microsoft uses in VisualStudio and what most of the games companies use.
 It is an obvious choice as it has great integration with VS and the Windows ecosystem.
-But it also locks the project to be windows only, as it is nearly impossible to build a MSBuild C++ project on Linux or MacOS.
+But it also locks the project to be windows only, as it is nearly impossible to build a MSBuild \Cpp project on Linux or MacOS.
 This means that we can't use it if we ever want to make the engine multi-platform.
 MSBuild also locks us in to Visual Studio as the code editor, and not every potential contributor likes it, so this is also a problem.
 As an open source project we want to allow contributors to use whatever IDE they want to minimizes friction, and make onboarding as easy as possible.

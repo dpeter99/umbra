@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/planning/planning.tex",
+                "file": "content/Entites/entites.tex",
                 "mode": "source",
                 "source": false
               }
@@ -40,8 +40,53 @@
               },
               "pinned": true
             }
+          },
+          {
+            "id": "76eaf2deee73221e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "scratch2.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "c2523907f492faa7",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "691bdfe659432df1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e38749d41d6c99c0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/Entites/entites.tex",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -99,7 +144,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 211.5124969482422
+    "width": 255.5
   },
   "right": {
     "id": "561335ead3969316",
@@ -115,7 +160,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Scratch.md",
+                "file": "scratch2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,7 +177,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Scratch.md",
+                "file": "scratch2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -155,7 +200,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Scratch.md"
+                "file": "scratch2.md"
               }
             }
           }
@@ -177,32 +222,34 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9a1d5de31c7cb0c8",
+  "active": "76eaf2deee73221e",
   "lastOpenFiles": [
+    "Scratch.md",
+    "scratch2.md",
+    "Untitled.md",
+    "content/Entites/entites.tex",
+    "content/Planning/planning.tex",
+    "content/Research/research.tex",
+    "content/Planning",
+    "content/Research/ue5-scene-outliner-panel.png",
     "content/Reflection/reflection.tex",
     "content/Reflection",
-    "content/Entites/entites.tex",
     "content/Entites",
-    "content/Entity/entites.tex",
-    "content/Entity",
+    "content/reflection.tex",
+    "content/Entities.md",
+    "content/004-entity/ue5-scene-outliner-panel.png",
+    "content/004-entity",
+    "content/entites.tex",
     "content/Architecture/Untitled.md",
-    "content/Architecture/startup.plantuml",
-    "content/Architecture/startup-init.plantuml",
-    "content/Architecture/project-layout.plantuml",
-    "content/Architecture/main.cpp",
-    "content/Architecture/Architecture.tex",
     "content/Research/Unity-inspector.png",
     "content/Research/Unity-Hierarchy.png",
     "content/Research/unity-editor.png",
     "content/Research/Unity-Editor-2.jpg",
-    "content/Research/ue5-scene-outliner-panel.png",
     "content/research/ue5-scene-outliner-panel.png",
     "content/entity/Entities.md",
     "content/entity/ue5-scene-outliner-panel.png",
-    "Scratch.md",
     "content/research/Unity-inspector.png",
     "content/research/Unity-Hierarchy.png",
-    "content/research/unity-editor.png",
     "content/architecture/Untitled.md",
     "content/004-architecture/Untitled.md",
     "content/Modules.md"
