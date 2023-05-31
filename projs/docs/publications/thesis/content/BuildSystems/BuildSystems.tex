@@ -1,0 +1,34 @@
+\chapter{Project Setup}\label{chap:project-setup}
+
+In order to even start creating such a huge project I need to decide on a build system to use, and decide on many other developer tools.
+
+Choosing Git for version management was an obvious chose for me, as it is the platform that most of the open source development efforts use. This is mainly because of it's versatility and relative ease of use. For hosting, I will be using GitHub as it has a generous free tier, that includes free cloud builds witch I'm planning on using in this project.
+
+When it comes to structuring the project, I have decided to use a true monorepo approach, where everything relating to the project will be inside a single repository. I was inspired by Google's monorepo, where every code the company makes is stored inside their single version controlled codebase. This gives them better understanding how their code works, as a program library maintainer can see all the cases where that library is used. In my case this means that the engine itself and any other tooling will live inside this single repository, alongside with the \LaTeX source of this document, possible future websites for the project.
+
+
+\section{Build Systems}
+
+Choosing the right build system is really important as the project needs to be easy to set up so new developers have an easy time setting it up. But the system also needs to be able to handle a large project with many different parts and smaller subprojects. Because of these somewhat conflicting requirements, I have spent a lot of time reviewing many existing build systems. I had one personal requirement while searching, which was to be able to make the project build as independent from the development machine as possible. This in my opinion should help cut back on the difficulty of setting the project up. In this section I will be introducing the options I have considered and what my fine decision was.
+
+\subsection{MSBuild}
+MSBuild is the build system Microsoft uses in Visual Studio (VS) and what most of the game companies use.
+It is an obvious choice as it has great integration with VS and the Windows ecosystem. But it also locks the project to be Windows only, as it is nearly impossible \footnote{It would require the re-definition of every build rule using a cross-platform compiler, this would be a huge undertaking} to build a MSBuild \Cpp project on Linux or macOS. This means that we can't use it if we ever want to make the engine multi-platform. on top of that MSBuild also locks us in to Visual Studio as the code editor, which means that contributors using other editors can't work on the project. As this is an open source project, I want to allow contributors to use whatever IDE they want to minimize friction, and make onboarding as easy as possible.
+
+\subsection{Bazel}
+Bazel is a build system that Google developed for their own monorepository, but it is relatively less used outside of that. It is optimized for large projects that have complex interdependencies. For me the two major features that would be useful are the hermetic cacheable builds and support for multiple programming languages.
+
+The Bazel build cache serves as a mechanism for efficient collaboration among developers by enabling the upload and download of compiled results from individual build steps. This functionality relies on strict determinism in the build process, ensuring that identical inputs yield consistent outputs. By caching these results, subsequent developers can conveniently retrieve the cached artifact, thereby accelerating the overall build process. To achieve this, Bazel can automatically download many different dependencies, including the compiler that is used for the project. This would mean that other than cloning the repository, the potential contributors don't have to set up anything on their machine
+
+The second important thing Bazel can offer is multiple language support, this means that it would be possible to truly have a single repository and single build system for all that is connected to the project. This is possible because Bazel has a quite expressive scripting language called Starlark \cite{starlark} - that is a dialect of the Python programming language - allowing for complex build rules.
+
+However, despite its many advanced features, Bazel does have certain limitations that make it less than ideal for me. Because of it's less popular nature there aren't many tutproals and learning resources for it. Most of the places that use it have a few dedicated people for only working on building the project (so called build engineers), and these companies usually have many in-house tools for making the developers lives easier.
+
+The biggest area where current publicly available tools are extremely lacking is code editor integration. This has the same problem as MSBuild because Bazel only works with a few editors that have plugins for them, but notably doesn't work with Visual Studio. And while plugins exist for many of the other IDEs, they are also riddled with bugs. The two editors that I have tried were VS Code and Clion. Sadly, both of the plugins had glaring issues and were giving internal errors within a few hours of trying them out. On top of that, none of the plugins were able to provide a language server for \Cpp and relied on an exported set of compiler commands to be used for creating a language server.
+
+\subsection{CMake}
+
+CMake is a meta build system, which means that it can't compile or build anything by itself, but it can generate a more complex build description for other builders. The most common such builders are Ninja \cite{ninja} and Make \cite{make}. Many big open source projects have chosen CMake as their build system and there are many online sources on how to use it effectively.
+
+It can generate Visual Studio projects and works on every major platform, while also having great integration with CLion and VS Code for allowing contributor diversity. This means that CMake can generate the build files best suited for the platform the developer is using.
+

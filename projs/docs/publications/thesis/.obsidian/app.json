@@ -6,7 +6,13 @@
     "dylib",
     "dylib",
     "sahdow-engine",
-    "Vulkan"
+    "Vulkan",
+    "MSBuild",
+    "monorepo",
+    "Bazel",
+    "artifact",
+    "Starlark",
+    "Clion"
   ],
   "showUnsupportedFiles": true
 }
