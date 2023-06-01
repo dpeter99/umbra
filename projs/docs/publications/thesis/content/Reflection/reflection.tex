@@ -2,7 +2,7 @@
 
 As I have described in \autoref{chapter:planning} it is really important for a game engine to have a reflection system that allows us to save and load map files and also edit the fields in a class from a nice graphical interface. While this is a really useful ability, \Cpp doesn't have it because it is not needed in every case and when it is not needed it would use up resources unnecessarily.
 
-Because of this there are many different solutions to creating a reflection system on top of \Cpp. The easiest way is to create specialized template functions that give back the necessary information. For smaller projects or cases where new classes get added less frequently making there by hand is a good solution.
+Because of this, there are many different solutions to creating a reflection system on top of \Cpp. The easiest way is to create specialized template functions that give back the necessary information. For smaller projects or cases where new classes get added less frequently, making there by hand is a good solution.
 
 \begin{listing}[!ht]
     \begin{minted}{cpp}
@@ -31,7 +31,7 @@ Because of this there are many different solutions to creating a reflection syst
 \end{listing}
 
 In the example (\autoref{listing:maual-reflection}), we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
-Using this solution we can store and get back the information we need in any format thus making it really flexible.
+Using this solution we can store and get back the information we need in any format, thus making it really flexible.
 However, this is a lot of manual work and puts the responsibility on the coder to write the function correctly.
 This takes time away from actual development.
 
@@ -43,10 +43,10 @@ Another solution is to use a tool that can generate these functions or generate 
 In this section I will be presenting how other engines solve this problem by presenting two of them. I will not be discussing Unity here as it is not open source and uses \Csh 's built in reflection to some extent.
 
 \subsection{Source}
-Source uses the simplest approach where the developer is responsible for creating a function that returns all the metadata about a class.
-To make this easier they have made use of the pre-processor macros in order to somewhat generalize the necessary lines of code. An example of this can be see in \autoref{listing:source-reflection} where a simple light's possible data fields are defined.
+Source uses the simplest approach, where the developer is responsible for creating a function that returns all the metadata about a class.
+To make this easier, they have made use of the pre-processor macros in order to somewhat generalize the necessary lines of code. An example of this can be seen in \autoref{listing:source-reflection} where a simple light's possible data fields are defined.
 
-As source uses an external editor that doesn't depend on the game source code they also create a description file from these that tells the Hammer editor what entities exist in the game with what possible properties. This capability is useful if the engine supports outside editors for creating the levels.
+As source uses an external editor that doesn't depend on the game source code, they also create a description file from these that tells the Hammer editor what entities exist in the game with what possible properties. This capability is useful if the engine supports outside editors for creating the levels.
 
 \begin{listing}
     \begin{minted}{cpp}
@@ -77,7 +77,7 @@ END_DATADESC()
 
 \subsection{Unreal Engine}
 
-UE uses a separate build tool to generate reflection information by reading in an parsing the \Cpp source files of the project. This tool is strongly integrated into the build process and generates multiple extra source files for each class. It generates a new \Cpp and header file for each class that contains the reflection information. To know witch fields and in what format to represent the tool uses multiple special pre-processor macros that act like decorators or attributes in other languages. For example every class that wants to have reflection generated for it needs to start with \verb|UCLASS()| to make the tool aware of it. Similarly for each function and property the \verb|UFUNCTION()|, and \verb|UPROPERTY()| macros have to be placed before them to be recognised. An example of this can be seen in \autoref{listing:ue5-pawn-class} and some of the resulting generated code in \autoref{listing:ue5-generated-reflection}.
+UE uses a separate build tool to generate reflection information by reading in and parsing the \Cpp source files of the project. This tool is strongly integrated into the build process and generates multiple extra source files for each class. It generates a new \Cpp and header file for each class that contains the reflection information. To know which fields and in what format to represent, the tool uses multiple special pre-processor macros that act like decorators or attributes in other languages. For example, every class that wants to have reflection generated for it needs to start with \verb|UCLASS()| to make the tool aware of it. Similarly, for each function and property the \verb|UFUNCTION()|, and \verb|UPROPERTY()| macros have to be placed before them to be recognized. An example of this can be seen in \autoref{listing:ue5-pawn-class} and some of the resulting generated code in \autoref{listing:ue5-generated-reflection}.
 
 
 \begin{listing}
@@ -129,18 +129,18 @@ For Shadow Engine, I have decided to try and create a similar tool to what Unrea
 This would allow the users of the project a more seamless experience and free up development time in the future.
 I have explored multiple possible ways to gather the necessary data for generating the extra files. As a first step, the tool needs to parse the \Cpp source files and extract the necessary information. This is most commonly achieved by creating an AST (Abstract syntax tree) for the code. However, creating such a code paring for \Cpp can be quite difficult as it has many hard to parse notations, luckily I only need a partial syntax tree that can be produced much easier.
 
-One of the first solutions I have tried out was using one of the existing compilers to get the AST they have while the compilation is happening. This seems possible as there are multiple online resources and even semi-tutorials on the topic \cite{jdh-reflection-compiler-plugin} \cite{cppcon-compiler-plugins} of creating compiler plugins for the Clang compiler. These seemed promising as they would allow for a fully integrated build and also give the best possible results for creating the reflection data with even possible support for templated types. But while setting up my local environment for developing plugins for Clang I was unable to find a LLVM/Clang distribution that had the necessary header files and libraries. After a lot of searching, I have found that the Windows version of clang doesn't seem to support such compiler plugins \footnote{I have found many forum threads that claimed that plugins under Windows was impossible because of the was DLLs are load by the system}. As this approach would undoubtably require me distributing a special build of Clang tools, I have stopped trying to get it to work.
+One of the first solutions I have tried out was using one of the existing compilers to get the AST they have while the compilation is happening. This seems possible as there are multiple online resources and even semi-tutorials on the topic \cite{jdh-reflection-compiler-plugin} \cite{cppcon-compiler-plugins} of creating compiler plugins for the Clang compiler. These seemed promising as they would allow for a fully integrated build and also give the best possible results for creating the reflection data, with even possible support for templated types. But while setting up my local environment for developing plugins for Clang, I was unable to find a LLVM/Clang distribution that had the necessary header files and libraries. After a lot of searching, I have found that the Windows version of clang doesn't seem to support such compiler plugins \footnote{I have found many forum threads that claimed that plugins under Windows was impossible because of the was DLLs are load by the system}. As this approach would undoubtably require me distributing a special build of Clang tools, I have stopped trying to get it to work.
 
 My second approach was to create a \Csh command line tool that uses more tradition methods to actually manually parse the \Cpp files. As a quick proof of concept, I have created a simple parser using regular expressions that yielded great results and the first working prototype. But these expressions were really long and extremely hard to maintain, so I have decided to find a better approach. This turned out to be a more classical Tokenizer and Parser combination that is able to construct a partial AST tree that has all the information I need in order to generate the reflection functions.
 
 The way I have decided to handle annotating what properties need to be reflected is by using the relatively new \Cpp attributes, which were introduced in \Cpp 11 and \Cpp 17 \cite{cpp-attributes}. 
-These allow for an in language was to give certain parts of the code extra metadata. In most cases, this is used for \verb|[[noreturn]]| that indicates that the function does not return. Any attribute that the compiler doens't know about will be ignored, allowing my to put any data inside them.
+These allow for an in language was to give certain parts of the code extra metadata. In most cases, this is used for \verb|[[noreturn]]| that indicates that the function does not return. Any attribute that the compiler doesn't know about will be ignored, allowing my to put any data inside them.
 I have decided to use the \verb|[[SH::Reflect]]| attribute for both marking the class and the fields inside them.
 
-In order to be easily extensible in the future, I'm creating an AST for every source file in the project. The AST creation is highly similar to how a compiler works, by first Lexing the source files and creating a list of tokens. After that a Parser creates the logical nodes, building up an AST from them.
+In order to be easily extensible in the future, I'm creating an AST for every source file in the project. The AST creation is highly similar to how a compiler works, by first Lexing the source files and creating a list of tokens. After that, a Parser creates the logical nodes, building up an AST from them.
 
 The lexing step is responsible for dividing the source code into lexicographical tokens.
-This is done by reading each file character by character and matching them to a known token list. When an unknown sequence is found, it is represented by a special literal token. In my implementation not every possible \Cpp token is parsed as i don't need a full syntax only the parts necessary for getting the class members, such unparsed tokens include the common control flow keywords like: \verb|if| and \verb|while|.
+This is done by reading each file character by character and matching them to a known token list. When an unknown sequence is found, it is represented by a special literal token. In my implementation not every possible \Cpp token is parsed as I don't need a full syntax only the parts necessary for getting the class members, such unparsed tokens include the common control flow keywords like: \verb|if| and \verb|while|.
 
 <List>
 
@@ -148,4 +148,4 @@ In the parsing step, I convert these tokens into the AST that is needed. To do t
 
 Both of the parsing solutions I have created - the regex based and this lexing - output the data they gather in a common format.
 This makes it easy to add new code processors in the future, thus leaving the possibility of a clang integration open.
-This common format is a basic list of every class found with every attribute and member data stored in simple lists. The output writer than simply iterates over them and outputs reflection data for the ones that have the special \verb|SH::Reflect| attribute. The file is written using simple string interpolation.
+This common format is a basic list of every class found, with every attribute and member data stored in simple lists. The output writer then simply iterates over them and outputs reflection data for the ones that have the special \verb|SH::Reflect| attribute. The file is written using simple string interpolation.
