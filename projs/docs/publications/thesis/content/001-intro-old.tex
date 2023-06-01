@@ -22,7 +22,7 @@ The project is hosted on github and is MIT licensed.
 Most well known formas are mobile games like: Candy Crush or bigger budget console games like "The last of us" \footnote{This game series recently even got a really successful TV adaptation by HBO}
 These pieces of software need a lot of different disciplines to come together in order to create them. At the bare minimum, one needs to be a good software engineer to create the code for the game and also ba able to design a good and engaging game. But when it comes to large production games, so-called "AAA" or "triple A" games the number of necessary tasks increases. For these games on top of the programming and game design new tasks come in like story writing, 3D modelling, environment design, level design, music, and countless others. For these games, there is an expectation to excel in every category or even push what is possible.
 
-Because video games as so complex, there is a need to share some of the code between projects, as starting from scratch for each is impractical. This is possible because many of the functionality needed to create a game is the same for every game. For example, almost all games need a way to show 3D models on the display, and they need to process input from the player, regardless of what the actual gameplay is. These more abstract, not game specific functionalities, can be shared between projects. 
+Because video games as so complex, there is a need to share some of the code between projects, as starting from scratch for each is impractical. This is possible because many of the functionality needed to create a game is the same for every game. For example, almost all games need a way to show 3D models on the display, and they need to process input from the player, regardless of what the actual gameplay is. These more abstract, not game specific functionalities, can be shared between projects.
 
 These sharable functionalities are what form many of the game development code libraries. These are not runnable code by themselves and are only for the programmers to help and accelerate creating a game. Game engines are even more complex and usually include editors and tools to create the assets that are going to be used in the game. This usually includes a world editor to create the 2D or 3D environment the player can explore. Game engines are responsible for running the actual game application.
 
@@ -40,7 +40,7 @@ Engines are the core of a games code, they provide many of the utility functions
 
 In many cases companies will have their own engine developed for their own games, this is useful for them as they can modify the core engine code for each game as needed. This can result in higher integration and optimization between the engine and the game. Not many of these so called "in house" engines are available to the public to see. The biggest two publicly available that fit this description are Valve's Source engine and Epic Gemes' Unreal Engine, both of these engines have a long history going back to the 90's and the start of the computer gaming industry.
 
-Because there are countless engines most of witch is not available online I will be only using a few of the most known engines for comparison.
+Because there are countless engines most of which is not available online I will be only using a few of the most known engines for comparison.
 The 3 most popular freely available game engines:
 - Unity
 - UE4/5
@@ -57,7 +57,7 @@ I personally have the most experience with it out of the 3, and it is one of the
 
 Unreal is one of the oldest engines still under development. Its biggest feature is the high level of visual quality it can provide. Unreal is mostly focused on the AAA style market and FPS / TPS games. It's other big selling point is that it is source available, this means that if you want you can edit the source code and compile a version for your own use (while adhering to the license).
 
-Uneral's problem for my is that it is highly focused on multiplayer FPS games, and some of the settings and facilities it provides make no sense outside of that use case. On top of that the editor and development environment is a large install size witch makes it difficult to use on slower devices.
+Uneral's problem for my is that it is highly focused on multiplayer FPS games, and some of the settings and facilities it provides make no sense outside of that use case. On top of that the editor and development environment is a large install size which makes it difficult to use on slower devices.
 
 \subsection{Godot}
 
@@ -94,17 +94,17 @@ it was a relatively simple 2D engine that was able to load in tile based map fro
 
 In the next semester in my \Cpp 101 course, I have started writing a game engine for that course's extra assignment as well. This first started with the idea of "Let's make Relic engine in \Cpp" [Addendum 2d shadows].
 With \Cpp I've gotten access to classes and with this more structure for my code.
-This lead to a massive feature creep, witch made the it so that only the input system got finished by the end of the semester. But I continued to chip away on it after that. This became the old ShadowEngine.
+This lead to a massive feature creep, which made the it so that only the input system got finished by the end of the semester. But I continued to chip away on it after that. This became the old ShadowEngine.
 
 When I have started a DirectX12 programming course I have began creating a dx12 based renderer for this old version of the engine. This while worked, was a really simplistic implementation and plagued me for the next few years.
 
 \subsection{The new engine}
 
-From all of these older attempts i have learned a lot of important lessons. The most important two things are that writing a renderer is hard. They are one of the most complex parts of a game engine and need to handle a lot of different data. They are also hard to know if you have written them right. You might only come across a use case that the design can't handel after it is too late and needs major rewrites. 
+From all of these older attempts i have learned a lot of important lessons. The most important two things are that writing a renderer is hard. They are one of the most complex parts of a game engine and need to handle a lot of different data. They are also hard to know if you have written them right. You might only come across a use case that the design can't handel after it is too late and needs major rewrites.
 
 The second major realization was that making the foundations of the engine more thought out is really important. In the first iteration of this engine I have jumped many steps in order to get to a more "fun" part of the development. This has made some core components rushed and hard to use, while other unrelated sections got tangled up.
 
-This is when, while talking with friends, the idea of a rewrite came up. As my thesis project was coming up it seamed like a great opportunity to start the project. At this point I was looking around to see what kind of existing rendering solutions could I use. There are a number of libraries out there that provide varying levels and types of rendering. I have decided to accept my friends offer to make a renderer for me while deciding to create the rest of the engine in a way to allow for easy adaption of any existing solution. 
+This is when, while talking with friends, the idea of a rewrite came up. As my thesis project was coming up it seamed like a great opportunity to start the project. At this point I was looking around to see what kind of existing rendering solutions could I use. There are a number of libraries out there that provide varying levels and types of rendering. I have decided to accept my friends offer to make a renderer for me while deciding to create the rest of the engine in a way to allow for easy adaption of any existing solution.
 
 The requirements
 \begin{itemize}

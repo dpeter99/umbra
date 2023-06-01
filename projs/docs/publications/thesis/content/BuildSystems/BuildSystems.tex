@@ -2,7 +2,7 @@
 
 In order to even start creating such a huge project, I need to decide on a build system to use, and decide on many other developer tools, like version control and built systems.
 
-Choosing Git for version management was an obvious choice for me, as it is the platform that most of the open source development efforts use. This is mainly because of it's versatility and relative ease of use. For hosting, I will be using GitHub, as it has a generous free tier, that includes free cloud builds witch I'm planning on using in this project.
+Choosing Git for version management was an obvious choice for me, as it is the platform that most of the open source development efforts use. This is mainly because of it's versatility and relative ease of use. For hosting, I will be using GitHub, as it has a generous free tier, that includes free cloud builds which I'm planning on using in this project.
 
 When it comes to structuring the project, I have decided to use a true monorepo approach, where everything relating to the project will be inside a single repository. I was inspired by Google's monorepo, where every project the company creates is stored inside their single version controlled codebase. This gives them better understanding on how their code works and how it is used, since a program library maintainer can see all the places where it is consumed. In my case this means, that the engine itself and any other tooling will live inside this single repository alongside with the \LaTeX source for this document, and possible future websites for the project.
 
@@ -29,9 +29,9 @@ The biggest area where current publicly available tools are extremely lacking is
 \subsection{CMake}
 
 CMake is a meta build system, which means that it can't compile or build anything by itself, but it can generate a more complex build description for other tools. This means that CMake can generate the build files best suited for the platform the developer is using.
-The most common such builders are Ninja \cite{ninja} and GNU Make \cite{make}, witch are available for all platforms. However, it can generate Visual Studio projects as well, making it great for multi-platform development. It also has great integration with CLion and VS Code thus allowing the contributor to choose their preferred editor. Many big open source projects have chosen CMake as their build system, and there are many online sources on how to use it effectively.
+The most common such builders are Ninja \cite{ninja} and GNU Make \cite{make}, which are available for all platforms. However, it can generate Visual Studio projects as well, making it great for multi-platform development. It also has great integration with CLion and VS Code thus allowing the contributor to choose their preferred editor. Many big open source projects have chosen CMake as their build system, and there are many online sources on how to use it effectively.
 
-Because of these advantages and its industry-wide adaption, I have decided to use it for my project as well. Nevertheless, before settling on CMake, I had minimal tests set up with both MSBuild and Bazel where I tried to see if they would be usable for this project. After the tests I have settled on CMake and have been using it for the project since then.
+Because of these advantages and its industry-wide adoption, I have decided to use it for my project as well. Nevertheless, before settling on CMake, I had minimal tests set up with both MSBuild and Bazel where I tried to see if they would be usable for this project. After the tests I have settled on CMake and have been using it for the project since then.
 
 To automate downloading every dependency that is needed for the project, I have used CMake's \verb|FetchContent| functionality (example \autoref{fig:cmake-fetchcontent}) that is able to download archive files or even Git repositories at configuration time, thus allowing for easy download of third party libraries. The only two dependencies that are currently not downloaded automatically are the compiler itself and the Vulkan API, as these require some level of installation.
 
