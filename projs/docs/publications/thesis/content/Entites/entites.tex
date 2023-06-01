@@ -1,11 +1,19 @@
 \chapter{Entities}
 
 
-As I have mentioned in the planning chapter (\ref{chapter:planning}) it is a really important requirement for my project to have an entity system. What I really liked about UE5's approach was that it allowed for complex internal structure inside a single Actor. In my take on Entities, I have tried to extend this capability by allowing even more complex hierarchies.
+As I have mentioned in the planning chapter (\autoref{chapter:planning}) it is a really important requirement for my project to have an entity system. What I really liked about UE5's approach was that it allowed for complex internal structure inside a single Actor. In my take on Entities, I have tried to extend this capability by allowing even more complex hierarchies. For my solution I have researched data oriented patterns where the data and the functions operating on them are strictly separated. In games the most common implementation of this are Entity-Component-System (ECS) solutions. I have looked into many existing solutions such as Flecs\cite{flecs} \cite{flecs-ecs}, Entt\cite{entt}, and Unity's ECS package\cite{unity-ecs} \footnote{The source code for this is only available when installed in a Unity project. This means it is not open source and source access is only given for debugging.} to see how they achieve the extreme performance that they are capable of.
 
-The base idea behind this solution is that I imagine the game world as a node graph, specifically a tree of nodes. These nodes are the atomic building blocks of the entity system, with each node encapsulating a specific functionality or characteristic. The game engine defines several specialized node types, each extending the `NodeBase` class. I from a code perspective I don't make a distinction between \verb|Actors|/\verb|GameObjects| and \verb|Components|, they are all tread as part of the same hierarchy. The one distinction is between an internal and external hierarchy, where the internal tree is similar to how the UE5 components work.
+The base idea behind this solution, is that I imagine the game world as a node graph, specifically a tree of nodes. These nodes are the atomic building blocks of the entity system, with each node encapsulating a specific functionality or characteristic. The game engine defines several specialized node types, each extending the \verb|NodeBase| class. From the codes perspective, I don't make a distinction between \verb|Actors|/\verb|GameObjects| and \verb|Components|, they are all treated as part of the same hierarchy. The one distinction is between an internal and external hierarchy, where the internal tree is similar to how the UE5 components work.
 
-The way these nodes are stored is really important as the code will be iterating on them a lot, so the memory layout is optimized for this use case. To achieve this I have created a special container class that allocates memory in chunks where each chunk can store 2048 of a single node type. This way for example when rendering the code can iterate every Mesh Renderer Node in a single contiguous memory, thus maximizing the CPU cache utilization.
+The way these nodes are stored is really important as the code will be iterating on them a lot, so the memory layout is optimized for this use case. To achieve this, I have created a special container class that allocates memory in chunks where each chunk can store 2048 of a single node type. This way for example, when rendering, the code can iterate every Mesh Renderer Node in a single contiguous memory, thus maximizing the CPU cache utilization.
+
+
+\section{Node Manager}
+
+The NodeManager is responsible for the allocation and memory management of the nodes.
+It does not concern itself with the graph structure of the nodes, because the hierarchy is only a logical hierarchy and doesn't mean composition in a classical sense. The Nodes only have a pointer to the child nodes they have.
+The NodeManager maintains a map of entity containers, each associated with a specific entity type.
+It also manages a lookup table for quick access to active entities.
 
 
 \section{Node Types}
@@ -14,12 +22,12 @@ In this section I will be going over the mayor node types that I have implemente
 
 \subsection{Node Base}
 
-The \verb|NodeBase| class serves as the foundation for all elements in the graph. Each \verb|NodeBase| instance carries a globally unique ID (\verb|runtime_uid|) and a runtime index (\verb|runtime_index|). The \verb|runtime_uid| is unique for each entity and can be used for looking them up, though this is a slower process. I recommend using the \verb|runtime_index| witch provides a faster alternative for accessing entities. However, it is not unique, meaning that when an entity is released, its index can be re-assigned to a different entity. Because of this I have created the \verb|rtm_ptr| that holds both the IDs and uses \verb|runtime_index| for lookup and then checking that it has the same \verb|runtime_uid| as the entity it is supposed to refer to.
+The \verb|NodeBase| class serves as the foundation for all elements in the graph. Each \verb|NodeBase| instance carries a globally unique ID (\verb|runtime_uid|) and a runtime index (\verb|runtime_index|). The \verb|runtime_uid| is unique for each entity and can be used for looking them up, though this is a slower process. I recommend using the \verb|runtime_index| which is an index to the NodeManager's lookup table, thus provides a faster alternative for accessing entities. However, it is not unique, meaning that, when an entity is released, its index can be re-assigned to a different entity. Because of this, I have created the \verb|rtm_ptr| that holds both the IDs and uses \verb|runtime_index| for lookup and then checking that it has the same \verb|runtime_uid| as the entity it is supposed to refer to.
 
 \subsection{Specialized Node Types}
 
 I have created multiple specialized node types like \verb|Component|, \verb|Actor|, and \verb|Scene|.
-Each class allows the concrete nodes to be more specific about their role in the graph. In this section, I will show some of these special node types and what I made them for.
+Each class allows the exact nodes to be more specific about their role in the graph. In this section, I will show some of these special node types and what I made them for.
 
 \subsubsection{Components}
 
@@ -27,40 +35,45 @@ Each class allows the concrete nodes to be more specific about their role in the
 Specifically, \verb|Component| is a type of \verb|LeafNode| that provides functionality to an entity.
 These can be thought of like the components of Unity, where they form a flat list under the Node they are attached to.
 
-I have created a few built in components that give an example on how I plan to use them. The samples of them is the \verb|Position| component that simplify stores a XYZ float triplet to signify a position in 3D space. This can be attached to any other node that needs a coordinate. Others might include a Mesh renderer that render a mesh at the position given by the \verb|Position| component.
+I have created a few built in components that give an example on how I plan to use them. The samples of them is the \verb|Position| component that simplify stores a XYZ float triplet to signify a position in 3D space. This can be attached to any other node that needs a coordinate. Others might include a Mesh renderer that renders a mesh at the position given by the \verb|Position| component.
 
 \subsubsection{Node}
 
-The \verb|Node| class extends \verb|NodeBase| and represents a complex node that can have children nodes.
-It has two vectors, \verb|hierarchy| and \verb|internal_hierarchy|, representing the children and internal children nodes respectively.
-These are new names for the two concets already present in UE5 and Unity.
-Internal hiererarchy is the list of internal building blocks similar to UE5's component hierarchy with the differece being that any type of Node can be added to it making it more flexible.
-The Hierarchy list is the Unity like public hierarchy.
+The \verb|Node| class extends \verb|NodeBase| and represents a complex node that can have children.
+It has two vectors to store the child nodea, \verb|hierarchy| and \verb|internal_hierarchy|, representing the public and internal hierarchy.
+These the names I came up with for the concepts already present in UE5 and Unity.
+Internal hierarchy is the list of internal building blocks similar to UE5's components that form a hierarchy. The difference is that any type of Node can be added to it making it more flexible.
+The public hierarchy is the same as Unity's Game Object hierarchy.
 
-Nodes provide the ability to build complex entities in the game world by combining various components and other nodes.
-This freedom to create any structure, makes the engine less opinionated but also can lead to confusion.
-To mitigate this in the furute stronger suggested layouts should be developed and given as default for the developers.
+Nodes provide the ability to build complex entities in the game world by combining various components and even other nodes.
+This freedom to create any structure, makes the engine less opinionated, but also can lead to confusion.
+To mitigate this in the future, I plan on making stronger suggested layouts that should help developers decide how to structure their games.
 
 \subsubsection{Actor}
 
-\verb|Actor| is a specialized \verb|Node| that possesses a name and a \verb|Build| method.
+\verb|Actor| is a specialized \verb|Node| that has a name and a \verb|Build| method.
 This abstract class is designed to be the
 base for game-world objects that have specific functionality and may interact with other objects in the scene.
-The \verb|Build| method is defined as a pure virtual function, enforcing that every subclass of \verb|Actor| must provide its own implementation of how it is constructed.
+The \verb|Build| method is defined as a pure virtual function, enforcing that every subclass of \verb|Actor| must provide its own implementation of how it is constructed. In this construction step they can add new child nodes to themselves, building out both the internal and external hierarchies.
 
-\subsubsection{Entity and Scene}
+\subsubsection{Scene}
 
-\verb|Entity| and \verb|Scene| are two more specialized node types.
-An \verb|Entity| is a specialized \verb|Node| and can be thought of as an object within the game world.
-
-On the other hand, \verb|Scene| is an \verb|Actor| that maintains a \verb|static_hierarchy| of nodes.
 A \verb|Scene| essentially represents a level or a stage in a game, and it is responsible for managing and organizing the entities within that level.
-Each \verb|Scene| also possesses a name, which aids in scene identification and management.
+\verb|Scene| is an \verb|Actor| that maintains a \verb|static_hierarchy| of nodes. I plan on using this ability to separate out objects that will never move during gameplay, thus allowing for rendering optimizations.
+Each \verb|Scene| also has a name, which aids in scene identification and management.
 
-\subsection{Node Manager}
 
-The NodeManager is responsible for the allocation and memory management of the nodes.
-It does not concern itself with the graph structure of the nodes.
-This is because the graph hierarchy is only a logical hierarchy.
-The NodeManager maintains a map of entity containers, each associated with a specific entity type.
-It also manages a lookup table for quick access to active entities.
+\section{Updating the nodes}
+
+In order to be able to change the Node's state, I have created a simple "System" solution. In ECS setups, a system is any code that changes the data inside the entities. My current implementation is quite simple and is missing many features that other libraries have, for example dependencies between systems. The solution is however capable of updating the Nodes and implementing simple movement logic. To create a new system, the user only has to create a lambda function that will be called for each instance of the specified node type (see \autoref{listing:system-example}).
+
+\begin{listing}[h]
+    \begin{minted}{cpp}
+world.system<Builtin::Position>()->forEach([](auto &pos) {
+    pos.y += 1.0f;
+});
+    \end{minted}
+    \caption{Example of a simple system that moves all entities with a Position component up by 1 unit.}
+    \label{listing:system-example}
+\end{listing}
+

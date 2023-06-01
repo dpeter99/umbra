@@ -18,7 +18,8 @@
     "Cpp",
     "Lexing",
     "necessary",
-    "lexing"
+    "lexing",
+    "Flecs"
   ],
   "showUnsupportedFiles": true
 }
