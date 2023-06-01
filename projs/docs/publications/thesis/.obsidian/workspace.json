@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Entites/entites.tex",
+                "file": "content/Reflection/reflection.tex",
                 "mode": "source",
                 "source": false
               }
@@ -130,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Entites/entites.tex",
+                "file": "content/Reflection/reflection.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Entites/entites.tex",
+                "file": "content/Reflection/reflection.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/Entites/entites.tex"
+                "file": "content/Reflection/reflection.tex"
               }
             }
           }
@@ -194,18 +194,18 @@
   },
   "active": "a4b600e69fda2c84",
   "lastOpenFiles": [
-    "content/architecture/Architecture.tex",
-    "content/Entites/entites.tex",
     "main.aex",
+    "common/includes/packages.tex~",
+    "content/Reflection/reflection.tex~",
+    "content/BuildSystems/BuildSystems.tex",
+    "content/architecture/Architecture.tex~",
+    "content/BuildSystems/BuildSystems.tex~",
+    "content/001-intro-old.tex~",
+    "content/Entites/entites.tex",
+    "content/architecture/Architecture.tex",
     "content/Entites/entites.tex~",
     "bib/mybib.bib~",
-    "content/BuildSystems/BuildSystems.tex",
-    "content/Planning/planning.tex",
-    "content/Research/research.tex",
     "scratch2.md",
-    "content/Reflection/reflection.tex",
-    "main.tex~",
-    "content/001-intro.tex",
     "Scratch.md",
     "content/Research/UE5-Details.png",
     "content/Research/UnrealEditor_fRWY3y3YQM.png",

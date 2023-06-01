@@ -10,12 +10,18 @@
   \usepackage{fontspec}
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+% Palatino clone font (Tex Gyre Pagella) for text and math
+%\usepackage{newpxmath}
+\setmainfont[Ligatures=TeX]{Times New Roman}
+
 \else
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage[lighttt]{lmodern}
   \ttfamily\DeclareFontShape{T1}{lmtt}{m}{it}{<->sub*lmtt/m/sl}{}
 \fi
+
+%\usepackage{mathptmx}
 
 \usepackage[english,magyar]{babel} % Alapértelmezés szerint utoljára definiált nyelv lesz aktív, de később külön beállítjuk az aktív nyelvet.
 
