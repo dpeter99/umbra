@@ -129,62 +129,23 @@ For Shadow Engine, I have decided to try and create a similar tool to what Unrea
 This would allow the users of the project a more seamless experience and free up development time in the future.
 I have explored multiple possible ways to gather the necessary data for generating the extra files. As a first step, the tool needs to parse the \Cpp source files and extract the necessary information. This is most commonly achieved by creating an AST (Abstract syntax tree) for the code. However, creating such a code paring for \Cpp can be quite difficult as it has many hard to parse notations, luckily I only need a partial syntax tree that can be produced much easier.
 
-I have found multiple online tutorials on how to create compiler plugins for clang.
-Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/\Cpp compilers.
-While these tutorials showed great results and allowed full integration into the compilation process, they almost all required compiling clang from scratch.
+One of the first solutions I have tried out was using one of the existing compilers to get the AST they have while the compilation is happening. This seems possible as there are multiple online resources and even semi-tutorials on the topic \cite{jdh-reflection-compiler-plugin} \cite{cppcon-compiler-plugins} of creating compiler plugins for the Clang compiler. These seemed promising as they would allow for a fully integrated build and also give the best possible results for creating the reflection data with even possible support for templated types. But while setting up my local environment for developing plugins for Clang I was unable to find a LLVM/Clang distribution that had the necessary header files and libraries. After a lot of searching, I have found that the Windows version of clang doesn't seem to support such compiler plugins \footnote{I have found many forum threads that claimed that plugins under Windows was impossible because of the was DLLs are load by the system}. As this approach would undoubtably require me distributing a special build of Clang tools, I have stopped trying to get it to work.
 
-I have tried following some of these tutorials, but I have run into many issues that would have need way more time to solve than I had available.
-Most of my problems boiled down to one thing, there is no distribution of clang for Windows that supports loading and developing plugins.
-Because of this I would need to compile clang myself and this is not an easy task and can differ based on the system being used.
+My second approach was to create a \Csh command line tool that uses more tradition methods to actually manually parse the \Cpp files. As a quick proof of concept, I have created a simple parser using regular expressions that yielded great results and the first working prototype. But these expressions were really long and extremely hard to maintain, so I have decided to find a better approach. This turned out to be a more classical Tokenizer and Parser combination that is able to construct a partial AST tree that has all the information I need in order to generate the reflection functions.
 
-After realising that getting clang plugins working is a way bigger task than I should work on, I have decided to write a simple parser in \Csh.
-I have chosen \Csh because I'm familiar with it and has better string manipulation methods than cpp.
+The way I have decided to handle annotating what properties need to be reflected is by using the relatively new \Cpp attributes, which were introduced in \Cpp 11 and \Cpp 17 \cite{cpp-attributes}. 
+These allow for an in language was to give certain parts of the code extra metadata. In most cases, this is used for \verb|[[noreturn]]| that indicates that the function does not return. Any attribute that the compiler doens't know about will be ignored, allowing my to put any data inside them.
+I have decided to use the \verb|[[SH::Reflect]]| attribute for both marking the class and the fields inside them.
 
-...
+In order to be easily extensible in the future, I'm creating an AST for every source file in the project. The AST creation is highly similar to how a compiler works, by first Lexing the source files and creating a list of tokens. After that a Parser creates the logical nodes, building up an AST from them.
 
-Cpp attributes
+The lexing step is responsible for dividing the source code into lexicographical tokens.
+This is done by reading each file character by character and matching them to a known token list. When an unknown sequence is found, it is represented by a special literal token. In my implementation not every possible \Cpp token is parsed as i don't need a full syntax only the parts necessary for getting the class members, such unparsed tokens include the common control flow keywords like: \verb|if| and \verb|while|.
 
-\subsection{Goal}
-Get a list of all the classes that are in the code.
-To be expandable in the future the tool parses all the classes no matter if they have an attribute that marks it for reflection.
-
-\subsection{Ast}
-After the initial regex based implementation I got inspiration and initial help creating a more advanced code processor that is much closerin design to a classical compiler.
-These software usually have the following steps:
-- Lexer
-- parser
-- etc..
-The lexer is responsible for dividing the source code into lexicographical tokens.
-These are usually things like keywords, identifiers, and the different kinds of brackets.
-This is done by iterating over the input text character by character and if the character is a known char we put it into a list of tokens.
-<Example code>
-In my implementation I parse the following tokens:
 <List>
-These are not all the possible tokens, but they are enough for what this tool needs to understand.
 
-\subsection{Parser}
-Parsing is the step where we iterate over all the tokens that makeup a file and form logical units out of them.
-These are going to be the Nodes that make up the final AST. For each file the root of the corresponding AST is going to be a CompilationUnitNode.
+In the parsing step, I convert these tokens into the AST that is needed. To do this, I iterate over the tokens and form the nodes out of them. This is a quite crude operation and uses a few assumptions, meaning it can't handle syntax errors, but this wasn't a priority as the compiler will already give correct errors about those. 
 
-For example the following series of tokens represent a basic class.
-
-<Example of class tokens>
-
-Would turn into this:
-
-<Pseudo code of class node>
-
-During parsing we find these patterns and form node from them.
-
-To get this we can do a similar forward iteration as we did while lexing but this time we iterate on the token level.
-Most of these patterns are well documented in the cop specifications and are more easily available online in cppreference.com
-
-In the tool I have created a partial parser as I do not care about most of the cop code.
-As a result my parser ignores all the function bodies and any declarations that it doesn't recognise as a class head or a member field.
-
-\subsection{Output}
-Both of the parsers (regex based and lexing) output the data they gather in a common format.
+Both of the parsing solutions I have created - the regex based and this lexing - output the data they gather in a common format.
 This makes it easy to add new code processors in the future, thus leaving the possibility of a clang integration open.
-
-The output writer is a simple function that finds all classes with the correct attribute (SH::Reflect) and,
-using simple string interpolation writes the necessary functions into a common file.
+This common format is a basic list of every class found with every attribute and member data stored in simple lists. The output writer than simply iterates over them and outputs reflection data for the ones that have the special \verb|SH::Reflect| attribute. The file is written using simple string interpolation.
