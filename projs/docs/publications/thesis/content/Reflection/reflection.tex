@@ -125,10 +125,9 @@ Z_Construct_UScriptStruct_FGenericTeamId,
 
 \section{Shadow header tool}\label{sec:shadow-header-tool}
 
-For Shadow Engine I have decided to try and create a similar tool to what UE has.
+For Shadow Engine, I have decided to try and create a similar tool to what Unreal Engine has.
 This would allow the users of the project a more seamless experience and free up development time in the future.
-I have explored multiple possible ways to create such a tool, as for this I would need a partial AST (Abstract syntax tree).
-This is notoriously hard to generate for \Cpp.
+I have explored multiple possible ways to gather the necessary data for generating the extra files. As a first step, the tool needs to parse the \Cpp source files and extract the necessary information. This is most commonly achieved by creating an AST (Abstract syntax tree) for the code. However, creating such a code paring for \Cpp can be quite difficult as it has many hard to parse notations, luckily I only need a partial syntax tree that can be produced much easier.
 
 I have found multiple online tutorials on how to create compiler plugins for clang.
 Clang is a compiler frontend for the famous LLVM compiler framework, and is one of the 3 most used C/\Cpp compilers.

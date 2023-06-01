@@ -27,18 +27,18 @@ The most well known computer games are mobile games like Candy Crush \cite{candy
 But there are many different types of video games that present vastly different experiences.
 For example, there are games that play entirely in a text based window and focus on the story, while others don't have any story and are based on multiple players interacting.
 To create programs like these, at the bare minimum one needs a good software engineer to create the code for the game and also a game design to make the play engaging and enjoyable.
-On the other hand, when it comes to large production games, the so-called "AAA" or "triple A" games, the number of necessary tasks increases.
+On the other hand, when it comes to large production games, the so-called "AAA" or "triple A" games, the number of necessary tasks increase.
 For these games, on top of the programming and game design, new tasks come in like story writing, 3D modelling, environment design, level design, music, and countless others.
 These high-end games are expected to excel in every category or even push the bounds of what is currently possible in game mechanics or in visuals (like reflections or shadows).
 
 Because video games are so complex, there is a need to share some of the code between projects, as starting from scratch for each is impractical.
 This is possible because many of the functionalities needed to create a game is the same, regardless of the visual or gameplay style.
 For example, almost every game needs a way to show 3D models (like trees, dogs or houses) on the display, and they need to process input from the player.
-These more abstract not game specific functionalities can be shared between projects.
+These more abstract, not game specific functionalities can be shared between projects.
 
 These shareable functionalities are what form many of the game development code libraries, which are not runnable code by themselves and are only for the programmers to help and accelerate creating a game.
 A great example of such a code library is \verb|raylib| \cite{raylib} which can provide many of the important functionality for the developer, such as code for drawing, 3D model and texture loading, or even audio playback.
-Compared to these game engines are even more complex and are responsible for running the actual game application.
+Compared to these, game engines are even more complex and are responsible for running the actual game applications.
 In most cases, these include editors and tools to create the assets that are going to be used in the game along with a world editor to create the 2D or 3D environment the player can explore.
 
 There are many game engines, but it is important to highlight that not all of them are publicly available.
@@ -48,11 +48,11 @@ As the in house engines are treated as trade secrets, people rarely share detail
 
 I have been using Unity - one of the most popular game engines - since 2015, and have been fascinated by how games work way before that.
 Using Unity, I have created many basic projects and prototypes.
-These were usually too ambitious projects for me alone to achieve them, but gave me the chance to me to explore and try out many aspects of the engine.
+These were usually too ambitious projects for me alone to achieve them, but gave me the chance to explore and try out many aspects of the engine.
 Using a popular commercial engine also allowed me to better understand what a game creator expects from an engine and what are the most critical things when creating a game.
 As my coding skills expanded and my goals became more realistic I have started finding more and more pain points in Unity.
 This has become extremely evident in the last major project I did in Unity, which was for the "Project Laboratory" course.
-In that project, I have implemented a complex extension that helped to create gameplay logic. \cite{szajberpunk-logic-system}.
+In that assignment, I have implemented a complex extension that helps create gameplay logic. \cite{szajberpunk-logic-system}.
 During this last project, I have found myself "fighting" with unity more, than actually enjoying the development.
 
 I have experimented with writing my own game engine multiple times with many different technologies and ways to approach the problem.
@@ -74,10 +74,10 @@ The initial push and encouragement for the project came from one of my online fr
 My basic idea was to start from scratch and re-do what I have done for the old Shadow Engine, but do it right this time.
 That is the reason why I kept the name for the project, but as this time hopefully multiple people are going to be working on this, I have created a GitHub group for it and a fresh new code repository.
 
-Choosing the right technologies for such a project is really important, as some changes are practicality impossible to change later.
+Choosing the right technologies for such a project is really important, as some changes are practicality impossible to revert later.
 The most crucial choice is the programming language, as this influences all other choices I have to make.
-I chose to use \Cpp since I already have some experience with it - mainly with the old Shadow Engine project - and this is the industry standard for making games.
+I decided to use \Cpp since I already have some experience with it - mainly with the old Shadow Engine project - and this is the industry standard for making games.
 I have also considered other similar languages like Rust, but I have decided against it in order to allow as many people to contribute as possible.
-The next big decision was to decide on a build system that will help in compiling the potentially enormous codebase.
+The next big decision was what build system to use, that will be able to compile the potentially enormous codebase.
 This was a longer and more complex decision, and I will be detailing it later in \autoref{chap:project-setup}.
 
