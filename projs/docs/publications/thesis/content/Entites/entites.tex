@@ -1,9 +1,11 @@
 \chapter{Entities}
 
 
-\section{Shadow Engine and entities}
+As I have mentioned in the planning chapter (\ref{chap:planning}) it is a really important requirement for my project to have an entity system. What I really liked about UE5's approach was that it allowed for complex internal structure inside a single Actor. In my take on Entities, I have tried to extend this capability by allowing even more complex hierarchies. 
 
-In sahdow engien we use a more complex setup that borrows form UE4/5. In this solution we immagine the game world as a tree of nodes. Nodes are the atomic building blocks of the entity system, with each node encapsulating a specific functionality or characteristic. The game engine defines several specialized node types, each extending the `NodeBase` class.
+The base idea behind this solution is that I imagine the game world as a node graph, specifically a tree of nodes. These nodes are the atomic building blocks of the entity system, with each node encapsulating a specific functionality or characteristic. The game engine defines several specialized node types, each extending the `NodeBase` class. I from a code perspective I don't make a distinction between \verb|Actors|/\verb|GameObjects| and \verb|Components|, they are all tread as part of the same hierarchy. The one distinction is between an internal and external hierarchy, where the internal tree is similar to how the UE5 components work.
+
+The way these nodes are stored is really important as the code will be iterating on them a lot, so the memory layout is optimized for this use case. To achieve this I have created a special container class that allocates memory in chunks where each chunk can store 2048 of a single node type. This way for example when rendering the code can iterate every Mesh Renderer Node in a single contiguous memory, thus maximizing the CPU cache utilization.
 
 \subsection{Node Base}
 

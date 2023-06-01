@@ -21,14 +21,14 @@ Because of this constant chase of the new technologies, there are many areas whe
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{content/Research/Unity-Editor-2.jpg}
-    \caption{Screenshot of the Unity engine's unufied editor.}
+    \caption{Screenshot of the Unity engine's unified editor.}
     \label{fig:unity-editor}
 \end{figure}
 
 
 \section{Unreal Engine 5}
 
-Unreal Engine (UE), developed by Epic Games, has a rich and long history that has significantly influenced the landscape of modern gaming. The inception of Unreal Engine dates back to 1998, when the first-person shooter game 'Unreal'\cite{unreal-game} was released. Since then, it has undergone several mayor transformations, resulting in its latest iteration, Unreal Engine 5 (UE5). Throughout the years, the engine has consistently pushed the boundaries of what's possible in game development, from pioneering high-fidelity graphics to realizing expansive virtual worlds.
+Unreal Engine (UE), developed by Epic Games, has a rich and long history that has significantly influenced the landscape of modern gaming. The inception of Unreal Engine dates back to 1998, when the first-person shooter game 'Unreal'\cite{unreal-game} was released. Since then, it has undergone several mayor transformations, resulting in its latest iteration Unreal Engine 5 (UE5). Throughout the years, the engine has consistently pushed the boundaries of what's possible in game development, from pioneering high-fidelity graphics to realizing expansive virtual worlds.
 
 Unreal Engine 5, boasts a tremendous leap forward in visual fidelity, by using groundbreaking technologies such as Nanite and Lumen.
 Nanite is a system that essentially eliminates the limitations of polygon count and draw call overheads in 3D environment modelling. It achieves this by using so-called "virtual polygons", allowing for much greater model detail to be used without major performance hit. This system can replace the traditional Level Of Detail (LOD)\footnote{A system where separate models are created for when the given object is further away.} approach, allowing for much faster development time.
@@ -46,12 +46,12 @@ Lumen, on the other hand, is a fully dynamic global illumination solution that c
 
 In UE 5, the fundamental building blocks of a game world are called Actors. An Actor is essentially any object that can be placed into the game world, and they can represent characters, scenery, and even complex gameplay elements. There are many built in Actors that do common functionality, for example common game objects such as characters, cameras, lights, and physics objects.
 
-The list of the actors present in the game world is shown in the Outliner witch is a tool within UE5 editor that provides a hierarchical view of all the Actors present in a level (\autoref{fig:ue5-outliner}).
+The list of the Actors present in the game world is shown in the Outliner witch is a tool within UE5 editor that provides a hierarchical view of all the Actors present in a level (\autoref{fig:ue5-outliner}).
 
 Components are the building blocks of Actors, and they can be thought of as the individual features that make up an Actor. For example, a character Actor might have a Mesh Component, a Camera Component, and a Character Movement Component. Components can form a parent-child relationship inside an Actor. This allows for the creation of complex Actors. The list of components present in an Actor is shown in the Details panel (\autoref{fig:ue5-details}), this shows the hierarchy of the components and their properties.
 
-But the user also has multiple options to create new types, specific to their game. One such method is through the use of Blueprints, a visual scripting system that allows for the creation of custom Actors without the need for traditional programming. This system uses visual nodes to define the code flow, and is quite beginner-friendly. By combining pre-existing components and defining their interactions through Blueprint nodes, developers can create new Actor types that fit their game's requirements.
+But the user also has multiple options to create new types specific to their game. One such method is through the use of Blueprints, a visual scripting system that allows for the creation of custom Actors without the need for traditional programming. This system uses visual nodes to define the code flow, and is quite beginner-friendly. By combining pre-existing components and defining their interactions through Blueprint nodes, developers can create new Actor types that fit their game's requirements.
 
 Another method for creating new Actor types is through \Cpp programming.
-UE5 is written in \Cpp and natively only supports \Cpp based scripting, but plugins exist for that allow for other languages like \Csh to be used for coding. These methods are more complex and requires a good understanding of \Cpp and the UE5 API, but it allows for more advanced functionality and performance optimizations.
+UE5 is written in \Cpp and natively only supports \Cpp based scripting, but plugins exist which allow for other languages like \Csh to be used for coding. These methods are more complex and requires a good understanding of \Cpp and the UE5 API, but it allows for more advanced functionality and performance optimizations.
 
