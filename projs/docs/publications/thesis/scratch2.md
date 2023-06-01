@@ -22,7 +22,7 @@ On top of this, we also need to display all the fields in the editor, so the des
 
 # Entites
 
-As I have mentioned in the planning chapter (\ref{chap:planning}) it is a really important requirement for my project to have  an entity system.  
+
 
 To better understand the 
 

@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Reflection/reflection.tex",
+                "file": "content/BuildSystems/BuildSystems.tex",
                 "mode": "source",
                 "source": false
               }
@@ -130,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Reflection/reflection.tex",
+                "file": "content/BuildSystems/BuildSystems.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Reflection/reflection.tex",
+                "file": "content/BuildSystems/BuildSystems.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/Reflection/reflection.tex"
+                "file": "content/BuildSystems/BuildSystems.tex"
               }
             }
           }
@@ -194,19 +194,19 @@
   },
   "active": "a4b600e69fda2c84",
   "lastOpenFiles": [
+    "content/Entites/entites.tex",
     "main.aex",
-    "main.tex~",
-    "scratch2.md",
-    "content/Reflection/reflection.tex",
-    "bib/mybib.bib~",
+    "content/Entites/entites.tex~",
+    "content/Planning/planning.tex",
     "content/Research/research.tex",
+    "scratch2.md",
+    "content/architecture/Architecture.tex",
+    "content/Reflection/reflection.tex",
+    "main.tex~",
+    "bib/mybib.bib~",
     "content/001-intro.tex",
     "content/Reflection/reflection.tex~",
-    "content/architecture/Architecture.tex",
     "Scratch.md",
-    "content/architecture/Architecture.tex~",
-    "content/BuildSystems/BuildSystems.tex",
-    "content/BuildSystems/BuildSystems.tex~",
     "content/Research/UE5-Details.png",
     "content/Research/UnrealEditor_fRWY3y3YQM.png",
     "content/Research/UE5-Outliner.png",

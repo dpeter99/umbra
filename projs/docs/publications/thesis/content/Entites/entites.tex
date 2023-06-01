@@ -1,7 +1,7 @@
 \chapter{Entities}
 
 
-As I have mentioned in the planning chapter (\ref{chap:planning}) it is a really important requirement for my project to have an entity system. What I really liked about UE5's approach was that it allowed for complex internal structure inside a single Actor. In my take on Entities, I have tried to extend this capability by allowing even more complex hierarchies. 
+As I have mentioned in the planning chapter (\ref{chapter:planning}) it is a really important requirement for my project to have an entity system. What I really liked about UE5's approach was that it allowed for complex internal structure inside a single Actor. In my take on Entities, I have tried to extend this capability by allowing even more complex hierarchies.
 
 The base idea behind this solution is that I imagine the game world as a node graph, specifically a tree of nodes. These nodes are the atomic building blocks of the entity system, with each node encapsulating a specific functionality or characteristic. The game engine defines several specialized node types, each extending the `NodeBase` class. I from a code perspective I don't make a distinction between \verb|Actors|/\verb|GameObjects| and \verb|Components|, they are all tread as part of the same hierarchy. The one distinction is between an internal and external hierarchy, where the internal tree is similar to how the UE5 components work.
 

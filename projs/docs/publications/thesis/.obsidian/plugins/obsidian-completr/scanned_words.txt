@@ -190,6 +190,19 @@ cppcon
 claimed
 combination
 construct
+characteristic
+carries
+considerations
+contain
+concets
+confusion
+constructed
+concern
+containers
+container
+chunks
+chunk
+contiguous
 Architecture
 App
 AddDescriptors
@@ -218,6 +231,9 @@ Nodes
 Nanite
 Ninja
 NewProp
+Node
+NodeBase
+NodeManager
 game
 games
 give
@@ -258,6 +274,7 @@ graphical
 generalize
 generated
 generating
+globally
 makers
 means
 make
@@ -352,6 +369,10 @@ minimal
 marking
 match
 matching
+mitigate
+maintains
+manages
+maximizing
 think
 they
 to
@@ -443,6 +464,10 @@ templated
 threads
 tradition
 turned
+though
+terminal
+table
+tread
 of
 own
 only
@@ -490,6 +515,8 @@ overwrite
 output
 ordering
 outputting
+opinionated
+organizing
 engines
 engine
 easier
@@ -632,6 +659,9 @@ extent
 extract
 expressions
 extensible
+encapsulating
+extends
+enforcing
 as
 application
 and
@@ -742,6 +772,15 @@ archive
 act
 aware
 annotating
+atomic
+accessing
+assigned
+aids
+allocation
+associated
+access
+active
+allocates
 single
 source
 studio
@@ -924,6 +963,11 @@ seems
 semi
 seemed
 seem
+stronger
+suggested
+subclass
+stage
+specifically
 download
 don
 develop
@@ -1028,6 +1072,9 @@ decorators
 demo
 difficult
 doens
+delve
+differece
+distinction
 use
 using
 used
@@ -1072,6 +1119,7 @@ under
 undoubtably
 unknown
 unparsed
+uid
 want
 workflows
 without
@@ -1140,6 +1188,7 @@ TurnOn
 TurnOff
 Transient
 Tokenizer
+Types
 need
 necessary
 needs
@@ -1179,6 +1228,7 @@ nice
 necessery
 nullptr
 notations
+nodea
 recompile
 runtime
 represents
@@ -1280,6 +1330,9 @@ replacement
 regular
 reflected
 read
+recommended
+representing
+respectively
 leads
 loaded
 load
@@ -1350,6 +1403,8 @@ levels
 luckily
 local
 literal
+layouts
+liked
 fast
 from
 form
@@ -1445,6 +1500,9 @@ fetchcontent
 freqently
 frequently
 forum
+freedom
+furute
+fistinction
 iteration
 install
 if
@@ -1555,6 +1613,10 @@ iszPattern
 introduced
 indicates
 ignored
+index
+implies
+identification
+imagine
 you
 years
 year
@@ -1622,6 +1684,7 @@ vital
 varying
 variables
 void
+vectors
 Game
 Games
 Godot
@@ -1714,6 +1777,7 @@ InputTurnOn
 InputTurnOff
 Inc
 ILyraTeamAgentInterface
+Internal
 DLL
 DLLs
 Depth
@@ -1852,6 +1916,9 @@ promising
 proof
 prototype
 parsed
+possesses
+pure
+perspective
 From
 For
 Foundation
@@ -1916,6 +1983,7 @@ human
 header
 head
 happening
+hiererarchy
 However
 Hierarchy
 Having
@@ -2021,6 +2089,8 @@ Statics
 Struct
 STRUCT
 Section
+Specialized
+Specifically
 Both
 Based
 Between
@@ -2072,6 +2142,8 @@ While
 Wisible
 Why
 Would
+World
+What
 RootNode
 Requiremnets
 Reflection
@@ -2104,6 +2176,7 @@ LyraPawn
 LYRAGAME
 Lyra
 Lexing
+LeafNode
 Photoshop
 Project
 Planning
