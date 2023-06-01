@@ -120,6 +120,8 @@ Given the complexity and scope of this endeavour, it's crucial to start with a s
 For this regard, I have looked into many of the popular game engines as outlined in \autoref{} and tried to pick the best ideas from each. 
 For a successful open source project, it is important to make contributing as easy as possible, while also planning for growth of the project. Keeping this in mind was really important for me while choosing technologies to use, and will be detailing more in \autoref{}
 
+It is important to note that this will not be a fully featured engine, however I hope to create the start of one with this project.
+
 
 
 ## Modular Design
@@ -146,6 +148,9 @@ Requiremnets
 Every game engine needs a way to represent the game world in code in some way. In Unity there are the \verb|GameObject|s, in UE they are \verb|Actor|s, while valve's Source engine calls them Entities, but they fulfil a functionally similar role in making a game. As we can see from just these examples, there isn't an industry standard way of naming these building blocks, and their implementation also differs between engines greatly.
 
 While in Unity and Unreal the user adds Components to create functionality, in Source all entities are pre-defined, and new ones can only be added using \Cpp \footnote{There are some Source games that support easier scripting with VScript \cite{valve-vscript}}. But Unity and UE also differ in their approach where Unity only has a flat list of components, UE allows for a whole internal hierarchy of components.
+
+
+
 
 
 Just as there are many game engines, there are just as many definitions and nomenclature for what to call the pieces that build up the game world. Despite the lack of a standardized terminology, almost every game engine needs a way to describe what makes up the in-game world. Understanding the unique approaches taken by each engine is essential for developing a game engine.
@@ -191,6 +196,12 @@ The game engine will be written in a way that it can be used to create a game th
 
 
 The game engine will be written in C++ and will use OpenGL for rendering. The game engine will be cross-platform and will run on Windows, Linux and Mac OS X. The game engine will be written in a modular way so that it can be extended easily. The game engine will be written in a way that it can be used to create a 2D or 3D game. The game engine will be written in a way that it can be used to create a game that is either a first person shooter or a third person shooter. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game. The game engine will be written in a way that it can be used to create a game that is either a single player game or a multiplayer game.
+
+## reflection
+
+
+
+
 
 # Project Foundation
 

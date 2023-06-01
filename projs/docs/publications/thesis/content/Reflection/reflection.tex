@@ -1,16 +1,8 @@
 \chapter{Reflection}\label{ch:reflection}
 
-In programming, reflection refers to any case where the program needs to reason about itself, especially during execution.
-This can be anything from the list of all the classes that implement a specific interface, or the list of fields inside one of those classes.
-This can be extremely useful when serializing data into a human-readable format, as in these cases we would need to iterate all the data members inside the object.
+As I have described in \autoref{chapter:planning} it is really important for a game engine to have a reflection system that allows us to save and load map files and also edit the fields in a class from a nice graphical interface. While this is a really useful ability, \Cpp doesn't have it because it is not needed in every case and when it is not needed it would use up resources unnecessarily.
 
-Reflection is a common capability of most high level languages, for example, JS even has the ability to print out the code for a class of function.
-In \Csh and Java, we have the ability to list every class or my type of members inside them.
-
-This ability is missing from \Cpp by default as it is too complex and would be extra data only useful in a few use cases.
-Because of this everyone who needs this data in their code needs to find some way to generate and store the information.
-
-If reflection is not available then it is possible to use manually written functions that return the same data.
+Because of this there are many different solutions to creating a reflection system on top of \Cpp. The easiest way is to create specialized template functions that give back the necessary information. For smaller projects or cases where new classes get added less frequently making there by hand is a good solution.
 
 \begin{listing}[!ht]
     \begin{minted}{cpp}
@@ -38,36 +30,97 @@ If reflection is not available then it is possible to use manually written funct
     \label{listing:maual-reflection}
 \end{listing}
 
-In the example (\ref{listing:maual-reflection}), we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
-This approach works and can give all the data that one could need.
+In the example (\autoref{listing:maual-reflection}), we have a base class that has a virtual function that all derived classes must overwrite and return the class metadata.
+Using this solution we can store and get back the information we need in any format thus making it really flexible.
 However, this is a lot of manual work and puts the responsibility on the coder to write the function correctly.
 This takes time away from actual development.
 
 Another solution is to use a tool that can generate these functions or generate the data in a portable format that can be loaded during runtime.
 
 
-\section{Why we need reflection}\label{sec:why-we-need-reflection}
+\section{Other engines}
 
-In a game engine reflection is used for (among other things) serialising the level data.
-For this we need to know what data fields an object has and witch of those need to be written to the level file.
-On top of this, we also need to display all the fields in the editor, so the designer can change those with ease.
+In this section I will be presenting how other engines solve this problem by presenting two of them. I will not be discussing Unity here as it is not open source and uses \Csh 's built in reflection to some extent.
 
-\subsection{Other engines}
-
-The two engines that use the easiest to understand process for getting reflection data are UE and Source
-
-\subsubsection{Source}
+\subsection{Source}
 Source uses the simplest approach where the developer is responsible for creating a function that returns all the metadata about a class.
-To make this easier they have made a few macros that complete in the necessary lines of code.
-<Code example>
+To make this easier they have made use of the pre-processor macros in order to somewhat generalize the necessary lines of code. An example of this can be see in \autoref{listing:source-reflection} where a simple light's possible data fields are defined.
 
-As source uses an external editor that doesn't depend on the game source code they also create a description file that tells the Hammer editor what entities exist in the game with what possible properties.
+As source uses an external editor that doesn't depend on the game source code they also create a description file from these that tells the Hammer editor what entities exist in the game with what possible properties. This capability is useful if the engine supports outside editors for creating the levels.
 
-\subsubsection{UE}
+\begin{listing}
+    \begin{minted}{cpp}
+BEGIN_DATADESC( CLight )
 
-Ue uses a tool that generates the reflection information by parsing the source code of the game and engine.
-This tool is strongly integrated into the build process and relies on a few changes to the compiler.
-Partial
+	DEFINE_FIELD( m_iCurrentFade, FIELD_CHARACTER),
+	DEFINE_FIELD( m_iTargetFade, FIELD_CHARACTER),
+
+	DEFINE_KEYFIELD( m_iStyle, FIELD_INTEGER, "style" ),
+	DEFINE_KEYFIELD( m_iDefaultStyle, FIELD_INTEGER, "defaultstyle" ),
+	DEFINE_KEYFIELD( m_iszPattern, FIELD_STRING, "pattern" ),
+
+	// Fuctions
+	DEFINE_FUNCTION( FadeThink ),
+
+	// Inputs
+	DEFINE_INPUTFUNC( FIELD_STRING, "SetPattern", InputSetPattern ),
+	DEFINE_INPUTFUNC( FIELD_STRING, "FadeToPattern", InputFadeToPattern ),
+	DEFINE_INPUTFUNC( FIELD_VOID,	"Toggle", InputToggle ),
+	DEFINE_INPUTFUNC( FIELD_VOID,	"TurnOn", InputTurnOn ),
+	DEFINE_INPUTFUNC( FIELD_VOID,	"TurnOff", InputTurnOff ),
+
+END_DATADESC()
+    \end{minted}
+    \caption{Example for a manual reflection function}
+    \label{listing:source-reflection}
+\end{listing}
+
+\subsection{Unreal Engine}
+
+UE uses a separate build tool to generate reflection information by reading in an parsing the \Cpp source files of the project. This tool is strongly integrated into the build process and generates multiple extra source files for each class. It generates a new \Cpp and header file for each class that contains the reflection information. To know witch fields and in what format to represent the tool uses multiple special pre-processor macros that act like decorators or attributes in other languages. For example every class that wants to have reflection generated for it needs to start with \verb|UCLASS()| to make the tool aware of it. Similarly for each function and property the \verb|UFUNCTION()|, and \verb|UPROPERTY()| macros have to be placed before them to be recognised. An example of this can be seen in \autoref{listing:ue5-pawn-class} and some of the resulting generated code in \autoref{listing:ue5-generated-reflection}.
+
+
+\begin{listing}
+    \begin{minted}{cpp}
+// Copyright Epic Games, Inc. All Rights Reserved.
+#pragma once
+#include "LyraPawn.generated.h"
+UCLASS()
+class LYRAGAME_API ALyraPawn : public AModularPawn, public ILyraTeamAgentInterface
+{
+	GENERATED_BODY()
+private:
+	UPROPERTY(ReplicatedUsing = OnRep_MyTeamID)
+	FGenericTeamId MyTeamID;
+
+private:
+	UFUNCTION()
+	void OnRep_MyTeamID(FGenericTeamId OldTeamID);
+};
+    \end{minted}
+    \caption{Sections from a UE5 pawn class (Lyra demo project)}
+    \label{listing:ue5-pawn-class}
+\end{listing}
+
+\begin{listing}
+    \begin{minted}{cpp}
+const FStructPropertyParams [..]_ALyraPawn_Statics::NewProp_MyTeamID = {
+"MyTeamID",
+"OnRep_MyTeamID",
+(EPropertyFlags)0x0040000100000020,
+UECodeGen_Private::EPropertyGenFlags::Struct,
+RF_Public|RF_Transient|RF_MarkAsNative,
+1,
+nullptr,
+nullptr,
+STRUCT_OFFSET(ALyraPawn, MyTeamID),
+Z_Construct_UScriptStruct_FGenericTeamId,
+[...]
+};
+    \end{minted}
+    \caption{Section from the generated reflection code for the same class as in \autoref{listing:ue5-pawn-class}}
+    \label{listing:ue5-generated-reflection}
+\end{listing}
 
 
 \section{Shadow header tool}\label{sec:shadow-header-tool}

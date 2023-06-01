@@ -18,7 +18,7 @@ On to of this, modular design also enables the engine to adapt to a wide range o
 
 \section{Unified Editor}
 
-The other important take away from examining existing game engines was that while many allowed for, most of them didn't need to compile the engine and editor for the given game. On top of this, another common aspect was that modern engines had all the editor tools integrated into a single application. This made development much easier and faster to learn. These mean a lot of time can be saved while developing the actual games, but they definitely add to the complexity of the project.
+The other important take away from examining existing game engines was that - while many allowed for - most of them didn't need to compile the engine and editor for the given game. On top of this, another common aspect was that modern engines had all the editor tools integrated into a single application. This made development much easier and faster to learn. These two capabilities mean a lot of time can be saved while developing the actual games, but they definitely add to the complexity of the project.
 
 To give the engine the ability to load in the game code while running and not need to compile it together with the engine, the game code needs to be a separate compilation step. The engine needs to be able to load in this separate code and also reload it when it gets recompiled. This is a more tricky problem than it would first seam, as it needs to correctly link the external code.
 
@@ -27,7 +27,19 @@ To create a game engine where all necessary authoring tools are built into the e
 
 \section{Entity system}
 
-Every game engine needs a way to represent the game world in code in some way. In Unity there are the \verb|GameObject|s, in UE they are \verb|Actor|s, while valve's Source engine calls them Entities, but they fulfil a functionally similar role in making a game. As we can see from just these examples, there isn't an industry standard way of naming these building blocks, and their implementation also differs between engines greatly.
+Every game engine needs a way to represent the game world in code in some way. In Unity there are the \verb|GameObject|s, in UE they are \verb|Actor|s, while valve's Source engine calls them Entities, but they all fulfill a functionally similar role in making a game. As we can see from just these examples, there isn't an industry standard way of naming these building blocks, and their implementation also differs between engines greatly.
 
-While in Unity and Unreal the user adds Components to create functionality, in Source all entities are pre-defined, and new ones can only be added using \Cpp \footnote{There are some Source games that support easier scripting with VScript \cite{valve-vscript}}. But Unity and UE also differ in their approach where Unity only has a flat list of components, UE allows for a whole internal hierarchy of components.
+While in Unity and Unreal the user adds Components to create functionality, in Source all entities are pre-defined, and new ones can only be added using \Cpp \footnote{There are some Source games that support easier scripting with VScript \cite{valve-vscript}}. But Unity and UE also differ in their approach where Unity only has a flat list of components, UE allows for a whole internal hierarchy of components. (Wisible in \autoref{fig:ue5-details})
 
+Because in my opinion, each of these solutions has a lot of great ideas, I have decided to try and create my own system and not use one of the many existing libraries. I will try to include the interesting and useful ideas in my own version, while also trying out new ideas that I didn't see anywhere else yet. This means I will have to come up with names for my building blocks as well, and create tooling for them.
+
+\section{Reflection}
+
+In programming, reflection refers to any case where the program needs to reason about itself, especially during execution.
+This can be anything from the list of all the classes that implement a specific interface, or the list of fields inside one of those classes.
+Being able to get this information at runtime can be extremely useful when serializing data into a human-readable format, because to do this we would need to iterate all the data members inside the object.
+
+Reflection is a common capability of most high level languages, for example, JS even has the ability to print out the whole code for a class of function.
+In \Csh and Java, we have the ability to list every class inside the running application or every member inside a given class. This ability is missing from \Cpp by default as it is too complex and would be extra data only useful in a few use cases.
+
+In computer games, reflection is a really important capability for an engine in two major areas. The first is when loading in the map files, where the engine needs to be able to create the correct runtime objects for each gameplay element. The second area is the editor where the user expects to be able to edit the variables that they defined in code. Because of this I will need to create a solution to have reflection in \Cpp for my game engine.

@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Research/research.tex",
+                "file": "content/Reflection/reflection.tex",
                 "mode": "source",
                 "source": false
               }
@@ -55,7 +55,8 @@
               "pinned": true
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -129,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Research/research.tex",
+                "file": "content/Reflection/reflection.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Research/research.tex",
+                "file": "content/Reflection/reflection.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/Research/research.tex"
+                "file": "content/Reflection/reflection.tex"
               }
             }
           }
@@ -194,23 +195,23 @@
   "active": "a4b600e69fda2c84",
   "lastOpenFiles": [
     "main.aex",
-    "content/Research/research.tex~",
-    "content/AdendumFigures.tex~",
+    "content/Reflection/reflection.tex~",
+    "scratch2.md",
+    "content/Reflection/reflection.tex",
+    "content/architecture/Architecture.tex",
+    "Scratch.md",
+    "content/architecture/Architecture.tex~",
+    "content/BuildSystems/BuildSystems.tex",
+    "content/BuildSystems/BuildSystems.tex~",
+    "bib/mybib.bib~",
+    "content/Planning/planning.tex",
+    "content/architecture/project-layout-eps-converted-to.pdf",
     "content/Research/UE5-Details.png",
     "content/Research/UnrealEditor_fRWY3y3YQM.png",
     "content/Research/UE5-Outliner.png",
     "content/Research/UnrealEditor_WWz9rQDC19.png",
     "content/Research/UE5-editor.jpg",
     "content/Research/UnrealEditor_bOCh5QxZOh.jpg",
-    "main.tex~",
-    "content/AdendumFigures.tex",
-    "bib/mybib.bib~",
-    "content/001-intro.tex",
-    "content/BuildSystems/BuildSystems.tex",
-    "Scratch.md",
-    "content/BuildSystems/BuildSystems.tex~",
-    "scratch2.md",
-    "content/Planning/planning.tex~",
     "content/BuildSystems/BuildSystems.tex.md",
     "content/Architecture/Untitled.md",
     "content/Research/Unity-inspector.png",

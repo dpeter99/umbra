@@ -12,7 +12,10 @@
     "Bazel",
     "artifact",
     "Starlark",
-    "Clion"
+    "Clion",
+    "fulfill",
+    "CLion",
+    "Cpp"
   ],
   "showUnsupportedFiles": true
 }

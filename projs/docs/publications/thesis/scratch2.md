@@ -2,7 +2,13 @@
 
 
 
+# Reflection
 
+\section{Why we need reflection}\label{sec:why-we-need-reflection}
+
+In a game engine reflection is used for (among other things) serialising the level data.
+For this we need to know what data fields an object has and witch of those need to be written to the level file.
+On top of this, we also need to display all the fields in the editor, so the designer can change those with ease.
 
 # Entites
 
