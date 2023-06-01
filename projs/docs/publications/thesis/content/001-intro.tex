@@ -2,8 +2,8 @@
 % Short summary
 This project's goal is to create a game engine similar in design to currently available big commercial engines.
 As this is a large proposal that far exceeds the limits and practicality of a thesis project, I will be focusing on giving the project a good foundation.
-This means considerable amount of time will be spent on investigating solutions to issues other projects would not care about \$\$TODO: LIKE/FOR EXAMPLE ETC....\$\$.
-By the end, I hope to have a solid foundation together with the core systems for the engine that I plan to use, and continue working on in the coming years.
+This means considerable amount of time will be spent on investigating solutions to issues other projects would not care about like build systems and project organization.
+By the end, I hope to have a solid foundation including the core systems for the engine that I plan to use, and continue working on in the coming years.
 Planned parts:
 
 \begin{itemize}
@@ -15,51 +15,49 @@ Planned parts:
 \end{itemize}
 
 
-A friend of mine has offered to write the renderer for the engine, however, the parts that I will be presenting are entirely my own.
+A friend of mine has offered to write the renderer for the engine, however, I will be only presenting the parts that are entirely my own.
 
 The project is hosted on GitHub and is MIT licensed.
 
 
 \chapter{Intro}
 
+Computer games are a new art form that allow unprecedented interactivity compared to traditional mediums.
 The most well known computer games are mobile games like Candy Crush \cite{candy-crush} or bigger budget console games like The Last of Us \footnote{This game series recently even got a really successful TV adaptation by HBO}\cite{last-of-us}.
 But there are many different types of video games that present vastly different experiences.
 For example, there are games that play entirely in a text based window and focus on the story, while others don't have any story and are based on multiple players interacting.
-Yet all of these are just fragments of a software that need a lot of various instructions to work together.
-For creating a system like that, at the bare minimum one needs a good software engineer to create the code for the game and also a game design to make the play engaging and enjoyable.
-On the other hand, when it comes to large production games, the so-called "AAA" or "triple A" games, the number of necessary tasks increase.
+To create programs like these, at the bare minimum one needs a good software engineer to create the code for the game and also a game design to make the play engaging and enjoyable.
+On the other hand, when it comes to large production games, the so-called "AAA" or "triple A" games, the number of necessary tasks increases.
 For these games, on top of the programming and game design, new tasks come in like story writing, 3D modelling, environment design, level design, music, and countless others.
-These high-end games are expected to excel in every category or even push the bounds of what is possible for currently achieved game mechanics (like reflections or shadows).
+These high-end games are expected to excel in every category or even push the bounds of what is currently possible in game mechanics or in visuals (like reflections or shadows).
 
-Because video games as so complex, there is a need to share some of the code between projects as starting from scratch for each is impractical.
-This is possible because many of the functionality needed to create a game is the same for every game.
-For example, almost all games need a way to show 3D models (like trees, dogs or houses) on the display, and they need to process input from the player regardless of what the actual gameplay is.
+Because video games are so complex, there is a need to share some of the code between projects, as starting from scratch for each is impractical.
+This is possible because many of the functionalities needed to create a game is the same, regardless of the visual or gameplay style.
+For example, almost every game needs a way to show 3D models (like trees, dogs or houses) on the display, and they need to process input from the player.
 These more abstract not game specific functionalities can be shared between projects.
 
-These sharable functionalities are what form many of the game development code libraries.
-These are not runnable code by themselves and are only for the programmers to help and accelerate creating a game.
-A great example of such code library is \verb|raylib| \cite{raylib} which can provide many of the important functionality for the developer, such as code for drawing, 3D model and texture loading, or even audio playback.
-Game engines are even more complex and are responsible for running the actual game application.
+These shareable functionalities are what form many of the game development code libraries, which are not runnable code by themselves and are only for the programmers to help and accelerate creating a game.
+A great example of such a code library is \verb|raylib| \cite{raylib} which can provide many of the important functionality for the developer, such as code for drawing, 3D model and texture loading, or even audio playback.
+Compared to these game engines are even more complex and are responsible for running the actual game application.
 In most cases, these include editors and tools to create the assets that are going to be used in the game along with a world editor to create the 2D or 3D environment the player can explore.
-% TODO: create forward ref for next section
 
 There are many game engines, but it is important to highlight that not all of them are publicly available.
-Most of the video game studios that create their own game engines, the so called "in-house" engines, will most likely never make these available for public usage.
+Most of the video game studios that create their own game engines - the so called "in-house" engines - will most likely never make these available for public usage.
 On the other hand, there are public engines that everybody can use to create their own games, some of these are completely free, while others require some payment for the use.
 As the in house engines are treated as trade secrets, people rarely share details about them, the most we can learn is from conference talks.
 
 I have been using Unity - one of the most popular game engines - since 2015, and have been fascinated by how games work way before that.
 Using Unity, I have created many basic projects and prototypes.
-These were usually too ambitious projects for me alone to achieve them, but these gave the chance to me to explore and try out many aspects of the engine.
+These were usually too ambitious projects for me alone to achieve them, but gave me the chance to me to explore and try out many aspects of the engine.
 Using a popular commercial engine also allowed me to better understand what a game creator expects from an engine and what are the most critical things when creating a game.
 As my coding skills expanded and my goals became more realistic I have started finding more and more pain points in Unity.
 This has become extremely evident in the last major project I did in Unity, which was for the "Project Laboratory" course.
-In that project, I have implemented a complex extension that helped to create gameplay logic. \cite{szajberpunk-logic-system}. % TODO: ???? ref?
+In that project, I have implemented a complex extension that helped to create gameplay logic. \cite{szajberpunk-logic-system}.
 During this last project, I have found myself "fighting" with unity more, than actually enjoying the development.
 
 I have experimented with writing my own game engine multiple times with many different technologies and ways to approach the problem.
-The first substantial try was back in the last year of high school with the project codenamed: \verb|Cryogenic-engine| where I tried to use \Csh and the Vulkan graphics API.
-With this project I ran into many classical mistakes, and it showed me how large and complex a game engine can be.
+The first substantial try was back in the last year of high school with the project code named: \verb|Cryogenic-engine| where I tried to use \Csh and the Vulkan graphics API.
+With this project I ran into many classical beginner mistakes, and it showed me how large and complex a game engine can be.
 For example, the Vulkan API that I have chosen for drawing to the screen is not beginner-friendly and is really hard to understand.
 On the other hand, it is a powerful way of interacting with the GPU. The beginning of my first semester in the university caused me to put this project on hold and later abandon it fully.
 
@@ -68,18 +66,18 @@ The first one was \verb|relic engine| which was written in the first semester fo
 This was a simple 2D game engine the was able to load in tile based maps and allow for basic gameplay.
 I wrote this in a single semester while getting to know and furthering my C programming language skills as well.
 After that, I have started working on the predecessor of this project, nicknamed \verb|Old Shadow Engine|.
-That was supposed to be, at first, a simple rewrite of \verb|relic Engine| but I kept extending it with new feature ideas before finishing the base
+That was supposed to be, at first, a simple rewrite of \verb|Relic Engine| but I kept extending it with new feature ideas before finishing the base
 \footnote{When the planned features balloon up like this it is called feature creep in the programming industry}.
 
 Based on my frustrations with existing engines and with my prior experience creating basic ones, the idea of making one for my thesis project came naturally.
-The initial push and encouragement for the project came from one of my online friend, who agreed to even help with writing the rendering code for the engine.
-My basic idea was to start from scratch and re-do what I have done with the old Shadow Engine, but do it right this time.
+The initial push and encouragement for the project came from one of my online friends, who agreed to even help with writing the rendering code for the engine.
+My basic idea was to start from scratch and re-do what I have done for the old Shadow Engine, but do it right this time.
 That is the reason why I kept the name for the project, but as this time hopefully multiple people are going to be working on this, I have created a GitHub group for it and a fresh new code repository.
 
 Choosing the right technologies for such a project is really important, as some changes are practicality impossible to change later.
 The most crucial choice is the programming language, as this influences all other choices I have to make.
-I chose to use \Cpp since I already have some experience with it - mainly with the old Shadow Engine project -, and this is the industry standard for making games.
+I chose to use \Cpp since I already have some experience with it - mainly with the old Shadow Engine project - and this is the industry standard for making games.
 I have also considered other similar languages like Rust, but I have decided against it in order to allow as many people to contribute as possible.
 The next big decision was to decide on a build system that will help in compiling the potentially enormous codebase.
-This was a longer and more complex decision, and I will be detailing it later in \autoref{}. % TODO: do the ref pls
+This was a longer and more complex decision, and I will be detailing it later in \autoref{chap:project-setup}.
 

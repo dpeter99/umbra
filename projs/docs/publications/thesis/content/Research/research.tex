@@ -12,31 +12,17 @@ In Unity, the game's world - called Scene - is built from Game Objects, which ca
 
 These scenes are authored inside the editor using the Scene view, Hierarchy, and Inspector sections. In the scene view, we have a bird's eye view of the environment we are creating, while the Hierarchy and Inspector views provide a more abstract way of editing the scene. The Hierarchy (\autoref{fig:unity-hierarchy}) shows a list of all the Game Objects that are present in the scene, because these can have parent-children relations this view forms a tree.
 
-Inspector (\autoref{fig:unity-inspector}) is a view that shows the properties of the currently selected Game Object. This view is used to edit the properties of the Game Object, and to add new components to it. The Inspector view also shows the properties of the components that are attached to the Game Object. This view is also used to edit the properties of the components, and to add new components to the Game Object.
+Inspector (\autoref{fig:unity-inspector}) is a view that shows the properties of the currently selected object. This view is used to edit the properties of the Game Object, the Components attached to it, and to add new components to it.
 
 Despite Unity's popularity in the independent developer community (called "indie" developers) and huge success in creating diverse games, it is not without shortcomings. One of the most glaring issues I have encountered have been with the sporadic updates. Unity seams to be focused on chasing the newest and most cutting edge technologies, but this often results in a neglect of existing bugs and stability issues. As a long time user, it feels like the engine has become more and more cluttered with new half finished features, and even more bugs. Many of the new features announced years ago are still in development, and many others have been silently discontinued.
 
-Because of this constant chase of the new technologies, there are many areas where multiple competing solutions exist for a single problem. The most infamous example is the networking solutions, where there are multiple solutions, or the same with the game UI. These make the developer's choice for what system to use harder, as the older solution might be unsupported in the next engine version but the replacemnt is not ready in the current version. This makes even starting a new project really hard and need a lot of unnecessary decisions.
+Because of this constant chase of the new technologies, there are many areas where multiple competing solutions exist for a single problem. The most infamous example is the networking solutions, where there are multiple solutions. These make the developer's choice for what system to use harder, as the older solution might be unsupported in the next engine version, but the replacement is not yet ready in the current version. This makes even starting a new project really hard and requiere a lot of unnecessary decisions.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{content/Research/Unity-Editor-2.jpg}
     \caption{Screenshot of the Unity engine's unufied editor.}
     \label{fig:unity-editor}
-\end{figure}
-
-\begin{figure}[h]
-    \begin{minipage}[c]{0.5\linewidth}
-        \includegraphics[width=0.9\textwidth]{content/Research/Unity-Hierarchy.png}
-        \caption{Screenshot of the Unity engine's Hierarchy view, showing a tree of all the Game Objects present in the scene.}
-        \label{fig:unity-hierarchy}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{0.5\linewidth}
-        \includegraphics[width=\textwidth]{content/Research/Unity-Inspector.png}
-        \caption{Screenshot of the Unity engine's Inspector view, showing the properties and components of a selected Game Object.}
-        \label{fig:unity-inspector}
-    \end{minipage}%
 \end{figure}
 
 
@@ -48,24 +34,24 @@ Unreal Engine 5, boasts a tremendous leap forward in visual fidelity, by using g
 Nanite is a system that essentially eliminates the limitations of polygon count and draw call overheads in 3D environment modelling. It achieves this by using so-called "virtual polygons", allowing for much greater model detail to be used without major performance hit. This system can replace the traditional Level Of Detail (LOD)\footnote{A system where separate models are created for when the given object is further away.} approach, allowing for much faster development time.
 Lumen, on the other hand, is a fully dynamic global illumination solution that can immediately react to scene and light changes, producing more lifelike environments. It is important to highlight that while these technologies can produce stunning visuals, they are slower than traditional approaches and not suitable for every game, or platform.
 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/Research/UE5-editor}
+    \caption{Screenshot of the Unreal Engine 5 editor.}
+    \label{fig:ue5-editor}
+\end{figure}
+
 \subsection{Actors and the Outliner}
 
 In UE 5, the fundamental building blocks of a game world are called Actors. An Actor is essentially any object that can be placed into the game world, and they can represent characters, scenery, and even complex gameplay elements. There are many built in Actors that do common functionality, for example common game objects such as characters, cameras, lights, and physics objects.
 
-The list of the actors present in the game world is shown in the Outliner witch is a tool within UE5 editor that provides a hierarchical view of all the Actors present in a level\autoref{fig:unreal-outliner}.
+The list of the actors present in the game world is shown in the Outliner witch is a tool within UE5 editor that provides a hierarchical view of all the Actors present in a level (\autoref{fig:ue5-outliner}).
 
-Components are the building blocks of Actors, and they can be thought of as the individual features that make up an Actor. For example, a character Actor might have a Mesh Component, a Camera Component, and a Character Movement Component. Components can form a parent-child relationship inside an Actor. This allows for the creation of complex Actors. The list of components present in an Actor is shown in the Details panel (\autoref{fig:unreal-details}), this shows the hierarchy of the components and their properties. 
+Components are the building blocks of Actors, and they can be thought of as the individual features that make up an Actor. For example, a character Actor might have a Mesh Component, a Camera Component, and a Character Movement Component. Components can form a parent-child relationship inside an Actor. This allows for the creation of complex Actors. The list of components present in an Actor is shown in the Details panel (\autoref{fig:ue5-details}), this shows the hierarchy of the components and their properties.
 
 But the user also has multiple options to create new types, specific to their game. One such method is through the use of Blueprints, a visual scripting system that allows for the creation of custom Actors without the need for traditional programming. This system uses visual nodes to define the code flow, and is quite beginner-friendly. By combining pre-existing components and defining their interactions through Blueprint nodes, developers can create new Actor types that fit their game's requirements.
 
-Another method for creating new Actor types is through \Cpp programming. 
+Another method for creating new Actor types is through \Cpp programming.
 UE5 is written in \Cpp and natively only supports \Cpp based scripting, but plugins exist for that allow for other languages like \Csh to be used for coding. These methods are more complex and requires a good understanding of \Cpp and the UE5 API, but it allows for more advanced functionality and performance optimizations.
 
-
-
-\begin{figure}[h] 
-    \centering 
-    \includegraphics[width=0.5\textwidth]{content/Research/ue5-scene-outliner-panel.png} 
-    \caption{The Outliner in Unreal Engine 5} 
-    \label{fig:unreal-outliner} 
-\end{figure}

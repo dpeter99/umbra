@@ -166,6 +166,10 @@ compared
 consideration
 commands
 could
+contributor
+concepts
+constructing
+controlling
 Architecture
 App
 AddDescriptors
@@ -187,6 +191,7 @@ Nowadays
 Needs
 Nodes
 Nanite
+Ninja
 game
 games
 give
@@ -220,6 +225,7 @@ getting
 group
 generous
 generate
+glimpse
 makers
 means
 make
@@ -295,6 +301,8 @@ minimize
 monorepository
 may
 meta
+maintaining
+mediums
 think
 they
 to
@@ -368,6 +376,10 @@ truly
 tutproals
 trying
 tho
+terminology
+taken
+term
+tailor
 of
 own
 only
@@ -409,6 +421,7 @@ outside
 optimized
 outputs
 operating
+offered
 engines
 engine
 easier
@@ -534,6 +547,8 @@ ecosystems
 engineers
 errors
 emans
+effectively
+enitites
 as
 application
 and
@@ -794,6 +809,12 @@ servers
 seek
 syntax
 smooth
+sources
+suited
+standardized
+spatial
+style
+shareable
 download
 don
 develop
@@ -876,6 +897,9 @@ does
 dedicated
 doesn
 description
+diversity
+definitions
+determine
 use
 using
 used
@@ -911,6 +935,7 @@ utilizing
 undertaking
 upload
 users
+unprecedented
 want
 workflows
 without
@@ -956,6 +981,7 @@ works
 websites
 whatever
 workarounds
+write
 This
 To
 The
@@ -997,6 +1023,9 @@ navigation
 nature
 notably
 none
+ninja
+nomenclature
+named
 recompile
 runtime
 represents
@@ -1080,6 +1109,9 @@ retrieve
 rely
 riddled
 relied
+refers
+remain
+rovides
 leads
 loaded
 load
@@ -1220,6 +1252,9 @@ fine
 friction
 file
 full
+folder
+fashion
+fix
 iteration
 install
 if
@@ -1310,6 +1345,8 @@ inputs
 impeding
 improve
 ideal
+interactivity
+increases
 you
 years
 year
@@ -1324,6 +1361,7 @@ Us
 Using
 University
 Users
+Understanding
 Of
 One
 Objects
@@ -1360,6 +1398,7 @@ vastly
 valve
 vscript
 vital
+varying
 Game
 Games
 Godot
@@ -1370,6 +1409,7 @@ GitHub
 GPU
 GameObject
 Git
+GameObjects
 be
 back
 begin
@@ -1418,6 +1458,8 @@ builds
 barriers
 broader
 biggest
+builders
+behind
 In
 It
 ID
@@ -1584,6 +1626,7 @@ hermetic
 hinder
 heavily
 hours
+having
 However
 Hierarchy
 Having
@@ -1608,6 +1651,7 @@ Movement
 MSBuild
 Microsoft
 Make
+MeshRenderer
 VR
 Vulkan
 VulkanModule
@@ -1642,6 +1686,9 @@ Consequently
 Code
 Clion
 Cmake
+CLion
+Computer
+Compared
 Shadow
 Small
 ShadowEngine
@@ -1707,6 +1754,7 @@ Reflection
 Rust
 Renderer
 Research
+Relic
 Looking
 Lumen
 Level
@@ -1716,6 +1764,7 @@ LIKE
 Last
 Laboratory
 Language
+LaTeX
 Photoshop
 Project
 Planning
@@ -1729,3 +1778,4 @@ quickly
 quite
 Keeping
 Yet
+Just
