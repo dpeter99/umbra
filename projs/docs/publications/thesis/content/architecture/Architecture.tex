@@ -67,7 +67,11 @@ The \verb|ShadowEngine::ShadowApplication| is the core of the engine, provided b
 
 The descriptor object describes everything that is needed to create the module, and what other modules it needs to function correctly. The \verb|id| field is a string identifier for the module (This is compatible with the planned resource system), similarly the \verb|assembly| field is an ID that defines in which DLL the manager needs to search for this module. The \verb|dependencies| list is a list of string IDs of the modules that need to be loaded before this module.
 
-Based on the dependencies described in the descriptors, the Module manager uses a Depth first search to try and create a topological sort. To ensure the dependencies are cycle free is currently the job of the user. When this ordering is found, the module manager tries to create each of the modules. This is done by searching for a special function in the assembly the module is in. This function needs to follow these rules:
+Based on the dependencies described in the descriptors, the Module manager uses a Depth first search to try and create a topological sort.
+To ensure the dependencies are cycle free is currently the job of the user.
+When this ordering is found, the module manager tries to create each of the modules.
+This is done by searching for a special function in the assembly the module is in. This startup sequence is shown in \autoref{fig:startup-diagram}.
+This function needs to follow these rules:
 \begin{itemize}
     \item Must be marked with \verb|extern "C"|
     \item It's name must be in the format \verb|<class name>_entry()| where the \verb|<class name>| section is the same as the classes name without the namespace section. These special functions
@@ -76,7 +80,9 @@ Based on the dependencies described in the descriptors, the Module manager uses 
 
 To help create these functions I have made \verb|MODULE_ENTRY| which is a preprocessor macro that creates them based on the class name.
 
-After every module was successfully instantiated, the module manager calls pre-Init and Init on the modules. Between these steps, the DFS sorting is re-run to ensure every module still has the necessary modules to continue loading. For example, a VR module might exit in pre-init if it finds no VR headset to work with.
+After every module was successfully instantiated, the module manager calls pre-Init and Init on the modules.
+Between these steps, the DFS sorting is re-run to ensure every module still has the necessary modules to continue loading. This process is shown in \autoref{fig:startup-init-diagram}.
+For example, a VR module might exit in pre-init if it finds no VR headset to work with.
 
 After this initialization sequence is done, the runtime calls the Start method on the shadow application which starts the main update loop.
 
