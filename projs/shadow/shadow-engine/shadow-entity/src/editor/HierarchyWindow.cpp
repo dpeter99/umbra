@@ -71,10 +71,31 @@ namespace ShadowEngine::Entities::Editor {
         ImGui::PopStyleVar(2);
     }
 
+    void DrawInspector() {
+        auto clazz = selected_ent->GetClass();
+        if (clazz == nullptr)
+            return;
+
+        ImGui::Text(clazz->name);
+
+        for (auto prop : clazz->fields) {
+            ImGui::Text(prop.name);
+
+            if (*prop.type == *SH::Reflection::GetType<int>())
+                ImGui::InputInt(prop.name, prop.GetPointer<int>(selected_ent.Get()));
+
+            if (*prop.type == *SH::Reflection::GetType<float>())
+                ImGui::InputFloat(prop.name, prop.GetPointer<float>(selected_ent.Get()));
+        }
+    }
+
     void HierarchyWindow::Inspector() {
         static bool shown = true;
 
         ImGui::Begin("Inspector", &shown, ImGuiWindowFlags_None);
+        if (selected_ent) {
+            DrawInspector();
+        }
 
 /*        if (selected_ent) {
 

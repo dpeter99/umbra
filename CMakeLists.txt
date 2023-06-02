@@ -73,6 +73,10 @@ project(umbra)
 set(CMAKE_STATIC_LIBRARY_PREFIX "")
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
+add_subdirectory(projs/shadow/shadow-header-tool)
+
 # Core engine
 add_subdirectory(projs/shadow/shadow-engine)
 

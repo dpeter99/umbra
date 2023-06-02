@@ -2,13 +2,20 @@
 
 #include "graph/graph.h"
 
-class Player : public ShadowEngine::Entities::Actor {
-  SHObject_Base(Player);
+namespace test_game {
 
-  public:
-    Player(std::string name) : Actor() {
-        this->name = name;
-    }
+    class [[SH::Reflect]] Player : public ShadowEngine::Entities::Actor {
+      SHReflect(Player);
+      SHObject_Base(Player);
+      public:
+        [[SH::Reflect]] int hp = 10;
 
-    void Build() override;
-};
+      public:
+        Player(std::string name) : Actor() {
+            this->name = name;
+        }
+
+        void Build() override;
+    };
+
+}

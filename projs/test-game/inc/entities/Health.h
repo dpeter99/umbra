@@ -2,8 +2,13 @@
 
 #include "graph/graph.h"
 
-class Health : public ShadowEngine::Entities::Component {
-  SHObject_Base(Health);
-  public:
-    int health;
-};
+namespace test_game {
+
+    class [[SH::Reflect]] Health : public ShadowEngine::Entities::Component {
+      SHReflect(TestCamera);
+      SHObject_Base(Health);
+      public:
+        [[SH::Reflect]] int health;
+    };
+
+}
