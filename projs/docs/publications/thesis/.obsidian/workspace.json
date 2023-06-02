@@ -12,12 +12,8 @@
             "id": "a4b600e69fda2c84",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/Reflection/reflection.tex",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -28,35 +24,16 @@
         "dimension": 49.369369369369366,
         "children": [
           {
-            "id": "9a1d5de31c7cb0c8",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Scratch.md",
-                "mode": "source",
-                "source": false
-              },
-              "pinned": true
-            }
-          },
-          {
             "id": "25ee8ef95fc84e1b",
             "type": "leaf",
             "pinned": true,
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "scratch2.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "pinned": true
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -130,7 +107,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Reflection/reflection.tex",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +123,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Reflection/reflection.tex",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,9 +144,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "content/Reflection/reflection.tex"
-              }
+              "state": {}
             }
           }
         ],
@@ -195,33 +168,34 @@
   "active": "a4b600e69fda2c84",
   "lastOpenFiles": [
     "main.aex",
-    "common/includes/thesis-en.tex~",
-    "main.tex~",
-    "bib/mybib.bib~",
-    "common/includes/packages.tex~",
+    "content/000-abstract.tex~",
     "content/Reflection/reflection.tex~",
-    "content/BuildSystems/BuildSystems.tex",
-    "content/architecture/Architecture.tex~",
-    "content/BuildSystems/BuildSystems.tex~",
-    "content/001-intro-old.tex~",
-    "content/Entites/entites.tex",
+    "common/includes/preamble.tex~",
+    "common/includes/packages.tex~",
+    "content/001-intro.tex~",
+    "main.tex~",
+    "content/000-abstract.tex",
+    "content/architecture/project-layout-eps-converted-to.pdf",
+    "Untitled.md",
     "scratch2.md",
     "Scratch.md",
-    "content/Research/UE5-Details.png",
-    "content/Research/UnrealEditor_fRWY3y3YQM.png",
-    "content/Research/UE5-Outliner.png",
-    "content/Research/UnrealEditor_WWz9rQDC19.png",
-    "content/Research/UE5-editor.jpg",
-    "content/Research/UnrealEditor_bOCh5QxZOh.jpg",
-    "content/BuildSystems/BuildSystems.tex.md",
-    "content/Architecture/Untitled.md",
+    "JetBrainsMono-Regular.ttf",
+    "main.tex",
     "content/Research/Unity-inspector.png",
     "content/Research/Unity-Hierarchy.png",
     "content/Research/unity-editor.png",
+    "content/Research/ue5-scene-outliner-panel.png",
     "content/Research/Unity-Editor-2.jpg",
-    "content/entity/Entities.md",
+    "content/Research/UE5-Outliner.png",
+    "content/Research/UE5-editor.jpg",
+    "content/Research/UE5-Details.png",
     "content/architecture/Untitled.md",
-    "content/004-architecture/Untitled.md",
-    "content/Modules.md"
+    "content/Modules.md",
+    "content/Research/UnrealEditor_fRWY3y3YQM.png",
+    "content/Research/UnrealEditor_WWz9rQDC19.png",
+    "content/BuildSystems/BuildSystems.tex.md",
+    "content/Architecture/Untitled.md",
+    "content/entity/Entities.md",
+    "content/004-architecture/Untitled.md"
   ]
 }
